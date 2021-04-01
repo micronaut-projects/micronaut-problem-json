@@ -1,0 +1,20 @@
+buildscript {
+    repositories {
+        maven { url "https://repo.grails.org/grails/core" }
+    }
+    dependencies {
+        classpath "io.micronaut.build.internal:micronaut-gradle-plugins:3.0.3"
+    }
+}
+
+subprojects { Project subproject ->
+    group "io.micronaut.xxx"
+
+    apply plugin: "io.micronaut.build.internal.common"
+    apply plugin: "io.micronaut.build.internal.dependency-updates"
+
+    apply plugin: "io.micronaut.build.internal.publishing"
+}
+
+apply plugin: "io.micronaut.build.internal.docs"
+apply plugin: "io.micronaut.build.internal.dependency-updates"
