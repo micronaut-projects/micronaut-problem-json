@@ -1,6 +1,6 @@
-rootProject.name = 'micronaut-problem'
+rootProject.name = 'micronaut-problem-json'
 
-include 'problem'
+include 'problem-json'
 include 'test-suite'
 include 'test-suite-groovy'
 include 'test-suite-kotlin'

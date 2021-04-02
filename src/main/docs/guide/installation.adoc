@@ -1,1 +1,1 @@
-dependency:io.micronaut.problem:micronaut-problem[]
+dependency:io.micronaut.problem:micronaut-problem-json[]
