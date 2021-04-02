@@ -1,1 +1,4 @@
-TODO
+*Micronaut Problem* is a library which makes it easy to produce
+http://tools.ietf.org/html/rfc7807[`application/problem+json`] responses from a Micronaut
+application. It connects the https://github.com/zalando/problem[Problem library]
+and https://docs.micronaut.io/latest/guide/#errorFormatting[Micronaut Error Formatting] capabilities.

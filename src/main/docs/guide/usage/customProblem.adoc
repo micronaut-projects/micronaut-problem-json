@@ -1,0 +1,19 @@
+You can create a custom problem by extending `AbstractThrowableProblem`
+
+snippet::io.micronaut.problem.TaskNotFoundProblem[]
+
+If your logic throws such a Problem:
+
+snippet::io.micronaut.problem.TaskController[]
+
+You will get:
+
+[source,json]
+----
+{
+    "status": 404,
+    "title": "Not found",
+    "detail": "Task '3' not found",
+    "type": "https://example.org/not-found"
+}
+----
