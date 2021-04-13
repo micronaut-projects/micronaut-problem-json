@@ -1,0 +1,5 @@
+This library registers api:problem.ProblemErrorResponseProcessor[]; an `ErrorResponseProcessor` for `Problem`. It sets the
+response content type to `application/problem+json` and the response HTTP Status code to match the status field for `Problem`.
+
+Moreover, it registers api:problem.ThrowableProblemHandler[]. A Micronaut `ErrorHandler` for handling `ThrowableProblem` exception.
+

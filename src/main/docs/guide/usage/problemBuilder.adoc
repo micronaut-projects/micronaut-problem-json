@@ -1,0 +1,16 @@
+You can use Problem builder to create problem:
+
+snippet::io.micronaut.problem.ProductController[]
+
+The above snippet returns:
+
+[source,json]
+----
+{
+    "status": 400,
+    "title": "Out of Stock",
+    "detail": "Item B00027Y5QG is no longer available",
+    "type": "https://example.org/out-of-stock",
+    "parameters": {"product": "B00027Y5QG"}
+}
+----

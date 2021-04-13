@@ -1,0 +1,4 @@
+dependencies {
+    testImplementation project(":problem-json")
+    testAnnotationProcessor "io.micronaut:micronaut-inject-java"
+}

@@ -1,7 +1,13 @@
 introduction:
   title: Introduction
 releaseHistory: Release History
-quickStart:
-  title: Quick Start
+installation:
+  Installation
+usage:
+  title: Usage
+  problemBuilder: Problem Builder
+  customProblem: Custom Problem
+configuration:
+  Configuration
 repository: Repository
 
