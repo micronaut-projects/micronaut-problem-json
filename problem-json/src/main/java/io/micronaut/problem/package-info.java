@@ -20,7 +20,7 @@
  * @since 1.0
  */
 @Configuration
-@Requires(property = ProblemConfigurationProperties.PREFIX + ".enabled", notEquals = StringUtils.FALSE)
+@Requires(property = ProblemConfigurationProperties.PREFIX + ".enabled", notEquals = StringUtils.FALSE, defaultValue = StringUtils.TRUE)
 package io.micronaut.problem;
 
 import io.micronaut.context.annotation.Configuration;
