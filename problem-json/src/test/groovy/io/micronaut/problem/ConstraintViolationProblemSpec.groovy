@@ -48,6 +48,9 @@ class ConstraintViolationProblemSpec extends EmbeddedServerSpecification {
         bodyOptional.get()['status'] == 400
         bodyOptional.get()['title'] == 'Constraint Violation'
         bodyOptional.get()['type'] == "https://zalando.github.io/problem/constraint-violation"
+        bodyOptional.get()['violations']
+        bodyOptional.get()['violations'][0]['field'] == 'save.contact.name'
+        bodyOptional.get()['violations'][0]['message'] == 'must not be blank'
     }
 
     @Requires(property = 'spec.name', value = 'ConstraintViolationProblemSpec')
