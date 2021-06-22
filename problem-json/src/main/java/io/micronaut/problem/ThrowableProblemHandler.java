@@ -24,7 +24,7 @@ import io.micronaut.http.server.exceptions.response.ErrorContext;
 import io.micronaut.http.server.exceptions.response.ErrorResponseProcessor;
 import org.zalando.problem.ThrowableProblem;
 
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 
 /**
  * Handles exception of type {@link ThrowableProblem}.
@@ -34,7 +34,7 @@ import javax.inject.Singleton;
  */
 @Produces
 @Singleton
-public class ThrowableProblemHandler implements ExceptionHandler<ThrowableProblem, HttpResponse> {
+public class ThrowableProblemHandler implements ExceptionHandler<ThrowableProblem, HttpResponse<?>> {
 
     private final ErrorResponseProcessor<?> responseProcessor;
 
@@ -47,7 +47,7 @@ public class ThrowableProblemHandler implements ExceptionHandler<ThrowableProble
     }
 
     @Override
-    public HttpResponse handle(HttpRequest request, ThrowableProblem exception) {
+    public HttpResponse<?> handle(HttpRequest request, ThrowableProblem exception) {
         return responseProcessor.processResponse(
                 ErrorContext.builder(request)
                         .cause(exception)

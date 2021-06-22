@@ -28,7 +28,7 @@ import io.micronaut.http.server.exceptions.response.ErrorResponseProcessor;
 import io.micronaut.problem.HttpStatusType;
 import io.micronaut.validation.exceptions.ConstraintExceptionHandler;
 
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 import javax.validation.ConstraintViolation;
 import javax.validation.ConstraintViolationException;
 import java.util.stream.Collectors;

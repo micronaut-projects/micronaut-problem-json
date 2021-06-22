@@ -24,7 +24,7 @@ import io.micronaut.http.server.exceptions.response.ErrorResponseProcessor;
 import org.zalando.problem.Problem;
 import org.zalando.problem.ThrowableProblem;
 
-import javax.inject.Singleton;
+import jakarta.inject.Singleton;
 
 /**
  * Error Response processor to respond {@link Problem} responses.
