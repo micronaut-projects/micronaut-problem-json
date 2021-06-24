@@ -1,6 +1,5 @@
 dependencies {
     api 'org.zalando:problem:0.26.0'
-    compileOnly "jakarta.inject:jakarta.inject-api:2.0.0"
     implementation "io.micronaut:micronaut-validation"
     implementation "io.micronaut:micronaut-http-server"
 }
