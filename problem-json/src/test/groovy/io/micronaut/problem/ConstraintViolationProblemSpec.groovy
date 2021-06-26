@@ -12,9 +12,6 @@ import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Post
 import io.micronaut.http.annotation.Status
 import io.micronaut.http.client.exceptions.HttpClientResponseException
-import org.zalando.problem.DefaultProblem
-
-import javax.inject.Singleton
 import javax.validation.Valid
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
