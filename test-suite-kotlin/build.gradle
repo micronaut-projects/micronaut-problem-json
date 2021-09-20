@@ -7,7 +7,7 @@ plugins {
 dependencies {
     kaptTest "io.micronaut:micronaut-inject-java:$micronautVersion"
     testImplementation project(":problem-json")
-    testImplementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.30"
+    testImplementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.5.31"
 }
 
 compileTestKotlin {
