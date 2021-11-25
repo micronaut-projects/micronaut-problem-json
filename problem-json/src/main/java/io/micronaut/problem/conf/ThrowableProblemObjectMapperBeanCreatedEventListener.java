@@ -20,8 +20,6 @@ import io.micronaut.context.event.BeanCreatedEvent;
 import io.micronaut.context.event.BeanCreatedEventListener;
 import org.zalando.problem.ThrowableProblem;
 
-import jakarta.inject.Singleton;
-
 /**
  * If {@link ProblemConfiguration#isStackTrace()} returns false adds the mixin {@link MixInThrowableProblem} for class {@link ThrowableProblem} to the {@link ObjectMapper}.
  * @author Sergio del Amo
