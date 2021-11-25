@@ -30,9 +30,6 @@ import org.zalando.problem.ThrowableProblem;
 
 import jakarta.inject.Singleton;
 
-import java.net.URI;
-import java.util.Map;
-
 /**
  * Error Response processor to respond {@link Problem} responses.
  * <ul>
