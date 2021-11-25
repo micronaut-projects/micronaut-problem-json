@@ -26,8 +26,9 @@ import jakarta.inject.Singleton;
  * If {@link ProblemConfiguration#isStackTrace()} returns false adds the mixin {@link MixInThrowableProblem} for class {@link ThrowableProblem} to the {@link ObjectMapper}.
  * @author Sergio del Amo
  * @since 1.0.0
+ * @deprecated Now handled in {@link io.micronaut.problem.ProblemErrorResponseProcessor}
  */
-@Singleton
+@Deprecated
 public class ThrowableProblemObjectMapperBeanCreatedEventListener implements BeanCreatedEventListener<ObjectMapper> {
 
     private final ProblemConfiguration problemConfiguration;
@@ -42,9 +43,6 @@ public class ThrowableProblemObjectMapperBeanCreatedEventListener implements Bea
 
     @Override
     public ObjectMapper onCreated(BeanCreatedEvent<ObjectMapper> event) {
-        if (!problemConfiguration.isStackTrace()) {
-            event.getBean().addMixIn(ThrowableProblem.class, MixInThrowableProblem.class);
-        }
         return event.getBean();
     }
 }

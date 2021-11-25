@@ -15,16 +15,23 @@
  */
 package io.micronaut.problem;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.MutableHttpResponse;
 import io.micronaut.http.server.exceptions.response.Error;
 import io.micronaut.http.server.exceptions.response.ErrorContext;
 import io.micronaut.http.server.exceptions.response.ErrorResponseProcessor;
+import io.micronaut.problem.conf.ProblemConfigurationProperties;
+import jakarta.inject.Inject;
 import org.zalando.problem.Problem;
 import org.zalando.problem.ThrowableProblem;
 
 import jakarta.inject.Singleton;
+
+import java.net.URI;
+import java.util.Map;
 
 /**
  * Error Response processor to respond {@link Problem} responses.
@@ -37,17 +44,36 @@ import jakarta.inject.Singleton;
  * @since 1.0
  */
 @Singleton
-public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Problem> {
+public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Object> {
     public static final String APPLICATION_PROBLEM_JSON = "application/problem+json";
+
+    private final boolean stackTraceConfig;
+
+    @Deprecated
+    public ProblemErrorResponseProcessor() {
+        this.stackTraceConfig = ProblemConfigurationProperties.DEFAULT_STACK_TRACKE;
+    }
+
+    @Inject
+    public ProblemErrorResponseProcessor(ProblemConfigurationProperties config) {
+        this.stackTraceConfig = config.isStackTrace();
+    }
 
     @Override
     @NonNull
-    public MutableHttpResponse<Problem> processResponse(@NonNull ErrorContext errorContext,
+    public MutableHttpResponse<Object> processResponse(@NonNull ErrorContext errorContext,
                                                         @NonNull MutableHttpResponse<?> baseResponse) {
+        ThrowableProblem throwableProblem = (errorContext.getRootCause().isPresent() && errorContext.getRootCause().get() instanceof ThrowableProblem) ?
+                ((ThrowableProblem) errorContext.getRootCause().get()) : defaultProblem(errorContext, baseResponse.getStatus());
+        Object body;
+        if (stackTraceConfig) {
+            body = throwableProblem;
+        } else {
+            body = new ThrowableProblemWithoutStacktrace(throwableProblem);
+        }
         return baseResponse
                 .contentType(APPLICATION_PROBLEM_JSON)
-                .body((errorContext.getRootCause().isPresent() && errorContext.getRootCause().get() instanceof ThrowableProblem) ?
-                        ((ThrowableProblem) errorContext.getRootCause().get()) : defaultProblem(errorContext, baseResponse.getStatus()));
+                .body(body);
     }
 
     /**
@@ -71,5 +97,15 @@ public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Pro
             }
         }
         return problemBuilder.build();
+    }
+
+    static final class ThrowableProblemWithoutStacktrace {
+        @JsonUnwrapped
+        @JsonIgnoreProperties(value = {"stackTrace", "localizedMessage", "message"})
+        final ThrowableProblem problem;
+
+        ThrowableProblemWithoutStacktrace(ThrowableProblem problem) {
+            this.problem = problem;
+        }
     }
 }
