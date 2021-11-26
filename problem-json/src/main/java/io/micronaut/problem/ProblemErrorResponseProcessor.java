@@ -17,6 +17,7 @@ package io.micronaut.problem;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.MutableHttpResponse;
@@ -96,6 +97,7 @@ public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Obj
         return problemBuilder.build();
     }
 
+    @Introspected
     static final class ThrowableProblemWithoutStacktrace {
         @JsonUnwrapped
         @JsonIgnoreProperties(value = {"stackTrace", "localizedMessage", "message"})
