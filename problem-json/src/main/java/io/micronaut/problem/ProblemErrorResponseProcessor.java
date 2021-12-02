@@ -15,16 +15,26 @@
  */
 package io.micronaut.problem;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonUnwrapped;
+import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.MutableHttpResponse;
 import io.micronaut.http.server.exceptions.response.Error;
 import io.micronaut.http.server.exceptions.response.ErrorContext;
 import io.micronaut.http.server.exceptions.response.ErrorResponseProcessor;
+import io.micronaut.problem.conf.ProblemConfiguration;
+import io.micronaut.problem.conf.ProblemConfigurationProperties;
+import jakarta.inject.Inject;
 import org.zalando.problem.Problem;
+import org.zalando.problem.StatusType;
 import org.zalando.problem.ThrowableProblem;
 
 import jakarta.inject.Singleton;
+
+import java.net.URI;
+import java.util.Map;
 
 /**
  * Error Response processor to respond {@link Problem} responses.
@@ -40,14 +50,41 @@ import jakarta.inject.Singleton;
 public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Problem> {
     public static final String APPLICATION_PROBLEM_JSON = "application/problem+json";
 
+    private final boolean stackTraceConfig;
+
+    /**
+     * Constructor.
+     * Use {@link #ProblemErrorResponseProcessor(ProblemConfiguration)}  instead.
+     */
+    @Deprecated
+    public ProblemErrorResponseProcessor() {
+        this.stackTraceConfig = ProblemConfigurationProperties.DEFAULT_STACK_TRACKE;
+    }
+
+    /**
+     * Constructor.
+     * @param config Problem configuration
+     */
+    @Inject
+    public ProblemErrorResponseProcessor(ProblemConfiguration config) {
+        this.stackTraceConfig = config.isStackTrace();
+    }
+
     @Override
     @NonNull
     public MutableHttpResponse<Problem> processResponse(@NonNull ErrorContext errorContext,
                                                         @NonNull MutableHttpResponse<?> baseResponse) {
+        ThrowableProblem throwableProblem = (errorContext.getRootCause().isPresent() && errorContext.getRootCause().get() instanceof ThrowableProblem) ?
+                ((ThrowableProblem) errorContext.getRootCause().get()) : defaultProblem(errorContext, baseResponse.getStatus());
+        Problem body;
+        if (stackTraceConfig) {
+            body = throwableProblem;
+        } else {
+            body = new ThrowableProblemWithoutStacktrace(throwableProblem);
+        }
         return baseResponse
                 .contentType(APPLICATION_PROBLEM_JSON)
-                .body((errorContext.getRootCause().isPresent() && errorContext.getRootCause().get() instanceof ThrowableProblem) ?
-                        ((ThrowableProblem) errorContext.getRootCause().get()) : defaultProblem(errorContext, baseResponse.getStatus()));
+                .body(body);
     }
 
     /**
@@ -71,5 +108,48 @@ public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Pro
             }
         }
         return problemBuilder.build();
+    }
+
+    @Introspected
+    static final class ThrowableProblemWithoutStacktrace implements Problem {
+        @JsonUnwrapped
+        @JsonIgnoreProperties(value = {"stackTrace", "localizedMessage", "message"})
+        final ThrowableProblem problem;
+
+        ThrowableProblemWithoutStacktrace(ThrowableProblem problem) {
+            this.problem = problem;
+        }
+
+        // delegate Problem methods for best compatibility
+
+        @Override
+        public URI getType() {
+            return problem.getType();
+        }
+
+        @Override
+        public String getTitle() {
+            return problem.getTitle();
+        }
+
+        @Override
+        public StatusType getStatus() {
+            return problem.getStatus();
+        }
+
+        @Override
+        public String getDetail() {
+            return problem.getDetail();
+        }
+
+        @Override
+        public URI getInstance() {
+            return problem.getInstance();
+        }
+
+        @Override
+        public Map<String, Object> getParameters() {
+            return problem.getParameters();
+        }
     }
 }

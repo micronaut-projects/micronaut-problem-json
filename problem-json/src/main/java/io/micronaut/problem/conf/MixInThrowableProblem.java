@@ -21,7 +21,9 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
  * Mixin to avoid ignore `stackTrace`, `localizedMessage` and `localizedMessage` from JSON serialization.
  * @author Sergio del Amo
  * @since 1.0
+ * @deprecated Now handled in {@link io.micronaut.problem.ProblemErrorResponseProcessor}
  */
 @JsonIgnoreProperties(value = {"stackTrace", "localizedMessage", "message"})
+@Deprecated
 public class MixInThrowableProblem {
 }
