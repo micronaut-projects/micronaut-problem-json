@@ -27,9 +27,13 @@ import io.micronaut.http.server.exceptions.response.ErrorResponseProcessor;
 import io.micronaut.problem.conf.ProblemConfigurationProperties;
 import jakarta.inject.Inject;
 import org.zalando.problem.Problem;
+import org.zalando.problem.StatusType;
 import org.zalando.problem.ThrowableProblem;
 
 import jakarta.inject.Singleton;
+
+import java.net.URI;
+import java.util.Map;
 
 /**
  * Error Response processor to respond {@link Problem} responses.
@@ -42,7 +46,7 @@ import jakarta.inject.Singleton;
  * @since 1.0
  */
 @Singleton
-public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Object> {
+public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Problem> {
     public static final String APPLICATION_PROBLEM_JSON = "application/problem+json";
 
     private final boolean stackTraceConfig;
@@ -59,11 +63,11 @@ public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Obj
 
     @Override
     @NonNull
-    public MutableHttpResponse<Object> processResponse(@NonNull ErrorContext errorContext,
+    public MutableHttpResponse<Problem> processResponse(@NonNull ErrorContext errorContext,
                                                         @NonNull MutableHttpResponse<?> baseResponse) {
         ThrowableProblem throwableProblem = (errorContext.getRootCause().isPresent() && errorContext.getRootCause().get() instanceof ThrowableProblem) ?
                 ((ThrowableProblem) errorContext.getRootCause().get()) : defaultProblem(errorContext, baseResponse.getStatus());
-        Object body;
+        Problem body;
         if (stackTraceConfig) {
             body = throwableProblem;
         } else {
@@ -98,13 +102,45 @@ public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Obj
     }
 
     @Introspected
-    static final class ThrowableProblemWithoutStacktrace {
+    static final class ThrowableProblemWithoutStacktrace implements Problem {
         @JsonUnwrapped
         @JsonIgnoreProperties(value = {"stackTrace", "localizedMessage", "message"})
         final ThrowableProblem problem;
 
         ThrowableProblemWithoutStacktrace(ThrowableProblem problem) {
             this.problem = problem;
+        }
+
+        // delegate Problem methods for best compatibility
+
+        @Override
+        public URI getType() {
+            return problem.getType();
+        }
+
+        @Override
+        public String getTitle() {
+            return problem.getTitle();
+        }
+
+        @Override
+        public StatusType getStatus() {
+            return problem.getStatus();
+        }
+
+        @Override
+        public String getDetail() {
+            return problem.getDetail();
+        }
+
+        @Override
+        public URI getInstance() {
+            return problem.getInstance();
+        }
+
+        @Override
+        public Map<String, Object> getParameters() {
+            return problem.getParameters();
         }
     }
 }
