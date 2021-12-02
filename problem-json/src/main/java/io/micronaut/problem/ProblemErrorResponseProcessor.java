@@ -24,6 +24,7 @@ import io.micronaut.http.MutableHttpResponse;
 import io.micronaut.http.server.exceptions.response.Error;
 import io.micronaut.http.server.exceptions.response.ErrorContext;
 import io.micronaut.http.server.exceptions.response.ErrorResponseProcessor;
+import io.micronaut.problem.conf.ProblemConfiguration;
 import io.micronaut.problem.conf.ProblemConfigurationProperties;
 import jakarta.inject.Inject;
 import org.zalando.problem.Problem;
@@ -47,13 +48,21 @@ public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Obj
 
     private final boolean stackTraceConfig;
 
+    /**
+     * Constructor.
+     * Use {@link #ProblemErrorResponseProcessor(ProblemConfiguration)}  instead.
+     */
     @Deprecated
     public ProblemErrorResponseProcessor() {
         this.stackTraceConfig = ProblemConfigurationProperties.DEFAULT_STACK_TRACKE;
     }
 
+    /**
+     * Constructor.
+     * @param config Problem configuration
+     */
     @Inject
-    public ProblemErrorResponseProcessor(ProblemConfigurationProperties config) {
+    public ProblemErrorResponseProcessor(ProblemConfiguration config) {
         this.stackTraceConfig = config.isStackTrace();
     }
 
