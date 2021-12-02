@@ -1,6 +1,14 @@
-dependencies {
-    api 'org.zalando:problem:0.26.0'
-    implementation "io.micronaut:micronaut-validation"
-    implementation "io.micronaut:micronaut-http-server"
+plugins {
+    id("io.micronaut.build.internal.module")
 }
 
+dependencies {
+    api "org.zalando:problem:$problemVersion"
+    implementation "io.micronaut:micronaut-validation"
+    implementation "io.micronaut:micronaut-http-server"
+
+    testImplementation("io.micronaut:micronaut-http-server-netty")
+    testImplementation("io.micronaut:micronaut-http-client")
+}
+
+group = "io.micronaut.problem"
