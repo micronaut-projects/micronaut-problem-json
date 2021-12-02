@@ -1,5 +1,5 @@
 plugins {
-    id("io.micronaut.build.internal.module")
+    id("io.micronaut.build.internal.problem-module")
 }
 
 dependencies {
@@ -10,5 +10,3 @@ dependencies {
     testImplementation("io.micronaut:micronaut-http-server-netty")
     testImplementation("io.micronaut:micronaut-http-client")
 }
-
-group = "io.micronaut.problem"
