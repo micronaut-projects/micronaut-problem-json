@@ -1,19 +1,29 @@
 package io.micronaut.problem
 
+import io.micronaut.context.annotation.Property
 import io.micronaut.core.type.Argument
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpStatus
+import io.micronaut.http.client.BlockingHttpClient
+import io.micronaut.http.client.HttpClient
+import io.micronaut.http.client.annotation.Client
 import io.micronaut.http.client.exceptions.HttpClientResponseException
 import io.micronaut.http.uri.UriBuilder
+import io.micronaut.test.extensions.spock.annotation.MicronautTest
+import jakarta.inject.Inject
+import spock.lang.Specification
 
-class TaskNotFoundProblemSpec extends EmbeddedServerSpecification {
-
-    @Override
-    String getSpecName() {
-        'TaskNotFoundProblemSpec'
-    }
+@Property(name = "spec.name", value = "TaskNotFoundProblemSpec")
+@MicronautTest
+class TaskNotFoundProblemSpec extends Specification {
+    @Inject
+    @Client("/")
+    HttpClient httpClient
 
     void "custom problem is rendered"() {
+        given:
+        BlockingHttpClient client = httpClient.toBlocking()
+
         when:
         Argument<?> okArg = Argument.of(String)
         Argument<?> errorArg = Argument.of(Map)
