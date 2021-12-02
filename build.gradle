@@ -1,43 +1,4 @@
-buildscript {
-    repositories {
-        mavenCentral()
-        gradlePluginPortal()
-    }
-    dependencies {
-        classpath "io.micronaut.build.internal:micronaut-gradle-plugins:4.2.4"
-    }
+plugins {
+    id "io.micronaut.build.internal.docs"
+    id "io.micronaut.build.internal.dependency-updates"
 }
-
-subprojects { Project subproject ->
-    group "io.micronaut.problem"
-
-    apply plugin: "io.micronaut.build.internal.common"
-    apply plugin: "io.micronaut.build.internal.dependency-updates"
-
-    dependencies {
-        annotationProcessor "io.micronaut:micronaut-inject-java"
-        if (!subproject.name.startsWith('test-suite')) {
-            annotationProcessor "io.micronaut.docs:micronaut-docs-asciidoc-config-props:$micronautDocsVersion"
-        }
-        api "io.micronaut:micronaut-inject"
-
-        testImplementation 'io.micronaut:micronaut-http-server-netty'
-        testImplementation 'io.micronaut:micronaut-http-client'
-
-        testImplementation("org.spockframework:spock-core:${spockVersion}") {
-            exclude module:'groovy-all'
-        }
-    }
-
-    if (!subproject.name.startsWith('test-suite')) {
-        apply plugin: "io.micronaut.build.internal.publishing"
-    }
-
-    tasks.withType(Test) {
-        useJUnitPlatform()
-    }
-
-}
-
-apply plugin: "io.micronaut.build.internal.docs"
-apply plugin: "io.micronaut.build.internal.dependency-updates"
