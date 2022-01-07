@@ -16,9 +16,10 @@
 package io.micronaut.problem.conf;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
+
 import io.micronaut.context.event.BeanCreatedEvent;
 import io.micronaut.context.event.BeanCreatedEventListener;
-import org.zalando.problem.ThrowableProblem;
+// import org.zalando.problem.ThrowableProblem;
 
 /**
  * If {@link ProblemConfiguration#isStackTrace()} returns false adds the mixin {@link MixInThrowableProblem} for class {@link ThrowableProblem} to the {@link ObjectMapper}.
