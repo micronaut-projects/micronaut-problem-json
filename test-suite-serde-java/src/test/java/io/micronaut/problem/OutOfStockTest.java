@@ -102,6 +102,6 @@ public class OutOfStockTest {
         assertTrue(bodyOptional.isPresent());
 
         //and:
-        assertEquals("{\"type\":\"https://example.org/out-of-stock\",\"title\":\"Out of Stock\",\"status\":{\"statusCode\":400,\"reasonPhrase\":\"Bad Request\"},\"detail\":\"Item B00027Y5QG is no longer available\",\"parameters\":{\"product\":\"B00027Y5QG\"}}", bodyOptional.get());
+        assertEquals("{\"type\":\"https://example.org/out-of-stock\",\"title\":\"Out of Stock\",\"status\":400,\"detail\":\"Item B00027Y5QG is no longer available\",\"parameters\":{\"product\":\"B00027Y5QG\"}}", bodyOptional.get());
     }
 }
