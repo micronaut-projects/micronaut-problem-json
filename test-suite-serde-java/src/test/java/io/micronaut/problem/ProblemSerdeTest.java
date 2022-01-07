@@ -21,7 +21,7 @@ import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.*;
 
 @MicronautTest
-public class OutOfStockTest {
+public class ProblemSerdeTest {
     @Inject
     @Client("/")
     HttpClient httpClient;
