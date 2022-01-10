@@ -11,7 +11,6 @@ import io.micronaut.http.uri.UriBuilder;
 import io.micronaut.serde.ObjectMapper;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import java.io.IOException;
 import java.util.Collections;
@@ -45,7 +44,6 @@ public class ProblemSerdeTest {
         assertEquals("application/problem+json", e.getResponse().getContentType().get().toString());
     }
 
-    @Disabled
     @Test
     void ProblemIsRenderedToMapWithSerde() throws IOException {
         //given:
