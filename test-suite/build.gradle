@@ -13,6 +13,8 @@ dependencies {
     testImplementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
     testImplementation("io.micronaut:micronaut-validation")
 
+    testImplementation("ch.qos.logback:logback-classic")
+
     testImplementation("org.junit.jupiter:junit-jupiter-api")
     testImplementation "io.micronaut.test:micronaut-test-junit5"
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
