@@ -17,15 +17,12 @@ package io.micronaut.problem.serde;
 
 import org.zalando.problem.DefaultProblem;
 import org.zalando.problem.Exceptional;
-import org.zalando.problem.StatusType;
-
 import io.micronaut.serde.annotation.SerdeImport;
 
 /**
  * adds problem serdes.
  */
 @SerdeImport(Exceptional.class)
-@SerdeImport(StatusType.class)
 @SerdeImport(DefaultProblem.class)
 public class ProblemSerdeImport {
 }
