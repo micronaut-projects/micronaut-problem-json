@@ -2,10 +2,6 @@ plugins {
     id("io.micronaut.build.internal.module")
 }
 
-repositories {
-    maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots/" }
-}
-
 dependencies {
     annotationProcessor("io.micronaut.serde:micronaut-serde-processor:$serdeVersion")
     api "org.zalando:problem:$problemVersion"
