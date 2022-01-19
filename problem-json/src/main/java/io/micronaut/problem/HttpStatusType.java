@@ -17,6 +17,7 @@ package io.micronaut.problem;
 
 import com.fasterxml.jackson.annotation.JsonValue;
 import io.micronaut.http.HttpStatus;
+import io.micronaut.serde.annotation.Serdeable;
 import org.zalando.problem.StatusType;
 
 /**
@@ -24,6 +25,7 @@ import org.zalando.problem.StatusType;
  * @author Sergio del Amo
  * @since 1.0
  */
+@Serdeable
 public class HttpStatusType implements StatusType {
 
     private final HttpStatus httpStatus;
