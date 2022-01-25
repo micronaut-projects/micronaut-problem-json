@@ -12,6 +12,7 @@ plugins {
 rootProject.name = 'micronaut-problem-json'
 
 include 'problem-json'
+include 'problem-json-bom'
 include 'test-suite-serde-java'
 include 'test-suite'
 include 'test-suite-groovy'
