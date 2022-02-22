@@ -166,8 +166,7 @@ and <a href="https://docs.micronaut.io/latest/guide/#errorFormatting">Micronaut 
     &lt;artifactId&gt;micronaut-problem-json&lt;/artifactId&gt;
 &lt;/dependency&gt;</code></pre>
 </div>
-</div>
-</p>
+</div></p>
 </div>
 
 <h1 id="usage"><a class="anchor" href="#usage"></a>4 Usage</h1>
@@ -201,7 +200,7 @@ response content type to <code>application/problem+json</code> and the response 
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">package io.micronaut.problem;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.problem;
 
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.Controller;
@@ -229,7 +228,7 @@ public class ProductController {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlight"><code class="language-groovy" data-lang="groovy">package io.micronaut.problem
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.problem
 
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.Controller
@@ -255,7 +254,7 @@ class ProductController {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">package io.micronaut.problem
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.problem
 
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.Controller
@@ -309,7 +308,7 @@ class ProductController {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">package io.micronaut.problem;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.problem;
 
 import io.micronaut.http.HttpStatus;
 import org.zalando.problem.AbstractThrowableProblem;
@@ -328,7 +327,7 @@ public class TaskNotFoundProblem extends AbstractThrowableProblem {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlight"><code class="language-groovy" data-lang="groovy">package io.micronaut.problem
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.problem
 
 import io.micronaut.http.HttpStatus
 import org.zalando.problem.AbstractThrowableProblem
@@ -345,7 +344,7 @@ class TaskNotFoundProblem extends AbstractThrowableProblem {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">package io.micronaut.problem
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.problem
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import io.micronaut.http.HttpStatus
@@ -371,7 +370,7 @@ class TaskNotFoundProblem(taskId: Long) :
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlight"><code class="language-java" data-lang="java">package io.micronaut.problem;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.problem;
 
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.Controller;
@@ -391,7 +390,7 @@ public class TaskController {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlight"><code class="language-groovy" data-lang="groovy">package io.micronaut.problem
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.problem
 
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.Controller
@@ -411,7 +410,7 @@ class TaskController {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlight"><code class="language-kotlin" data-lang="kotlin">package io.micronaut.problem
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.problem
 
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.Controller
@@ -456,7 +455,7 @@ class TaskController {
 <p>You can configure it via:</p>
 </div>
 <a id="io.micronaut.problem.conf.ProblemConfigurationProperties" href="#io.micronaut.problem.conf.ProblemConfigurationProperties">&#128279;</a>
-<table class="tableblock frame-all grid-all spread">
+<table class="tableblock frame-all grid-all stretch">
 <caption class="title">Table 1. Configuration Properties for <a href="../api/io/micronaut/problem/conf/ProblemConfigurationProperties.html">ProblemConfigurationProperties</a></caption>
 <colgroup>
 <col style="width: 33.3333%;">
