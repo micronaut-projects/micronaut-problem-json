@@ -78,8 +78,10 @@ public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Pro
         if (errorContext.getRequest().getMethod() == HttpMethod.HEAD) {
             return (MutableHttpResponse<Problem>) baseResponse;
         }
-        ThrowableProblem throwableProblem = (errorContext.getRootCause().isPresent() && errorContext.getRootCause().get() instanceof ThrowableProblem) ?
-                ((ThrowableProblem) errorContext.getRootCause().get()) : defaultProblem(errorContext, baseResponse.getStatus());
+        ThrowableProblem throwableProblem = errorContext.getRootCause()
+                .filter(t -> t instanceof ThrowableProblem)
+                .map(t ->  (ThrowableProblem) t)
+                .orElseGet(() -> defaultProblem(errorContext, baseResponse.getStatus()));
         Problem body;
         if (stackTraceConfig) {
             body = throwableProblem;
