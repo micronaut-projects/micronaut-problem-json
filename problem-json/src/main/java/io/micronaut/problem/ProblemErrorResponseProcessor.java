@@ -19,6 +19,7 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.http.HttpMethod;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.MutableHttpResponse;
 import io.micronaut.http.server.exceptions.response.Error;
@@ -74,6 +75,9 @@ public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Pro
     @NonNull
     public MutableHttpResponse<Problem> processResponse(@NonNull ErrorContext errorContext,
                                                         @NonNull MutableHttpResponse<?> baseResponse) {
+        if (errorContext.getRequest().getMethod() == HttpMethod.HEAD) {
+            return (MutableHttpResponse<Problem>) baseResponse;
+        }
         ThrowableProblem throwableProblem = (errorContext.getRootCause().isPresent() && errorContext.getRootCause().get() instanceof ThrowableProblem) ?
                 ((ThrowableProblem) errorContext.getRootCause().get()) : defaultProblem(errorContext, baseResponse.getStatus());
         Problem body;
