@@ -59,7 +59,7 @@ public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Pro
      */
     @Deprecated
     public ProblemErrorResponseProcessor() {
-        this.stackTraceConfig = ProblemConfigurationProperties.DEFAULT_STACK_TRACKE;
+        this(() -> ProblemConfigurationProperties.DEFAULT_STACK_TRACKE);
     }
 
     /**
@@ -78,8 +78,10 @@ public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Pro
         if (errorContext.getRequest().getMethod() == HttpMethod.HEAD) {
             return (MutableHttpResponse<Problem>) baseResponse;
         }
-        ThrowableProblem throwableProblem = (errorContext.getRootCause().isPresent() && errorContext.getRootCause().get() instanceof ThrowableProblem) ?
-                ((ThrowableProblem) errorContext.getRootCause().get()) : defaultProblem(errorContext, baseResponse.getStatus());
+        ThrowableProblem throwableProblem = errorContext.getRootCause()
+                .filter(t -> t instanceof ThrowableProblem)
+                .map(t ->  (ThrowableProblem) t)
+                .orElseGet(() -> defaultProblem(errorContext, baseResponse.getStatus()));
         Problem body;
         if (stackTraceConfig) {
             body = throwableProblem;
@@ -103,13 +105,9 @@ public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Pro
         org.zalando.problem.ProblemBuilder problemBuilder = Problem.builder().withStatus(new HttpStatusType(httpStatus));
         if (!errorContext.getErrors().isEmpty()) {
             Error error = errorContext.getErrors().get(0);
-            if (error.getTitle().isPresent()) {
-                problemBuilder.withTitle(error.getTitle().get());
-            }
+            error.getTitle().ifPresent(problemBuilder::withTitle);
             problemBuilder.withDetail(error.getMessage());
-            if (error.getPath().isPresent()) {
-                problemBuilder.with("path", error.getPath().get());
-            }
+            error.getPath().ifPresent(path -> problemBuilder.with("path", path));
         }
         return problemBuilder.build();
     }
