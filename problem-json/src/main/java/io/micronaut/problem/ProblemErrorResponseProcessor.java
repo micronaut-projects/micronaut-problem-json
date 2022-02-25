@@ -59,7 +59,7 @@ public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Pro
      */
     @Deprecated
     public ProblemErrorResponseProcessor() {
-        this.stackTraceConfig = ProblemConfigurationProperties.DEFAULT_STACK_TRACKE;
+        this(() -> ProblemConfigurationProperties.DEFAULT_STACK_TRACKE);
     }
 
     /**
