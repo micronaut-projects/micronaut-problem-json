@@ -103,13 +103,9 @@ public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Pro
         org.zalando.problem.ProblemBuilder problemBuilder = Problem.builder().withStatus(new HttpStatusType(httpStatus));
         if (!errorContext.getErrors().isEmpty()) {
             Error error = errorContext.getErrors().get(0);
-            if (error.getTitle().isPresent()) {
-                problemBuilder.withTitle(error.getTitle().get());
-            }
+            error.getTitle().ifPresent(problemBuilder::withTitle);
             problemBuilder.withDetail(error.getMessage());
-            if (error.getPath().isPresent()) {
-                problemBuilder.with("path", error.getPath().get());
-            }
+            error.getPath().ifPresent(path -> problemBuilder.with("path", path));
         }
         return problemBuilder.build();
     }
