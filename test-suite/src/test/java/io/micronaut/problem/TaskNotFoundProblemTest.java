@@ -15,8 +15,12 @@ import org.junit.jupiter.api.Test;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.Arrays;
 import java.util.Map;
 import java.util.Optional;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 @Property(name = "spec.name", value = "TaskNotFoundProblemSpec")
 @MicronautTest
@@ -53,5 +57,29 @@ public class TaskNotFoundProblemTest {
         assertEquals("Not found", bodyOptional.get().get("title"));
         assertEquals("Task '3' not found", bodyOptional.get().get("detail"));
         assertEquals("https://example.org/not-found", bodyOptional.get().get("type"));
+
+        //when:
+        String bodyString = e.getResponse().getBody(String.class).get();
+
+        //then:
+        assertDoesNotContainDuplicateKey(bodyString, "type", "title", "status", "detail", "instance", "parameters");
+
+    }
+
+    private void assertDoesNotContainDuplicateKey(String string, String... keys) {
+        for (String key : keys) {
+            int occurrences = occurrencesInText(string, key);
+            assertTrue(occurrences <= 1, "The response contains duplicate occurrence of key: '"+ key+ "'. " +
+                    "The response: '" + string +"'");
+        }
+    }
+
+    private int occurrencesInText(String text, String key) {
+        Matcher matcher = Pattern.compile(key).matcher(text);
+        int count = 0;
+        while (matcher.find()) {
+            count++;
+        }
+        return count;
     }
 }

@@ -15,6 +15,7 @@
  */
 package io.micronaut.problem;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import io.micronaut.core.annotation.Introspected;
@@ -124,31 +125,37 @@ public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Pro
 
         // delegate Problem methods for best compatibility
 
+        @JsonIgnore
         @Override
         public URI getType() {
             return problem.getType();
         }
 
+        @JsonIgnore
         @Override
         public String getTitle() {
             return problem.getTitle();
         }
 
+        @JsonIgnore
         @Override
         public StatusType getStatus() {
             return problem.getStatus();
         }
 
+        @JsonIgnore
         @Override
         public String getDetail() {
             return problem.getDetail();
         }
 
+        @JsonIgnore
         @Override
         public URI getInstance() {
             return problem.getInstance();
         }
 
+        @JsonIgnore
         @Override
         public Map<String, Object> getParameters() {
             return problem.getParameters();
