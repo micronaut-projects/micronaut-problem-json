@@ -115,7 +115,7 @@ public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Pro
     @Introspected
     static final class ThrowableProblemWithoutStacktrace implements Problem {
         @JsonUnwrapped
-        @JsonIgnoreProperties(value = {"stackTrace", "localizedMessage", "message"})
+        @JsonIgnoreProperties(value = {"stackTrace", "localizedMessage", "message", "type", "title", "status", "detail", "instance", "parameters"})
         final ThrowableProblem problem;
 
         ThrowableProblemWithoutStacktrace(ThrowableProblem problem) {
