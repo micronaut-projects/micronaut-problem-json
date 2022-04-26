@@ -42,10 +42,8 @@ class TaskNotFoundProblemWithStackTraceSpec extends EmbeddedServerSpecification 
 
         then:
         bodyOptional.isPresent()
-        bodyOptional.get().keySet().size() == 7
+        bodyOptional.get().keySet().size() == 5
         bodyOptional.get().keySet().contains('stackTrace')
-        bodyOptional.get().keySet().contains('message')
-        bodyOptional.get().keySet().contains('localizedMessage')
         bodyOptional.get()['status'] == 404
         bodyOptional.get()['title'] == 'Not found'
         bodyOptional.get()['detail'] == "Task '3' not found"

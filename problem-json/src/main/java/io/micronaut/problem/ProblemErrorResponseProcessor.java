@@ -15,6 +15,7 @@
  */
 package io.micronaut.problem;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import io.micronaut.core.annotation.Introspected;
@@ -28,11 +29,10 @@ import io.micronaut.http.server.exceptions.response.ErrorResponseProcessor;
 import io.micronaut.problem.conf.ProblemConfiguration;
 import io.micronaut.problem.conf.ProblemConfigurationProperties;
 import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import org.zalando.problem.Problem;
 import org.zalando.problem.StatusType;
 import org.zalando.problem.ThrowableProblem;
-
-import jakarta.inject.Singleton;
 
 import java.net.URI;
 import java.util.Map;
@@ -44,6 +44,7 @@ import java.util.Map;
  *   <li>If the cause is a {@link ThrowableProblem}, it returns as the body.</li>
  *   <li>If the cause is not a {@link ThrowableProblem} , it generates a default Problem based on the {@link ErrorContext} and returns it as the HTTP Body.</li>
  * </ul>
+ *
  * @author Sergio del Amo
  * @since 1.0
  */
@@ -52,6 +53,7 @@ public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Pro
     public static final String APPLICATION_PROBLEM_JSON = "application/problem+json";
 
     private final boolean stackTraceConfig;
+    private final boolean detailConfig;
 
     /**
      * Constructor.
@@ -59,16 +61,18 @@ public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Pro
      */
     @Deprecated
     public ProblemErrorResponseProcessor() {
-        this(() -> ProblemConfigurationProperties.DEFAULT_STACK_TRACKE);
+        this(() -> ProblemConfigurationProperties.DEFAULT_STACK_TRACE);
     }
 
     /**
      * Constructor.
+     *
      * @param config Problem configuration
      */
     @Inject
     public ProblemErrorResponseProcessor(ProblemConfiguration config) {
         this.stackTraceConfig = config.isStackTrace();
+        this.detailConfig = config.isDetail();
     }
 
     @Override
@@ -80,23 +84,16 @@ public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Pro
         }
         ThrowableProblem throwableProblem = errorContext.getRootCause()
                 .filter(t -> t instanceof ThrowableProblem)
-                .map(t ->  (ThrowableProblem) t)
+                .map(t -> (ThrowableProblem) t)
                 .orElseGet(() -> defaultProblem(errorContext, baseResponse.getStatus()));
-        Problem body;
-        if (stackTraceConfig) {
-            body = throwableProblem;
-        } else {
-            body = new ThrowableProblemWithoutStacktrace(throwableProblem);
-        }
         return baseResponse
                 .contentType(APPLICATION_PROBLEM_JSON)
-                .body(body);
+                .body(new RedactedProblem(throwableProblem, stackTraceConfig, detailConfig));
     }
 
     /**
-     *
      * @param errorContext Error Context
-     * @param httpStatus HTTP Status
+     * @param httpStatus   HTTP Status
      * @return Default problem
      */
     @NonNull
@@ -106,23 +103,37 @@ public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Pro
         if (!errorContext.getErrors().isEmpty()) {
             Error error = errorContext.getErrors().get(0);
             error.getTitle().ifPresent(problemBuilder::withTitle);
-            problemBuilder.withDetail(error.getMessage());
+            if (detailConfig) {
+                problemBuilder.withDetail(error.getMessage());
+            }
             error.getPath().ifPresent(path -> problemBuilder.with("path", path));
         }
         return problemBuilder.build();
     }
 
     @Introspected
-    static final class ThrowableProblemWithoutStacktrace implements Problem {
+    static final class RedactedProblem implements Problem {
         @JsonUnwrapped
         @JsonIgnoreProperties(value = {"stackTrace", "localizedMessage", "message", "type", "title", "status", "detail", "instance", "parameters"})
         final ThrowableProblem problem;
 
-        ThrowableProblemWithoutStacktrace(ThrowableProblem problem) {
+        @JsonIgnore
+        final boolean stackTraceConfig;
+
+        @JsonIgnore
+        final boolean detailConfig;
+
+        RedactedProblem(ThrowableProblem problem, boolean stackTraceConfig, boolean detailConfig) {
             this.problem = problem;
+            this.stackTraceConfig = stackTraceConfig;
+            this.detailConfig = detailConfig;
         }
 
         // delegate Problem methods for best compatibility
+
+        public StackTraceElement[] getStackTrace() {
+            return stackTraceConfig ? problem.getStackTrace() : null;
+        }
 
         @Override
         public URI getType() {
@@ -141,7 +152,7 @@ public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Pro
 
         @Override
         public String getDetail() {
-            return problem.getDetail();
+            return detailConfig ? problem.getDetail() : null;
         }
 
         @Override

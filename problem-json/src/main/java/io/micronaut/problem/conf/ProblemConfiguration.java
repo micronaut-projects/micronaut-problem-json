@@ -20,14 +20,22 @@ import io.micronaut.core.util.Toggleable;
 
 /**
  * Configuration for problem.
+ *
  * @author Sergio del Amo
  * @since 1.0.0
  */
 public interface ProblemConfiguration extends Toggleable {
 
     /**
-     *
      * @return Whether the HTTP Response should include the stack trace for instances of {@link org.zalando.problem.ThrowableProblem}
      */
     boolean isStackTrace();
+
+    /**
+     * @return Whether the HTTP Response should include the detailed, human-readable explanation of problems that are
+     * instances of {@link org.zalando.problem.ThrowableProblem}
+     */
+    default boolean isDetail() {
+        return false;
+    }
 }

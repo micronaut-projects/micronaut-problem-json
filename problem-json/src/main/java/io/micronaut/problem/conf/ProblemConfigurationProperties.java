@@ -19,6 +19,7 @@ import io.micronaut.context.annotation.ConfigurationProperties;
 
 /**
  * {@link ConfigurationProperties} implementation of {@link ProblemConfiguration}.
+ *
  * @author Sergio del Amo
  * @since 1.0
  */
@@ -38,11 +39,30 @@ public class ProblemConfigurationProperties implements ProblemConfiguration {
      * The default stackTrace value.
      */
     @SuppressWarnings("WeakerAccess")
-    public static final boolean DEFAULT_STACK_TRACKE = false;
+    public static final boolean DEFAULT_STACK_TRACE = false;
+
+    /**
+     * The default stackTrace value.
+     *
+     * @deprecated for removal in Micronaut 4 or later. Use {@link #DEFAULT_STACK_TRACE} instead
+     */
+    @SuppressWarnings("WeakerAccess")
+    @Deprecated
+    public static final boolean DEFAULT_STACK_TRACKE = DEFAULT_STACK_TRACE;
+
+    /**
+     * The default isDetail value.
+     * <p>
+     * {@code True} until Micronaut 4 at which time the default will be changed to {@code false} which is a breaking change.
+     */
+    @SuppressWarnings("WeakerAccess")
+    public static final boolean DEFAULT_DETAIL = true;
 
     private boolean enabled = DEFAULT_ENABLED;
 
-    private boolean stackTrace = DEFAULT_STACK_TRACKE;
+    private boolean stackTrace = DEFAULT_STACK_TRACE;
+
+    private boolean detail = DEFAULT_DETAIL;
 
     @Override
     public boolean isEnabled() {
@@ -64,10 +84,22 @@ public class ProblemConfigurationProperties implements ProblemConfiguration {
     }
 
     /**
-     *
-     * @param stackTrace Whether the HTTP Response should include the stack trace for instances of {@link org.zalando.problem.ThrowableProblem}. Default value ({@value #DEFAULT_STACK_TRACKE}).
+     * @param stackTrace Whether the HTTP Response should include the stack trace for instances of {@link org.zalando.problem.ThrowableProblem}. Default value ({@value #DEFAULT_STACK_TRACE}).
      */
     public void setStackTrace(boolean stackTrace) {
         this.stackTrace = stackTrace;
+    }
+
+    @Override
+    public boolean isDetail() {
+        return detail;
+    }
+
+    /**
+     * @param detail Whether the HTTP Response should include the detailed, human-readable explanation of problems that are
+     *               instances of {@link org.zalando.problem.ThrowableProblem}.  See {@link #DEFAULT_DETAIL} regarding the default value.
+     */
+    public void setDetail(boolean detail) {
+        this.detail = detail;
     }
 }
