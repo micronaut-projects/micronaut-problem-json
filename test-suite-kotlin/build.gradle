@@ -1,5 +1,5 @@
 plugins {
-    id "org.jetbrains.kotlin.jvm" version "1.6.20"
+    id "org.jetbrains.kotlin.jvm" version "1.6.21"
     id("org.jetbrains.kotlin.kapt") version "1.6.21"
 }
 
@@ -15,7 +15,7 @@ dependencies {
     testImplementation "io.micronaut.test:micronaut-test-junit5"
     testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
 
-    testImplementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.20"
+    testImplementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8:1.6.21"
     kaptTest "io.micronaut:micronaut-inject-java:$micronautVersion"
 
     testImplementation project(":problem-json")
