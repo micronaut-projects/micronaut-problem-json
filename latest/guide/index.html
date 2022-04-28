@@ -47,13 +47,17 @@
                                 
                                 <div class="toc-item" style="margin-left:0"><a href="#releaseHistory"><strong>2</strong><span>Release History</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#installation"><strong>3</strong><span>Installation</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#breaks"><strong>3</strong><span>Breaking Changes</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#usage"><strong>4</strong><span>Usage</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#installation"><strong>4</strong><span>Installation</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#configuration"><strong>5</strong><span>Configuration</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#usage"><strong>5</strong><span>Usage</span></a></div>
                                 
-                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>6</strong><span>Repository</span></a></div>
+                                <div class="toc-item" style="margin-left:0"><a href="#configuration"><strong>6</strong><span>Configuration</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#customizingProblemErrorResponseProcessor"><strong>7</strong><span>Custom ProblemErrorResponseProcessor</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>8</strong><span>Repository</span></a></div>
                                 
                             </div>
                         </div>
@@ -88,17 +92,21 @@
         
         <div class="toc-item" style="margin-left:0px" id="toc-item-releaseHistory"><a href="#releaseHistory"><strong>2</strong><span>Release History</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-installation"><a href="#installation"><strong>3</strong><span>Installation</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-breaks"><a href="#breaks"><strong>3</strong><span>Breaking Changes</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-usage"><a href="#usage"><strong>4</strong><span>Usage</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-installation"><a href="#installation"><strong>4</strong><span>Installation</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-problemBuilder"><a href="#problemBuilder"><strong>4.1</strong><span>Problem Builder</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-usage"><a href="#usage"><strong>5</strong><span>Usage</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-customProblem"><a href="#customProblem"><strong>4.2</strong><span>Custom Problem</span></a></div>
+        <div class="toc-item" style="margin-left:10px" id="toc-item-problemBuilder"><a href="#problemBuilder"><strong>5.1</strong><span>Problem Builder</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-configuration"><a href="#configuration"><strong>5</strong><span>Configuration</span></a></div>
+        <div class="toc-item" style="margin-left:10px" id="toc-item-customProblem"><a href="#customProblem"><strong>5.2</strong><span>Custom Problem</span></a></div>
         
-        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>6</strong><span>Repository</span></a></div>
+        <div class="toc-item" style="margin-left:0px" id="toc-item-configuration"><a href="#configuration"><strong>6</strong><span>Configuration</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-customizingProblemErrorResponseProcessor"><a href="#customizingProblemErrorResponseProcessor"><strong>7</strong><span>Custom ProblemErrorResponseProcessor</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>8</strong><span>Repository</span></a></div>
         
         </div>
     </div>
@@ -108,13 +116,13 @@
         <h1>Micronaut Problem JSON</h1>
         <p></p>
         <p>Produce application/problem+json responses from a Micronaut application.</p>
-        <p><strong>Version:</strong> <select style='max-width: 200px' onChange='window.document.location.href=this.options[this.selectedIndex].value;'><option value='https://micronaut-projects.github.io/micronaut-problem-json/snapshot/guide/index.html'>SNAPSHOT</option><option selected='selected' value='https://micronaut-projects.github.io/micronaut-problem-json/2.2.2/guide/index.html'>2.2.2</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/2.2.1/guide/index.html'>2.2.1</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/2.2.0/guide/index.html'>2.2.0</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/2.1.0/guide/index.html'>2.1.0</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/2.0.0/guide/index.html'>2.0.0</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/2.0.0-M2/guide/index.html'>2.0.0-M2</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/2.0.0-M1/guide/index.html'>2.0.0-M1</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/1.0.0-M1/guide/index.html'>1.0.0-M1</option></select> </p>
+        <p><strong>Version:</strong> <select style='max-width: 200px' onChange='window.document.location.href=this.options[this.selectedIndex].value;'><option value='https://micronaut-projects.github.io/micronaut-problem-json/snapshot/guide/index.html'>SNAPSHOT</option><option selected='selected' value='https://micronaut-projects.github.io/micronaut-problem-json/2.2.3/guide/index.html'>2.2.3</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/2.2.2/guide/index.html'>2.2.2</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/2.2.1/guide/index.html'>2.2.1</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/2.2.0/guide/index.html'>2.2.0</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/2.1.0/guide/index.html'>2.1.0</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/2.0.0/guide/index.html'>2.0.0</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/2.0.0-M2/guide/index.html'>2.0.0-M2</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/2.0.0-M1/guide/index.html'>2.0.0-M1</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/1.0.0-M1/guide/index.html'>1.0.0-M1</option></select> </p>
     </div>
     
 <h1 id="introduction"><a class="anchor" href="#introduction"></a>1 Introduction</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-problem-json/edit/master/src/main/docs/guide/introduction.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-problem-json/edit/2.2.x/src/main/docs/guide/introduction.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -130,7 +138,7 @@ and <a href="https://docs.micronaut.io/latest/guide/#errorFormatting">Micronaut 
 <h1 id="releaseHistory"><a class="anchor" href="#releaseHistory"></a>2 Release History</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-problem-json/edit/master/src/main/docs/guide/releaseHistory.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-problem-json/edit/2.2.x/src/main/docs/guide/releaseHistory.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -143,10 +151,26 @@ and <a href="https://docs.micronaut.io/latest/guide/#errorFormatting">Micronaut 
 <p><a href="https://github.com/micronaut-projects/micronaut-problem-json/releases">https://github.com/micronaut-projects/micronaut-problem-json/releases</a></p>
 </div>
 
-<h1 id="installation"><a class="anchor" href="#installation"></a>3 Installation</h1>
+<h1 id="breaks"><a class="anchor" href="#breaks"></a>3 Breaking Changes</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-problem-json/edit/master/src/main/docs/guide/installation.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-problem-json/edit/2.2.x/src/main/docs/guide/breaks.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>The default Problem+JSON payload does not include the <code>detail</code> field to avoid accidental information disclosure if the exception root cause is not of type <code>UnsatisfiedRouteException</code> or <code>ThrowableProblem</code> to avoid accidental information disclosure since 2.2.3.</p>
+</div>
+<div class="paragraph">
+<p>You can <a href="#customizingProblemErrorResponseProcessor">customize it</a> to include always the detail or for some scenarios.</p>
+</div>
+
+<h1 id="installation"><a class="anchor" href="#installation"></a>4 Installation</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-problem-json/edit/2.2.x/src/main/docs/guide/installation.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -169,10 +193,10 @@ and <a href="https://docs.micronaut.io/latest/guide/#errorFormatting">Micronaut 
 </div></p>
 </div>
 
-<h1 id="usage"><a class="anchor" href="#usage"></a>4 Usage</h1>
+<h1 id="usage"><a class="anchor" href="#usage"></a>5 Usage</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-problem-json/edit/master/src/main/docs/guide/usage.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-problem-json/edit/2.2.x/src/main/docs/guide/usage.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -186,10 +210,10 @@ response content type to <code>application/problem+json</code> and the response 
 <p>Moreover, it registers <a href="../api/io/micronaut/problem/ThrowableProblemHandler.html">ThrowableProblemHandler</a>. A Micronaut <code>ErrorHandler</code> for handling <code>ThrowableProblem</code> exception.</p>
 </div>
 
-<h2 id="problemBuilder"><a class="anchor" href="#problemBuilder"></a>4.1 Problem Builder</h2>
+<h2 id="problemBuilder"><a class="anchor" href="#problemBuilder"></a>5.1 Problem Builder</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-problem-json/edit/master/src/main/docs/guide/usage/problemBuilder.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-problem-json/edit/2.2.x/src/main/docs/guide/usage/problemBuilder.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -294,10 +318,10 @@ class ProductController {
 </div>
 </div>
 
-<h2 id="customProblem"><a class="anchor" href="#customProblem"></a>4.2 Custom Problem</h2>
+<h2 id="customProblem"><a class="anchor" href="#customProblem"></a>5.2 Custom Problem</h2>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-problem-json/edit/master/src/main/docs/guide/usage/customProblem.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-problem-json/edit/2.2.x/src/main/docs/guide/usage/customProblem.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -442,10 +466,10 @@ class TaskController {
 </div>
 </div>
 
-<h1 id="configuration"><a class="anchor" href="#configuration"></a>5 Configuration</h1>
+<h1 id="configuration"><a class="anchor" href="#configuration"></a>6 Configuration</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-problem-json/edit/master/src/main/docs/guide/configuration.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-problem-json/edit/2.2.x/src/main/docs/guide/configuration.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
@@ -483,10 +507,45 @@ class TaskController {
 </tbody>
 </table>
 
-<h1 id="repository"><a class="anchor" href="#repository"></a>6 Repository</h1>
+<h1 id="customizingProblemErrorResponseProcessor"><a class="anchor" href="#customizingProblemErrorResponseProcessor"></a>7 Custom ProblemErrorResponseProcessor</h1>
 
 <div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-problem-json/edit/master/src/main/docs/guide/repository.adoc"'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-problem-json/edit/2.2.x/src/main/docs/guide/customizingProblemErrorResponseProcessor.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>The default Problem+JSON payload does not include the <code>detail</code> field to avoid accidental information disclosure if the exception root cause is not of type <code>UnsatisfiedRouteException</code> or <code>ThrowableProblem</code>.</p>
+</div>
+<div class="paragraph">
+<p>You can extend <a href="../api/io/micronaut/problem/ProblemErrorResponseProcessor.html">ProblemErrorResponseProcessor</a> to customize the behaviour:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Replaces(ProblemErrorResponseProcessor.class)
+@Singleton
+public class ProblemErrorResponseProcessorReplacement
+        extends ProblemErrorResponseProcessor {
+    ProblemErrorResponseProcessorReplacement(ProblemConfiguration config) {
+        super(config);
+    }
+
+    @Override
+    protected boolean includeErrorMessage(@NonNull ErrorContext errorContext) {
+        return errorContext.getRootCause()
+                .map(t -&gt; t instanceof FooException || t instanceof UnsatisfiedRouteException)
+                .orElse(false);
+    }
+}</code></pre>
+</div>
+</div>
+
+<h1 id="repository"><a class="anchor" href="#repository"></a>8 Repository</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-problem-json/edit/2.2.x/src/main/docs/guide/repository.adoc"'>
         <i class='fa fa-pencil-square-o'></i> Improve this doc
     </button>
 </div>
