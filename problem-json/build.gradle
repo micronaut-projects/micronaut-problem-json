@@ -4,6 +4,7 @@ plugins {
 
 dependencies {
     annotationProcessor("io.micronaut.serde:micronaut-serde-processor:$serdeVersion")
+
     api "org.zalando:problem:$problemVersion"
     implementation("io.micronaut.serde:micronaut-serde-api:$serdeVersion")
     implementation "io.micronaut:micronaut-validation"
@@ -11,4 +12,5 @@ dependencies {
 
     testImplementation("io.micronaut:micronaut-http-server-netty")
     testImplementation("io.micronaut:micronaut-http-client")
+    testAnnotationProcessor "io.micronaut:micronaut-inject-java"
 }
