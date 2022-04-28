@@ -1,13 +1,14 @@
 introduction:
   title: Introduction
 releaseHistory: Release History
+breaks: Breaking Changes
 installation:
   Installation
 usage:
   title: Usage
   problemBuilder: Problem Builder
   customProblem: Custom Problem
-configuration:
-  Configuration
+configuration: Configuration
+customizingProblemErrorResponseProcessor: Custom ProblemErrorResponseProcessor
 repository: Repository
 

@@ -27,13 +27,12 @@ import io.micronaut.http.server.exceptions.response.ErrorContext;
 import io.micronaut.http.server.exceptions.response.ErrorResponseProcessor;
 import io.micronaut.problem.conf.ProblemConfiguration;
 import io.micronaut.problem.conf.ProblemConfigurationProperties;
+import io.micronaut.web.router.exceptions.UnsatisfiedRouteException;
 import jakarta.inject.Inject;
 import org.zalando.problem.Problem;
 import org.zalando.problem.StatusType;
 import org.zalando.problem.ThrowableProblem;
-
 import jakarta.inject.Singleton;
-
 import java.net.URI;
 import java.util.Map;
 
@@ -94,7 +93,7 @@ public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Pro
     }
 
     /**
-     *
+     * Creates a {@link ThrowableProblem} when the root cause was not an exception of type {@link ThrowableProblem}.
      * @param errorContext Error Context
      * @param httpStatus HTTP Status
      * @return Default problem
@@ -106,10 +105,28 @@ public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Pro
         if (!errorContext.getErrors().isEmpty()) {
             Error error = errorContext.getErrors().get(0);
             error.getTitle().ifPresent(problemBuilder::withTitle);
-            problemBuilder.withDetail(error.getMessage());
+            if (includeErrorMessage(errorContext)) {
+                problemBuilder.withDetail(error.getMessage());
+            }
             error.getPath().ifPresent(path -> problemBuilder.with("path", path));
         }
         return problemBuilder.build();
+    }
+
+    /**
+     * Whether {@link ThrowableProblem}, created when the root cause is not an exception of type {@link ThrowableProblem}, should
+     * contain Error::getMessage in the problem detail.
+     *
+     * To avoid accidental information leakage defaults to false unless the root cause is of type {@link UnsatisfiedRouteException}
+     * which contains helpful information to diagnose the issue (e.g. missing required query value) in the details.
+     *
+     * @param errorContext Error Context
+     * @return To avoid accidental information leakage defaults to false unless the root cause is of type {@link UnsatisfiedRouteException}
+     */
+    protected boolean includeErrorMessage(@NonNull ErrorContext errorContext) {
+        return errorContext.getRootCause()
+                .map(UnsatisfiedRouteException.class::isInstance)
+                .orElse(false);
     }
 
     @Introspected
