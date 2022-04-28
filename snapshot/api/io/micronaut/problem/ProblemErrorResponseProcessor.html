@@ -17,7 +17,7 @@
     catch(err) {
     }
 //-->
-var methods = {"i0":10,"i1":10};
+var methods = {"i0":10,"i1":10,"i2":10};
 var tabs = {65535:["t0","All Methods"],2:["t2","Instance Methods"],8:["t4","Concrete Methods"]};
 var altColor = "altColor";
 var rowColor = "rowColor";
@@ -191,9 +191,18 @@ implements io.micronaut.http.server.exceptions.response.ErrorResponseProcessor&l
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>protected org.zalando.problem.ThrowableProblem</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../io/micronaut/problem/ProblemErrorResponseProcessor.html#defaultProblem-io.micronaut.http.server.exceptions.response.ErrorContext-io.micronaut.http.HttpStatus-">defaultProblem</a></span>(io.micronaut.http.server.exceptions.response.ErrorContext&nbsp;errorContext,
-              io.micronaut.http.HttpStatus&nbsp;httpStatus)</code>&nbsp;</td>
+              io.micronaut.http.HttpStatus&nbsp;httpStatus)</code>
+<div class="block">Creates a <code>ThrowableProblem</code> when the root cause was not an exception of type <code>ThrowableProblem</code>.</div>
+</td>
 </tr>
 <tr id="i1" class="rowColor">
+<td class="colFirst"><code>protected boolean</code></td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../io/micronaut/problem/ProblemErrorResponseProcessor.html#includeErrorMessage-io.micronaut.http.server.exceptions.response.ErrorContext-">includeErrorMessage</a></span>(io.micronaut.http.server.exceptions.response.ErrorContext&nbsp;errorContext)</code>
+<div class="block">Whether <code>ThrowableProblem</code>, created when the root cause is not an exception of type <code>ThrowableProblem</code>, should
+ contain Error::getMessage in the problem detail.</div>
+</td>
+</tr>
+<tr id="i2" class="altColor">
 <td class="colFirst"><code>io.micronaut.http.MutableHttpResponse&lt;org.zalando.problem.Problem&gt;</code></td>
 <td class="colLast"><code><span class="memberNameLink"><a href="../../../io/micronaut/problem/ProblemErrorResponseProcessor.html#processResponse-io.micronaut.http.server.exceptions.response.ErrorContext-io.micronaut.http.MutableHttpResponse-">processResponse</a></span>(io.micronaut.http.server.exceptions.response.ErrorContext&nbsp;errorContext,
                io.micronaut.http.MutableHttpResponse&lt;?&gt;&nbsp;baseResponse)</code>&nbsp;</td>
@@ -297,7 +306,7 @@ public&nbsp;io.micronaut.http.MutableHttpResponse&lt;org.zalando.problem.Problem
 <a name="defaultProblem-io.micronaut.http.server.exceptions.response.ErrorContext-io.micronaut.http.HttpStatus-">
 <!--   -->
 </a>
-<ul class="blockListLast">
+<ul class="blockList">
 <li class="blockList">
 <h4>defaultProblem</h4>
 <pre>@NonNull
@@ -305,12 +314,34 @@ protected&nbsp;org.zalando.problem.ThrowableProblem&nbsp;defaultProblem(@NonNull
                                                                        io.micronaut.http.server.exceptions.response.ErrorContext&nbsp;errorContext,
                                                                        @NonNull
                                                                        io.micronaut.http.HttpStatus&nbsp;httpStatus)</pre>
+<div class="block">Creates a <code>ThrowableProblem</code> when the root cause was not an exception of type <code>ThrowableProblem</code>.</div>
 <dl>
 <dt><span class="paramLabel">Parameters:</span></dt>
 <dd><code>errorContext</code> - Error Context</dd>
 <dd><code>httpStatus</code> - HTTP Status</dd>
 <dt><span class="returnLabel">Returns:</span></dt>
 <dd>Default problem</dd>
+</dl>
+</li>
+</ul>
+<a name="includeErrorMessage-io.micronaut.http.server.exceptions.response.ErrorContext-">
+<!--   -->
+</a>
+<ul class="blockListLast">
+<li class="blockList">
+<h4>includeErrorMessage</h4>
+<pre>protected&nbsp;boolean&nbsp;includeErrorMessage(@NonNull
+                                      io.micronaut.http.server.exceptions.response.ErrorContext&nbsp;errorContext)</pre>
+<div class="block">Whether <code>ThrowableProblem</code>, created when the root cause is not an exception of type <code>ThrowableProblem</code>, should
+ contain Error::getMessage in the problem detail.
+
+ To avoid accidental information leakage defaults to false unless the root cause is of type <code>UnsatisfiedRouteException</code>
+ which contains helpful information to diagnose the issue (e.g. missing required query value) in the details.</div>
+<dl>
+<dt><span class="paramLabel">Parameters:</span></dt>
+<dd><code>errorContext</code> - Error Context</dd>
+<dt><span class="returnLabel">Returns:</span></dt>
+<dd>To avoid accidental information leakage defaults to false unless the root cause is of type <code>UnsatisfiedRouteException</code></dd>
 </dl>
 </li>
 </ul>
