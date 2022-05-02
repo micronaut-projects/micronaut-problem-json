@@ -1,0 +1,3 @@
+The default Problem+JSON payload does not include the `detail` field to avoid accidental information disclosure if the exception root cause is not of type `UnsatisfiedRouteException` or `ThrowableProblem` to avoid accidental information disclosure since 2.2.3.
+
+You can <<customizingProblemErrorResponseProcessor, customize it>> to include always the detail or for some scenarios.
