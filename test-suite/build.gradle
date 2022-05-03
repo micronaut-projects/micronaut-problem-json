@@ -6,22 +6,18 @@ repositories {
 }
 
 dependencies {
-    testAnnotationProcessor(platform("io.micronaut:micronaut-bom:$micronautVersion"))
-    testAnnotationProcessor "io.micronaut:micronaut-inject-java"
-    testAnnotationProcessor("io.micronaut:micronaut-validation")
+    api platform(mn.micronaut.bom)
+    implementation platform(mn.micronaut.bom)
+    annotationProcessor platform(mn.micronaut.bom)
 
-    testImplementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
-    testImplementation("io.micronaut:micronaut-validation")
-
-    testImplementation("ch.qos.logback:logback-classic")
-
-    testImplementation("org.junit.jupiter:junit-jupiter-api")
-    testImplementation "io.micronaut.test:micronaut-test-junit5"
-    testRuntimeOnly("org.junit.jupiter:junit-jupiter-engine")
-
-    testImplementation("io.micronaut:micronaut-http-server-netty")
-    testImplementation("io.micronaut:micronaut-http-client")
     testImplementation project(":problem-json")
+    testImplementation mn.micronaut.validation
+    testImplementation mn.micronaut.http.server.netty
+    testImplementation mn.micronaut.http.client
+    testImplementation libs.logback.classic
+
+    testAnnotationProcessor mn.micronaut.inject.java
+    testAnnotationProcessor mn.micronaut.validation
 }
 
 tasks.named('test') {
