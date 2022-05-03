@@ -10,7 +10,7 @@ dependencies {
     testAnnotationProcessor(platform("io.micronaut:micronaut-bom:$micronautVersion"))
     testAnnotationProcessor "io.micronaut:micronaut-inject-java"
     testAnnotationProcessor("io.micronaut:micronaut-validation")
-    testAnnotationProcessor("io.micronaut.serde:micronaut-serde-processor:$serdeVersion")
+    testAnnotationProcessor("io.micronaut.serde:micronaut-serde-processor")
     testImplementation(platform("io.micronaut:micronaut-bom:$micronautVersion"))
     testImplementation("io.micronaut:micronaut-validation")
 
