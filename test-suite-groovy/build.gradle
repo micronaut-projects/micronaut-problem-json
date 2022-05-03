@@ -11,9 +11,14 @@ dependencies {
     testCompileOnly mn.micronaut.inject.groovy
 
     testImplementation project(":problem-json")
+    testImplementation mn.micronaut.test.spock
     testImplementation mn.micronaut.validation
     testImplementation mn.micronaut.http.server.netty
     testImplementation mn.micronaut.http.client
+    testImplementation mn.groovy
+    testImplementation(mn.spock) {
+        exclude module: 'groovy-all'
+    }
 }
 
 tasks.named('test') {

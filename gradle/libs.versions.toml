@@ -1,6 +1,11 @@
 [versions]
-zalando-problem="0.27.1"
+managed-zalando-problem="0.27.1"
+micronaut-serde="1.0.1"
 
 [libraries]
-zalando-problem = { module = "org.zalando:problem", version.ref = "zalando-problem" }
-logback-classic = { module = "ch.qos.logback:logback-classic" }
+managed-zalando-problem = { module = "org.zalando:problem", version.ref = "managed-zalando-problem" }
+micronaut-serde-processor = { module = "io.micronaut.serde:micronaut-serde-processor", version.ref = "micronaut-serde" }
+micronaut-serde-jackson = { module = "io.micronaut.serde:micronaut-serde-jackson", version.ref = "micronaut-serde" }
+kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8" }
+junit-api = { module = "org.junit.jupiter:junit-jupiter-api" }
+junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine" }
