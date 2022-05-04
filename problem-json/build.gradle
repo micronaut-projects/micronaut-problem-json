@@ -3,11 +3,7 @@ plugins {
 }
 
 dependencies {
-    api platform(mn.micronaut.bom)
-    annotationProcessor platform(mn.micronaut.bom)
-
     api libs.managed.zalando.problem
-
     implementation mn.micronaut.serde.api
     implementation mn.micronaut.validation
     implementation mn.micronaut.http.server

@@ -20,7 +20,7 @@ dependencies {
     testImplementation libs.junit.api
     testAnnotationProcessor mn.micronaut.inject.java
     testAnnotationProcessor mn.micronaut.validation
-    testAnnotationProcessor libs.micronaut.serde.processor
+    testAnnotationProcessor mn.micronaut.serde.processor
 
 }
 System.out.println(mn.micronaut.serde.processor.getClass().getName())
@@ -35,8 +35,7 @@ java {
 
 configurations.all {
     resolutionStrategy.dependencySubstitution {
-        //TODO is there a better approach?
-        substitute(module("${mn.jackson.databind.getOrNull()}"))
-                .using(module("${libs.micronaut.serde.jackson.getOrNull()}"))
+        substitute(module("io.micronaut:micronaut-jackson-databind"))
+                .using(module("io.micronaut.serde:micronaut-serde-jackson:$serdeVersion"))
     }
 }
