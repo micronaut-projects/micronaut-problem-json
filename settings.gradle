@@ -16,7 +16,6 @@ dependencyResolutionManagement {
     repositories {
         mavenCentral()
     }
-
     versionCatalogs {
         "mn" {
             from("io.micronaut:micronaut-bom:${providers.gradleProperty("micronautVersion").get()}")
