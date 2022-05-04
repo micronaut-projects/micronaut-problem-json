@@ -15,7 +15,6 @@ dependencies {
     testImplementation project(":problem-json")
     testImplementation mn.micronaut.http.server.netty
     testImplementation mn.micronaut.http.client
-    testImplementation mn.groovy
 }
 
 tasks.named('test') {
