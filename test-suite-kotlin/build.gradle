@@ -8,20 +8,15 @@ repositories {
 }
 
 dependencies {
-    api platform(mn.micronaut.bom)
-    annotationProcessor platform(mn.micronaut.bom)
-
-    testRuntimeOnly libs.junit.engine
-
-    testImplementation project(":problem-json")
     testImplementation mn.micronaut.validation
+    testImplementation libs.junit.api
+    testImplementation mn.micronaut.test.junit5
+    testRuntimeOnly libs.junit.engine
+    testImplementation libs.kotlin.stdlib.jdk8
+    kaptTest mn.micronaut.inject.java
+    testImplementation project(":problem-json")
     testImplementation mn.micronaut.http.server.netty
     testImplementation mn.micronaut.http.client
-    testImplementation mn.micronaut.test.junit5
-    testImplementation libs.junit.api
-    testImplementation libs.kotlin.stdlib.jdk8
-
-    kaptTest mn.micronaut.inject.java
 }
 
 tasks.named('test') {
