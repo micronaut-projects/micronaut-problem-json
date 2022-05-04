@@ -12,9 +12,6 @@ plugins {
     id 'io.micronaut.build.shared.settings'
 }
 
-enableFeaturePreview("VERSION_CATALOGS")
-enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-
 dependencyResolutionManagement {
     repositories {
         mavenCentral()
