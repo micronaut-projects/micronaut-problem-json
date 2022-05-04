@@ -6,21 +6,18 @@ repositories {
 }
 
 dependencies {
-    api platform(mn.micronaut.bom)
-    annotationProcessor platform(mn.micronaut.bom)
-
-    testRuntimeOnly libs.junit.engine
-
-    testImplementation project(":problem-json")
-    testImplementation mn.micronaut.validation
-    testImplementation mn.micronaut.http.server.netty
-    testImplementation mn.micronaut.http.client
-    testImplementation mn.micronaut.test.junit5
-    testImplementation libs.junit.api
-    testImplementation mn.logback
-
+    testAnnotationProcessor platform(mn.micronaut.bom)
     testAnnotationProcessor mn.micronaut.inject.java
     testAnnotationProcessor mn.micronaut.validation
+    testImplementation platform(mn.micronaut.bom)
+    testImplementation mn.micronaut.validation
+    testImplementation mn.logback
+    testImplementation libs.junit.api
+    testImplementation mn.micronaut.test.junit5
+    testRuntimeOnly libs.junit.engine
+    testImplementation mn.micronaut.http.server.netty
+    testImplementation mn.micronaut.http.client
+    testImplementation project(":problem-json")
 }
 
 tasks.named('test') {
