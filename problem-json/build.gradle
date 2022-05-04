@@ -3,10 +3,10 @@ plugins {
 }
 
 dependencies {
-    annotationProcessor("io.micronaut.serde:micronaut-serde-processor:$serdeVersion")
+    annotationProcessor("io.micronaut.serde:micronaut-serde-processor")
 
     api "org.zalando:problem:$problemVersion"
-    implementation("io.micronaut.serde:micronaut-serde-api:$serdeVersion")
+    implementation("io.micronaut.serde:micronaut-serde-api")
     implementation "io.micronaut:micronaut-validation"
     implementation "io.micronaut:micronaut-http-server"
 
