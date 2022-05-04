@@ -3,15 +3,11 @@ plugins {
 }
 repositories {
     mavenCentral()
-    maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots/" }
 }
 
 dependencies {
-    api platform(mn.micronaut.bom)
-    annotationProcessor platform(mn.micronaut.bom)
-
+    testAnnotationProcessor platform(mn.micronaut.bom)
     testRuntimeOnly libs.junit.engine
-
     testImplementation project(":problem-json")
     testImplementation mn.micronaut.validation
     testImplementation mn.micronaut.http.server.netty
@@ -23,7 +19,6 @@ dependencies {
     testAnnotationProcessor mn.micronaut.serde.processor
 
 }
-System.out.println(mn.micronaut.serde.processor.getClass().getName())
 tasks.named('test') {
     useJUnitPlatform()
 }
