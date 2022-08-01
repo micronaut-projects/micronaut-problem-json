@@ -1,0 +1,37 @@
+[
+  {
+    "type": "io.micronaut.problem.conf.MixInThrowableProblem",
+    "member": "Class io.micronaut.problem.conf.MixInThrowableProblem",
+    "reason": "removed deprecated class for Micronaut 4.0.x"
+  },
+  {
+    "type": "io.micronaut.problem.conf.MixInThrowableProblem",
+    "member": "Constructor io.micronaut.problem.conf.MixInThrowableProblem()",
+    "reason": "removed deprecated class for Micronaut 4.0.x"
+  },
+  {
+    "type": "io.micronaut.problem.conf.ThrowableProblemObjectMapperBeanCreatedEventListener",
+    "member": "Class io.micronaut.problem.conf.ThrowableProblemObjectMapperBeanCreatedEventListener",
+    "reason": "removed deprecated class for Micronaut 4.0.x"
+  },
+  {
+    "type": "io.micronaut.problem.conf.ThrowableProblemObjectMapperBeanCreatedEventListener",
+    "member": "Method io.micronaut.problem.conf.ThrowableProblemObjectMapperBeanCreatedEventListener.onCreated(io.micronaut.context.event.BeanCreatedEvent)",
+    "reason": "removed deprecated class for Micronaut 4.0.x"
+  },
+  {
+    "type": "io.micronaut.problem.conf.ThrowableProblemObjectMapperBeanCreatedEventListener",
+    "member": "Constructor io.micronaut.problem.conf.ThrowableProblemObjectMapperBeanCreatedEventListener(io.micronaut.problem.conf.ProblemConfiguration)",
+    "reason": "removed deprecated class for Micronaut 4.0.x"
+  },
+  {
+    "type": "io.micronaut.problem.ProblemErrorResponseProcessor",
+    "member": "Class io.micronaut.problem.ProblemErrorResponseProcessor",
+    "reason": "removed deprecated class for Micronaut 4.0.x"
+  },
+  {
+    "type": "io.micronaut.problem.ProblemErrorResponseProcessor",
+    "member": "Constructor io.micronaut.problem.ProblemErrorResponseProcessor()",
+    "reason": "removed deprecated class for Micronaut 4.0.x"
+  }
+]
