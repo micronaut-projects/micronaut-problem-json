@@ -27,11 +27,11 @@
   {
     "type": "io.micronaut.problem.ProblemErrorResponseProcessor",
     "member": "Class io.micronaut.problem.ProblemErrorResponseProcessor",
-    "reason": "removed deprecated class for Micronaut 4.0.x"
+    "reason": "removed deprecated constructor for Micronaut 4.0.x"
   },
   {
     "type": "io.micronaut.problem.ProblemErrorResponseProcessor",
     "member": "Constructor io.micronaut.problem.ProblemErrorResponseProcessor()",
-    "reason": "removed deprecated class for Micronaut 4.0.x"
+    "reason": "removed deprecated constructor for Micronaut 4.0.x"
   }
 ]
