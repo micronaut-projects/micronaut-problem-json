@@ -54,15 +54,6 @@ public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Pro
 
     /**
      * Constructor.
-     * Use {@link #ProblemErrorResponseProcessor(ProblemConfiguration)}  instead.
-     */
-    @Deprecated
-    public ProblemErrorResponseProcessor() {
-        this(() -> ProblemConfigurationProperties.DEFAULT_STACK_TRACKE);
-    }
-
-    /**
-     * Constructor.
      * @param config Problem configuration
      */
     @Inject
