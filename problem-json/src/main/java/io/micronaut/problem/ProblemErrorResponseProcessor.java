@@ -26,13 +26,12 @@ import io.micronaut.http.server.exceptions.response.Error;
 import io.micronaut.http.server.exceptions.response.ErrorContext;
 import io.micronaut.http.server.exceptions.response.ErrorResponseProcessor;
 import io.micronaut.problem.conf.ProblemConfiguration;
-import io.micronaut.problem.conf.ProblemConfigurationProperties;
 import io.micronaut.web.router.exceptions.UnsatisfiedRouteException;
-import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 import org.zalando.problem.Problem;
 import org.zalando.problem.StatusType;
 import org.zalando.problem.ThrowableProblem;
-import jakarta.inject.Singleton;
+
 import java.net.URI;
 import java.util.Map;
 
@@ -56,7 +55,6 @@ public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Pro
      * Constructor.
      * @param config Problem configuration
      */
-    @Inject
     public ProblemErrorResponseProcessor(ProblemConfiguration config) {
         this.stackTraceConfig = config.isStackTrace();
     }
