@@ -28,6 +28,11 @@ public class ProductController {
                 .build();
     }
 
+    @Get("/problem")
+    public void problem() {
+        throw new ProductProblem("random");
+    }
+
     @Post
     public HttpResponse<String> add(@Valid @Body Widget item) {
         return HttpResponse.ok(item.getItem());
