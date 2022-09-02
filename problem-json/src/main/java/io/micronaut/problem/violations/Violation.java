@@ -15,8 +15,8 @@
  */
 package io.micronaut.problem.violations;
 
-import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.serde.annotation.Serdeable;
 
 import javax.validation.constraints.NotBlank;
 
@@ -25,7 +25,7 @@ import javax.validation.constraints.NotBlank;
  * @author Sergio del Amo
  * @since 1.0
  */
-@Introspected
+@Serdeable
 public class Violation {
     /**
      * Field affected by the violation.
