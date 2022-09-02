@@ -17,7 +17,6 @@ package io.micronaut.problem;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.http.HttpMethod;
 import io.micronaut.http.HttpStatus;
@@ -27,6 +26,7 @@ import io.micronaut.http.server.exceptions.response.ErrorContext;
 import io.micronaut.http.server.exceptions.response.ErrorResponseProcessor;
 import io.micronaut.problem.conf.ProblemConfiguration;
 import io.micronaut.problem.conf.ProblemConfigurationProperties;
+import io.micronaut.serde.annotation.Serdeable;
 import io.micronaut.web.router.exceptions.UnsatisfiedRouteException;
 import jakarta.inject.Inject;
 import org.zalando.problem.Problem;
@@ -129,7 +129,7 @@ public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Pro
                 .orElse(false);
     }
 
-    @Introspected
+    @Serdeable
     static final class ThrowableProblemWithoutStacktrace implements Problem {
         @JsonUnwrapped
         @JsonIgnoreProperties(value = {"stackTrace", "localizedMessage", "message", "type", "title", "status", "detail", "instance", "parameters"})
