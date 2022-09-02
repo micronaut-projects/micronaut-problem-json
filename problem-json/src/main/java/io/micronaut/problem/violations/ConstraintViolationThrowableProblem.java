@@ -15,8 +15,10 @@
  */
 package io.micronaut.problem.violations;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import io.micronaut.core.annotation.NonNull;
 import io.micronaut.core.annotation.Nullable;
+import io.micronaut.serde.annotation.Serdeable;
 import org.zalando.problem.StatusType;
 import org.zalando.problem.ThrowableProblem;
 
@@ -30,6 +32,9 @@ import java.util.List;
  * @author Sergio del Amo
  * @since 1.0
  */
+
+@JsonIgnoreProperties(value = {"stackTrace", "localizedMessage", "message"})
+@Serdeable
 public class ConstraintViolationThrowableProblem extends ThrowableProblem {
 
     public static final String TYPE_VALUE = "https://zalando.github.io/problem/constraint-violation";
