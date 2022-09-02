@@ -9,7 +9,9 @@ dependencies {
     testAnnotationProcessor platform(mn.micronaut.bom)
     testAnnotationProcessor mn.micronaut.inject.java
     testAnnotationProcessor mn.micronaut.validation
-    testAnnotationProcessor mn.micronaut.serde.processor
+
+    //testAnnotationProcessor mn.micronaut.serde.processor
+    annotationProcessor("io.micronaut.serde:micronaut-serde-processor:1.3.2")
     testImplementation mn.micronaut.validation
     testImplementation libs.junit.api
     testImplementation mn.micronaut.test.junit5
