@@ -2,7 +2,6 @@ package io.micronaut.problem;
 
 import io.micronaut.context.annotation.Property;
 import io.micronaut.context.annotation.Requires;
-import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.util.CollectionUtils;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpResponse;
@@ -15,7 +14,6 @@ import io.micronaut.http.client.exceptions.HttpClientResponseException;
 import io.micronaut.serde.annotation.Serdeable;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import javax.validation.Valid;
@@ -29,12 +27,11 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Property(name = "spec.name", value = "ProblemConstraintsTest")
 @MicronautTest
-public class ProblemConstraintsTest {
+class ProblemConstraintsTest {
     @Inject
     @Client("/")
     HttpClient httpClient;
 
-    @Disabled("pending fix for https://github.com/micronaut-projects/micronaut-problem-json/issues/176")
     @Test
     void thatViolationsAreSerializedOnConstraintViolations() {
         HttpClientResponseException e = assertThrows(HttpClientResponseException.class,
@@ -49,7 +46,7 @@ public class ProblemConstraintsTest {
         );
         assertTrue(e.getResponse().getBody(Map.class).isPresent());
         Map<String, Object> m = e.getResponse().getBody(Map.class).get();
-        //assertEquals(expected.size(), m.size());
+        assertEquals(expected.size(), m.size());
 
         assertEquals("https://zalando.github.io/problem/constraint-violation", m.get("type"));
         assertEquals("Constraint Violation", m.get("title"));
