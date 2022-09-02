@@ -47,7 +47,7 @@ public class ProblemConstraintsTest {
         );
         assertTrue(e.getResponse().getBody(Map.class).isPresent());
         Map<String, Object> m = e.getResponse().getBody(Map.class).get();
-        //assertEquals(expected.size(), m.size());
+        assertEquals(expected.size(), m.size());
 
         assertEquals("https://zalando.github.io/problem/constraint-violation", m.get("type"));
         assertEquals("Constraint Violation", m.get("title"));

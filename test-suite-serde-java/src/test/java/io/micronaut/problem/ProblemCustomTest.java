@@ -10,6 +10,7 @@ import io.micronaut.http.annotation.Get;
 import io.micronaut.http.client.HttpClient;
 import io.micronaut.http.client.annotation.Client;
 import io.micronaut.http.client.exceptions.HttpClientResponseException;
+import io.micronaut.serde.annotation.Serdeable;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Disabled;
@@ -24,14 +25,14 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Property(name = "spec.name", value = "ProblemCustomTest")
 @MicronautTest
-public class ProblemCustomTest {
+class ProblemCustomTest {
     @Inject
     @Client("/")
     HttpClient httpClient;
 
     @Test
     @Disabled("pending fix for https://github.com/micronaut-projects/micronaut-problem-json/issues/176")
-    public void customProblemAreSerializedWithSerde() {
+    void customProblemAreSerializedWithSerde() {
         HttpClientResponseException e = assertThrows(HttpClientResponseException.class,
             () -> httpClient.toBlocking().exchange(HttpRequest.GET("/product/problem"))
         );
@@ -61,6 +62,7 @@ public class ProblemCustomTest {
 
     }
 
+    @Serdeable
     static class ProductProblem extends AbstractThrowableProblem {
 
         private final String field;
