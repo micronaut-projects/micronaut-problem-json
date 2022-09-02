@@ -11,15 +11,10 @@ import io.micronaut.http.client.BlockingHttpClient;
 import io.micronaut.http.client.HttpClient;
 import io.micronaut.http.client.annotation.Client;
 import io.micronaut.http.client.exceptions.HttpClientResponseException;
-import io.micronaut.http.server.exceptions.response.ErrorContext;
 import io.micronaut.http.uri.UriBuilder;
-import io.micronaut.problem.conf.ProblemConfiguration;
-import io.micronaut.problem.violations.ConstraintViolationThrowableProblem;
 import io.micronaut.serde.ObjectMapper;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
-import jakarta.inject.Singleton;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import java.io.IOException;
@@ -115,62 +110,5 @@ public class ProblemSerdeTest {
 
         //and:
         assertEquals("{\"type\":\"https://example.org/out-of-stock\",\"title\":\"Out of Stock\",\"status\":400,\"detail\":\"Item B00027Y5QG is no longer available\",\"parameters\":{\"product\":\"B00027Y5QG\"}}", bodyOptional.get());
-    }
-
-    /*
-        The docs say, "The default Problem+JSON payload does not include the detail field to avoid
-            accidental information disclosure if the exception root cause is not of type
-            UnsatisfiedRouteException or ThrowableProblem"
-        However, see ProblemErrorResponseProcessor.includeErrorMessage(). It only handles UnsatisfiedRouteException
-        and not ThrowableProblem.
-
-        The docs at https://micronaut-projects.github.io/micronaut-problem-json/latest/guide/#customizingProblemErrorResponseProcessor
-        makes me think the following ProblemErrorResponseProcessorReplacement should work,
-        but includeErrorMessage() is never called.
-     */
-    @Test
-    @Disabled("pending fix for https://github.com/micronaut-projects/micronaut-problem-json/issues/176")
-    void thatViolationsAreSerializedOnConstraintViolations() {
-        HttpClientResponseException e = assertThrows(HttpClientResponseException.class,
-            () -> httpClient.toBlocking().exchange(HttpRequest.POST("/product", new Widget()))
-        );
-
-        String expected = "{\"type\":\"https://zalando.github.io/problem/constraint-violation\",\"title\":\"Constraint Violation\",\"status\":400,\"violations\":[{\"field\":\"add.item.item\",\"message\":\"must not be blank\"}]}";
-        assertTrue(e.getResponse().getBody(String.class).isPresent());
-        assertEquals(expected, e.getResponse().getBody(String.class).get());
-    }
-
-    @Test
-    @Disabled("pending fix for https://github.com/micronaut-projects/micronaut-problem-json/issues/176")
-    public void testFooController() {
-        HttpClientResponseException e = assertThrows(HttpClientResponseException.class,
-            () -> httpClient.toBlocking().exchange(HttpRequest.GET("/product/problem"))
-        );
-
-        String expected = "{\"type\":\"about:blank\",\"title\":\"Internal Server Error\",\"status\":500,\"field\":\"random\"}";
-        assertTrue(e.getResponse().getBody(String.class).isPresent());
-        assertEquals(expected, e.getResponse().getBody(String.class).get());
-
-    }
-}
-
-@Requires(property = "spec.name", value = "ProblemSerdeTest")
-@Replaces(ProblemErrorResponseProcessor.class)
-@Singleton
-class ProblemErrorResponseProcessorReplacement extends ProblemErrorResponseProcessor {
-    ProblemErrorResponseProcessorReplacement(ProblemConfiguration config) {
-        super(config);
-    }
-
-    @Override
-    protected boolean includeErrorMessage(@NonNull ErrorContext errorContext) {
-        boolean defaultIncludes = super.includeErrorMessage(errorContext);
-        Optional<Throwable> rootCause = errorContext.getRootCause();
-        return rootCause
-            .map(t -> defaultIncludes ||
-                t instanceof ConstraintViolationThrowableProblem ||
-                t instanceof ProductProblem
-            )
-            .orElse(false);
     }
 }
