@@ -2,6 +2,7 @@ package io.micronaut.problem;
 
 import io.micronaut.context.annotation.Property;
 import io.micronaut.context.annotation.Requires;
+import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.util.CollectionUtils;
 import io.micronaut.http.HttpRequest;
 import io.micronaut.http.HttpStatus;
@@ -23,13 +24,13 @@ import static org.junit.jupiter.api.Assertions.assertTrue;
 
 @Property(name = "spec.name", value = "ProblemCustomTest")
 @MicronautTest
-public class ProblemCustomTest {
+class ProblemCustomTest {
     @Inject
     @Client("/")
     HttpClient httpClient;
 
     @Test
-    public void customProblemAreSerialized() {
+    void customProblemAreSerialized() {
         HttpClientResponseException e = assertThrows(HttpClientResponseException.class,
             () -> httpClient.toBlocking().exchange(HttpRequest.GET("/product/problem"))
         );
@@ -59,6 +60,7 @@ public class ProblemCustomTest {
 
     }
 
+    @Introspected
     static class ProductProblem extends AbstractThrowableProblem {
 
         private final String field;
