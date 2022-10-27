@@ -1,4 +1,6 @@
 [versions]
+kotlin = '1.7.20'
+
 managed-zalando-problem="0.27.1"
 
 [libraries]
@@ -6,3 +8,8 @@ managed-zalando-problem = { module = "org.zalando:problem", version.ref = "manag
 kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8" }
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api" }
 junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine" }
+
+#PLUGINS
+
+kotlin-gradle-plugin = { module = 'org.jetbrains.kotlin:kotlin-gradle-plugin', version.ref = 'kotlin' }
+kotlin-gradle-allopen = { module = 'org.jetbrains.kotlin:kotlin-allopen', version.ref = 'kotlin' }

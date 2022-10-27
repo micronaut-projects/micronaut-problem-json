@@ -1,9 +1,6 @@
 plugins {
     id 'java-library'
-}
-repositories {
-    mavenCentral()
-    maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots/" }
+    id("io.micronaut.build.internal.problem-json-tests")
 }
 
 dependencies {
@@ -17,15 +14,10 @@ dependencies {
     testRuntimeOnly libs.junit.engine
     testImplementation mn.micronaut.http.server.netty
     testImplementation mn.micronaut.http.client
-    testImplementation project(":problem-json")
+    testImplementation projects.problemJson
 }
 tasks.named('test') {
     useJUnitPlatform()
-}
-
-java {
-    sourceCompatibility = JavaVersion.toVersion("1.8")
-    targetCompatibility = JavaVersion.toVersion("1.8")
 }
 
 configurations.all {

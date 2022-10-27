@@ -1,11 +1,7 @@
 plugins {
-    id "org.jetbrains.kotlin.jvm" version "1.7.10"
-    id("org.jetbrains.kotlin.kapt") version "1.7.10"
-}
-
-repositories {
-    mavenCentral()
-    maven { url "https://s01.oss.sonatype.org/content/repositories/snapshots/" }
+    id("org.jetbrains.kotlin.jvm")
+    id("org.jetbrains.kotlin.kapt")
+    id("io.micronaut.build.internal.problem-json-tests")
 }
 
 dependencies {
@@ -15,7 +11,7 @@ dependencies {
     testRuntimeOnly libs.junit.engine
     testImplementation libs.kotlin.stdlib.jdk8
     kaptTest mn.micronaut.inject.java
-    testImplementation project(":problem-json")
+    testImplementation projects.problemJson
     testImplementation mn.micronaut.http.server.netty
     testImplementation mn.micronaut.http.client
 }
@@ -26,12 +22,7 @@ tasks.named('test') {
 
 tasks.named("compileTestKotlin") {
     kotlinOptions {
-        jvmTarget = '1.8'
+        jvmTarget = '17'
         javaParameters = true
     }
-}
-
-java {
-    sourceCompatibility = JavaVersion.toVersion("1.8")
-    targetCompatibility = JavaVersion.toVersion("1.8")
 }
