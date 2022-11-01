@@ -8,6 +8,7 @@ dependencies {
     implementation(mn.micronaut.serde.api)
     implementation(mn.micronaut.validation)
     implementation(mn.micronaut.http.server)
+    implementation(mn.micronaut.jackson.databind)
 
     testImplementation(mn.micronaut.http.server.netty)
     testImplementation(mn.micronaut.http.client)

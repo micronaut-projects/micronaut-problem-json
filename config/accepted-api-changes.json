@@ -33,5 +33,45 @@
     "type": "io.micronaut.problem.ProblemErrorResponseProcessor",
     "member": "Constructor io.micronaut.problem.ProblemErrorResponseProcessor()",
     "reason": "removed deprecated constructor for Micronaut 4.0.x"
+  },
+  {
+    "type": "io.micronaut.problem.conf.ThrowableProblemObjectMapperBeanCreatedEventListener",
+    "member": "Implemented interface java.util.EventListener",
+    "reason": "removed for Micronaut 4.0.x"
+  },
+  {
+    "type": "io.micronaut.problem.conf.ThrowableProblemObjectMapperBeanCreatedEventListener",
+    "member": "Implemented interface io.micronaut.context.event.BeanCreatedEventListener",
+    "reason": "removed for Micronaut 4.0.x"
+  },
+  {
+    "type": "io.micronaut.problem.violations.$ConstraintViolationThrowableProblem$IntrospectionRef",
+    "member": "Field $ANNOTATION_METADATA",
+    "reason": "removed for Micronaut 4.0.x"
+  },
+  {
+    "type": "io.micronaut.problem.violations.$ConstraintViolationThrowableProblem$IntrospectionRef",
+    "member": "Constructor io.micronaut.problem.violations.$ConstraintViolationThrowableProblem$IntrospectionRef()",
+    "reason": "removed for Micronaut 4.0.x"
+  },
+  {
+    "type": "io.micronaut.problem.violations.$ConstraintViolationThrowableProblem$IntrospectionRef",
+    "member": "Implemented interface io.micronaut.core.annotation.AnnotationSource",
+    "reason": "removed for Micronaut 4.0.x"
+  },
+  {
+    "type": "io.micronaut.problem.violations.$ConstraintViolationThrowableProblem$IntrospectionRef",
+    "member": "Implemented interface io.micronaut.core.annotation.AnnotationMetadataProvider",
+    "reason": "removed for Micronaut 4.0.x"
+  },
+  {
+    "type": "io.micronaut.problem.violations.$ConstraintViolationThrowableProblem$IntrospectionRef",
+    "member": "Implemented interface io.micronaut.core.naming.Named",
+    "reason": "removed for Micronaut 4.0.x"
+  },
+  {
+    "type": "io.micronaut.problem.violations.$ConstraintViolationThrowableProblem$IntrospectionRef",
+    "member": "Implemented interface io.micronaut.core.beans.BeanIntrospectionReference",
+    "reason": "removed for Micronaut 4.0.x"
   }
 ]
