@@ -4,6 +4,10 @@ plugins {
     id("io.micronaut.build.internal.problem-json-tests")
 }
 
+repositories {
+    mavenCentral()
+}
+
 dependencies {
     testImplementation mn.micronaut.validation
     testImplementation libs.junit.api

@@ -26,6 +26,8 @@ import io.micronaut.http.server.exceptions.response.Error;
 import io.micronaut.http.server.exceptions.response.ErrorContext;
 import io.micronaut.http.server.exceptions.response.ErrorResponseProcessor;
 import io.micronaut.problem.conf.ProblemConfiguration;
+import io.micronaut.problem.conf.ProblemConfigurationProperties;
+import io.micronaut.problem.violations.ConstraintViolationThrowableProblem;
 import io.micronaut.web.router.exceptions.UnsatisfiedRouteException;
 import jakarta.inject.Singleton;
 import org.zalando.problem.Problem;
@@ -72,6 +74,8 @@ public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Pro
                 .orElseGet(() -> defaultProblem(errorContext, baseResponse.getStatus()));
         Problem body;
         if (stackTraceConfig) {
+            body = throwableProblem;
+        } else if (throwableProblem instanceof ConstraintViolationThrowableProblem) {
             body = throwableProblem;
         } else {
             body = new ThrowableProblemWithoutStacktrace(throwableProblem);
