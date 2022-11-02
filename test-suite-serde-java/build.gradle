@@ -15,17 +15,12 @@ dependencies {
     testImplementation mn.micronaut.http.server.netty
     testImplementation mn.micronaut.http.client
     testImplementation projects.problemJson
-    testImplementation(mn.micronaut.jackson.databind)
+    testImplementation(mn.micronaut.serde.jackson)
 }
 tasks.named('test') {
     useJUnitPlatform()
 }
 
-configurations.all {
-    resolutionStrategy.dependencySubstitution {
-        substitute(module("io.micronaut:micronaut-jackson-databind"))
-                .using(module("io.micronaut.serde:micronaut-serde-jackson:${mn.versions.micronaut.serialization.get()}"))
-    }
 java {
     sourceCompatibility = JavaVersion.toVersion("17")
     targetCompatibility = JavaVersion.toVersion("17")
