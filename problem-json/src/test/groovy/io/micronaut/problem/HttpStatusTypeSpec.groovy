@@ -1,7 +1,8 @@
 package io.micronaut.problem
 
-import com.fasterxml.jackson.databind.ObjectMapper
 import io.micronaut.http.HttpStatus
+import io.micronaut.serde.ObjectMapper
+import io.micronaut.serde.annotation.Serdeable
 import org.zalando.problem.StatusType
 import spock.lang.Shared
 
@@ -19,6 +20,7 @@ class HttpStatusTypeSpec extends ApplicationContextSpecification {
         objectMapper.writeValueAsString(pojo) == '{"status":418}'
     }
 
+    @Serdeable
     static class MockHttpStatusType {
         StatusType status
     }
