@@ -5,12 +5,8 @@ plugins {
 
 dependencies {
     testCompileOnly mn.micronaut.inject.groovy
-    testImplementation platform(mn.micronaut.bom)
     testImplementation mn.micronaut.validation
-    testImplementation(mn.spock) {
-        exclude module: 'groovy-all'
-    }
-    testImplementation mn.micronaut.test.spock
+    testImplementation mnTest.micronaut.test.spock
     testImplementation projects.problemJson
     testImplementation mn.micronaut.http.server.netty
     testImplementation mn.micronaut.http.client
@@ -18,9 +14,4 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
-}
-
-java {
-    sourceCompatibility = JavaVersion.toVersion("17")
-    targetCompatibility = JavaVersion.toVersion("17")
 }

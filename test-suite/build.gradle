@@ -4,14 +4,12 @@ plugins {
 }
 
 dependencies {
-    testAnnotationProcessor platform(mn.micronaut.bom)
     testAnnotationProcessor mn.micronaut.inject.java
     testAnnotationProcessor mn.micronaut.validation
-    testImplementation platform(mn.micronaut.bom)
     testImplementation mn.micronaut.validation
-    testImplementation mn.logback
+    testImplementation mn.logback.classic
     testImplementation libs.junit.api
-    testImplementation mn.micronaut.test.junit5
+    testImplementation mnTest.micronaut.test.junit5
     testRuntimeOnly libs.junit.engine
     testImplementation mn.micronaut.http.server.netty
     testImplementation mn.micronaut.http.client
@@ -20,9 +18,4 @@ dependencies {
 
 tasks.named('test') {
     useJUnitPlatform()
-}
-
-java {
-    sourceCompatibility = JavaVersion.toVersion("17")
-    targetCompatibility = JavaVersion.toVersion("17")
 }
