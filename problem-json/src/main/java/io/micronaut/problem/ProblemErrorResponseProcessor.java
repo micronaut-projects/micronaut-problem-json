@@ -26,7 +26,6 @@ import io.micronaut.http.server.exceptions.response.Error;
 import io.micronaut.http.server.exceptions.response.ErrorContext;
 import io.micronaut.http.server.exceptions.response.ErrorResponseProcessor;
 import io.micronaut.problem.conf.ProblemConfiguration;
-import io.micronaut.problem.conf.ProblemConfigurationProperties;
 import io.micronaut.problem.violations.ConstraintViolationThrowableProblem;
 import io.micronaut.web.router.exceptions.UnsatisfiedRouteException;
 import jakarta.inject.Singleton;
