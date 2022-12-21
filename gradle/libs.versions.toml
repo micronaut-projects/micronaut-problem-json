@@ -1,8 +1,27 @@
 [versions]
+
+micronaut = "4.0.0-SNAPSHOT"
+micronaut-docs = '2.0.0'
+micronaut-test = "4.0.0-SNAPSHOT"
+
+micronaut-serde = "2.0.0-SNAPSHOT"
+
+groovy = "4.0.6"
+kotlin = '1.7.22'
+spock = "2.3-groovy-4.0"
+
 managed-zalando-problem="0.27.1"
 
 [libraries]
+# micronaut boms
+micronaut-serde = { module = "io.micronaut.serde:micronaut-serde-bom", version.ref = "micronaut-serde" }
+
 managed-zalando-problem = { module = "org.zalando:problem", version.ref = "managed-zalando-problem" }
 kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8" }
 junit-api = { module = "org.junit.jupiter:junit-jupiter-api" }
 junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine" }
+
+#PLUGINS
+
+kotlin-gradle-plugin = { module = 'org.jetbrains.kotlin:kotlin-gradle-plugin', version.ref = 'kotlin' }
+kotlin-gradle-allopen = { module = 'org.jetbrains.kotlin:kotlin-allopen', version.ref = 'kotlin' }

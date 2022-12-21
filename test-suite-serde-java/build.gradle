@@ -1,35 +1,22 @@
 plugins {
     id 'java-library'
-}
-repositories {
-    mavenCentral()
+    id("io.micronaut.build.internal.problem-json-tests")
 }
 
 dependencies {
-    testAnnotationProcessor platform(mn.micronaut.bom)
     testAnnotationProcessor mn.micronaut.inject.java
     testAnnotationProcessor mn.micronaut.validation
-    testAnnotationProcessor mn.micronaut.serde.processor
+    testAnnotationProcessor mnSerde.micronaut.serde.processor
+
     testImplementation mn.micronaut.validation
     testImplementation libs.junit.api
-    testImplementation mn.micronaut.test.junit5
+    testImplementation mnTest.micronaut.test.junit5
     testRuntimeOnly libs.junit.engine
     testImplementation mn.micronaut.http.server.netty
     testImplementation mn.micronaut.http.client
-    testImplementation project(":problem-json")
+    testImplementation projects.problemJson
+    testImplementation(mnSerde.micronaut.serde.jackson)
 }
 tasks.named('test') {
     useJUnitPlatform()
-}
-
-java {
-    sourceCompatibility = JavaVersion.toVersion("1.8")
-    targetCompatibility = JavaVersion.toVersion("1.8")
-}
-
-configurations.all {
-    resolutionStrategy.dependencySubstitution {
-        substitute(module("io.micronaut:micronaut-jackson-databind"))
-                .using(module("io.micronaut.serde:micronaut-serde-jackson:${mn.versions.micronaut.serialization.get()}"))
-    }
 }

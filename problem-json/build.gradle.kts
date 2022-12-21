@@ -1,11 +1,12 @@
 plugins {
-    id("io.micronaut.build.internal.module")
+    id("io.micronaut.build.internal.problem-json-module")
 }
 
 dependencies {
-    annotationProcessor(mn.micronaut.serde.processor)
+    annotationProcessor(mnSerde.micronaut.serde.processor)
     api(libs.managed.zalando.problem)
-    implementation(mn.micronaut.serde.api)
+    implementation(mnSerde.micronaut.serde.api)
+    implementation(mnSerde.micronaut.serde.jackson)
     implementation(mn.micronaut.validation)
     implementation(mn.micronaut.http.server)
 

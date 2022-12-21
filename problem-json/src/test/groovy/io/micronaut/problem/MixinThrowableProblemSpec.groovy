@@ -5,6 +5,7 @@ import io.micronaut.core.type.Argument
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
+import io.micronaut.serde.annotation.Serdeable
 
 class MixinThrowableProblemSpec extends EmbeddedServerSpecification {
 
@@ -33,6 +34,7 @@ class MixinThrowableProblemSpec extends EmbeddedServerSpecification {
         }
     }
 
+    @Serdeable
     static class Message {
         String message
     }

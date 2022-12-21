@@ -12,6 +12,8 @@ import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Post
 import io.micronaut.http.annotation.Status
 import io.micronaut.http.client.exceptions.HttpClientResponseException
+import io.micronaut.serde.annotation.Serdeable
+
 import javax.validation.Valid
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
@@ -28,7 +30,7 @@ class ConstraintViolationProblemSpec extends EmbeddedServerSpecification {
         when:
         Argument<?> okArg = Argument.of(String)
         Argument<?> errorArg = Argument.of(Map)
-        client.exchange(HttpRequest.POST('/contact', new ContactCreateForm()), okArg, errorArg)
+        client.exchange(HttpRequest.POST('/contact', [name: '']), okArg, errorArg)
 
         then:
         HttpClientResponseException e = thrown()
@@ -41,13 +43,18 @@ class ConstraintViolationProblemSpec extends EmbeddedServerSpecification {
 
         then:
         bodyOptional.isPresent()
-        bodyOptional.get().keySet().size() == 4
-        bodyOptional.get()['status'] == 400
-        bodyOptional.get()['title'] == 'Constraint Violation'
-        bodyOptional.get()['type'] == "https://zalando.github.io/problem/constraint-violation"
-        bodyOptional.get()['violations']
-        bodyOptional.get()['violations'][0]['field'] == 'save.contact.name'
-        bodyOptional.get()['violations'][0]['message'] == 'must not be blank'
+
+        when:
+        Map body = bodyOptional.get()
+
+        then:
+        body.keySet().size() == 4
+        body['status'] == 400
+        body['title'] == 'Constraint Violation'
+        body['type'] == "https://zalando.github.io/problem/constraint-violation"
+        body['violations']
+        body['violations'][0]['field'] == 'save.contact.name'
+        body['violations'][0]['message'] == 'must not be blank'
     }
 
     @Requires(property = 'spec.name', value = 'ConstraintViolationProblemSpec')
@@ -61,7 +68,7 @@ class ConstraintViolationProblemSpec extends EmbeddedServerSpecification {
         }
     }
 
-    @Introspected
+    @Serdeable
     static class ContactCreateForm {
         @NonNull
         @NotBlank
