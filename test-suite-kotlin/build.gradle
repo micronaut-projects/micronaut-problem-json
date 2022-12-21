@@ -18,7 +18,8 @@ dependencies {
     testImplementation projects.problemJson
     testImplementation mn.micronaut.http.server.netty
     testImplementation mn.micronaut.http.client
-    testImplementation mnSerde.micronaut.serde.jackson
+    testAnnotationProcessor(mnSerde.micronaut.serde.processor)
+    testImplementation(mnSerde.micronaut.serde.jackson)
 }
 
 tasks.named('test') {

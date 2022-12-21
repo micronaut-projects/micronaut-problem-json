@@ -15,10 +15,12 @@
  */
 package io.micronaut.problem;
 
+import com.fasterxml.jackson.annotation.JsonAnyGetter;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
-import io.micronaut.core.annotation.Introspected;
 import io.micronaut.core.annotation.NonNull;
+import io.micronaut.core.beans.BeanWrapper;
+import io.micronaut.core.beans.exceptions.IntrospectionException;
 import io.micronaut.http.HttpMethod;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.MutableHttpResponse;
@@ -27,6 +29,7 @@ import io.micronaut.http.server.exceptions.response.ErrorContext;
 import io.micronaut.http.server.exceptions.response.ErrorResponseProcessor;
 import io.micronaut.problem.conf.ProblemConfiguration;
 import io.micronaut.problem.violations.ConstraintViolationThrowableProblem;
+import io.micronaut.serde.annotation.Serdeable;
 import io.micronaut.web.router.exceptions.UnsatisfiedRouteException;
 import jakarta.inject.Singleton;
 import org.zalando.problem.Problem;
@@ -34,6 +37,9 @@ import org.zalando.problem.StatusType;
 import org.zalando.problem.ThrowableProblem;
 
 import java.net.URI;
+import java.util.Arrays;
+import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 /**
@@ -48,6 +54,7 @@ import java.util.Map;
  */
 @Singleton
 public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Problem> {
+
     public static final String APPLICATION_PROBLEM_JSON = "application/problem+json";
 
     private final boolean stackTraceConfig;
@@ -77,7 +84,11 @@ public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Pro
         } else if (throwableProblem instanceof ConstraintViolationThrowableProblem) {
             body = throwableProblem;
         } else {
-            body = new ThrowableProblemWithoutStacktrace(throwableProblem);
+            try {
+                body = new IntrospectedThrowableProblemWithoutStacktrace(throwableProblem);
+            } catch (IntrospectionException e) {
+                body = new ThrowableProblemWithoutStacktrace(throwableProblem);
+            }
         }
         return baseResponse
                 .contentType(APPLICATION_PROBLEM_JSON)
@@ -121,14 +132,78 @@ public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Pro
                 .orElse(false);
     }
 
-    @Introspected
+    @Serdeable
+    static final class IntrospectedThrowableProblemWithoutStacktrace implements Problem {
+        private final static List<String> SKIP_FIELDS = Arrays.asList("stackTrace", "cause", "suppressed", "localizedMessage", "message", "type", "title", "status", "detail", "instance", "parameters");
+        private final ThrowableProblem throwableProblem;
+
+        private final Map<String, Object> properties;
+
+        IntrospectedThrowableProblemWithoutStacktrace(ThrowableProblem problem) {
+            this.throwableProblem = problem;
+            this.properties = filterProperties(problem);
+        }
+
+        private static Map<String, Object> filterProperties(ThrowableProblem problem) {
+            BeanWrapper<ThrowableProblem> wrapper = BeanWrapper.getWrapper(problem);
+            Map<String, Object> properties = new HashMap<>();
+            for (String propertyName : wrapper.getPropertyNames()) {
+                if (SKIP_FIELDS.contains(propertyName)) {
+                    continue;
+                }
+                properties.put(propertyName, wrapper.getProperty(propertyName, Object.class).orElse(null));
+            }
+            return properties;
+        }
+
+        @JsonAnyGetter
+        public Map<String, Object> getProperties() {
+            return properties;
+        }
+
+        @Override
+        public URI getType() {
+            return throwableProblem.getType();
+        }
+
+        @Override
+        public String getTitle() {
+            return throwableProblem.getTitle();
+        }
+
+        @Override
+        public StatusType getStatus() {
+            return throwableProblem.getStatus();
+        }
+
+        @Override
+        public String getDetail() {
+            return throwableProblem.getDetail();
+        }
+
+        @Override
+        public URI getInstance() {
+            return throwableProblem.getInstance();
+        }
+
+        @Override
+        public Map<String, Object> getParameters() {
+            return throwableProblem.getParameters();
+        }
+    }
+
+    @Serdeable
     static final class ThrowableProblemWithoutStacktrace implements Problem {
-        @JsonUnwrapped
-        @JsonIgnoreProperties(value = {"stackTrace", "localizedMessage", "message", "type", "title", "status", "detail", "instance", "parameters"})
         final ThrowableProblem problem;
 
         ThrowableProblemWithoutStacktrace(ThrowableProblem problem) {
             this.problem = problem;
+        }
+
+        @JsonUnwrapped
+        @JsonIgnoreProperties(value = {"stackTrace", "localizedMessage", "message", "type", "title", "status", "detail", "instance", "parameters"})
+        public ThrowableProblem getProblem() {
+            return problem;
         }
 
         // delegate Problem methods for best compatibility

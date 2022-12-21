@@ -12,6 +12,8 @@ import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Post
 import io.micronaut.http.annotation.Status
 import io.micronaut.http.client.exceptions.HttpClientResponseException
+import io.micronaut.serde.annotation.Serdeable
+
 import javax.validation.Valid
 import javax.validation.constraints.NotBlank
 import javax.validation.constraints.NotNull
@@ -28,7 +30,7 @@ class ConstraintViolationProblemSpec extends EmbeddedServerSpecification {
         when:
         Argument<?> okArg = Argument.of(String)
         Argument<?> errorArg = Argument.of(Map)
-        client.exchange(HttpRequest.POST('/contact', new ContactCreateForm()), okArg, errorArg)
+        client.exchange(HttpRequest.POST('/contact', [name: '']), okArg, errorArg)
 
         then:
         HttpClientResponseException e = thrown()
@@ -66,7 +68,7 @@ class ConstraintViolationProblemSpec extends EmbeddedServerSpecification {
         }
     }
 
-    @Introspected
+    @Serdeable
     static class ContactCreateForm {
         @NonNull
         @NotBlank

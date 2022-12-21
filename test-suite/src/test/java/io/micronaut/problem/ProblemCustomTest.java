@@ -11,6 +11,7 @@ import io.micronaut.http.annotation.Get;
 import io.micronaut.http.client.HttpClient;
 import io.micronaut.http.client.annotation.Client;
 import io.micronaut.http.client.exceptions.HttpClientResponseException;
+import io.micronaut.serde.annotation.Serdeable;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
 import org.junit.jupiter.api.Test;
@@ -57,10 +58,9 @@ class ProblemCustomTest {
         public void problem() {
             throw new ProductProblem("random");
         }
-
     }
 
-    @Introspected
+    @Serdeable
     static class ProductProblem extends AbstractThrowableProblem {
 
         private final String field;
