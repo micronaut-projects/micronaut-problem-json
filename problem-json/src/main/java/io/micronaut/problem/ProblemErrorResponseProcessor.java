@@ -85,6 +85,7 @@ public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Pro
             body = throwableProblem;
         } else {
             try {
+                //Due to https://github.com/micronaut-projects/micronaut-serialization/issues/263
                 body = new IntrospectedThrowableProblemWithoutStacktrace(throwableProblem);
             } catch (IntrospectionException e) {
                 body = new ThrowableProblemWithoutStacktrace(throwableProblem);
