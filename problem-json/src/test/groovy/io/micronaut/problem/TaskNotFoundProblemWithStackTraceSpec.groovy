@@ -42,14 +42,19 @@ class TaskNotFoundProblemWithStackTraceSpec extends EmbeddedServerSpecification 
 
         then:
         bodyOptional.isPresent()
-        bodyOptional.get().keySet().size() == 7
-        bodyOptional.get().keySet().contains('stackTrace')
-        bodyOptional.get().keySet().contains('message')
-        bodyOptional.get().keySet().contains('localizedMessage')
-        bodyOptional.get()['status'] == 404
-        bodyOptional.get()['title'] == 'Not found'
-        bodyOptional.get()['detail'] == "Task '3' not found"
-        bodyOptional.get()['type'] == "https://example.org/not-found"
+
+        when:
+        Map body = bodyOptional.get()
+
+        then:
+        body.keySet().size() == 7
+        body.keySet().contains('stackTrace')
+        body.keySet().contains('message')
+        body.keySet().contains('localizedMessage')
+        body['status'] == 404
+        body['title'] == 'Not found'
+        body['detail'] == "Task '3' not found"
+        body['type'] == "https://example.org/not-found"
     }
 
     @Requires(property = 'spec.name', value = 'TaskNotFoundProblemWithStackTraceSpec')
