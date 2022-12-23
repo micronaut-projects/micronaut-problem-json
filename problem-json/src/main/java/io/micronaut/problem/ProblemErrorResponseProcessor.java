@@ -135,7 +135,7 @@ public class ProblemErrorResponseProcessor implements ErrorResponseProcessor<Pro
 
     @Serdeable
     static final class IntrospectedThrowableProblemWithoutStacktrace implements Problem {
-        private final static List<String> SKIP_FIELDS = Arrays.asList("stackTrace", "cause", "suppressed", "localizedMessage", "message", "type", "title", "status", "detail", "instance", "parameters");
+        private static final List<String> SKIP_FIELDS = Arrays.asList("stackTrace", "cause", "suppressed", "localizedMessage", "message", "type", "title", "status", "detail", "instance", "parameters");
         private final ThrowableProblem throwableProblem;
 
         private final Map<String, Object> properties;
