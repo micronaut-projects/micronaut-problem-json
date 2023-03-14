@@ -4,10 +4,11 @@ plugins {
 }
 
 dependencies {
+    testCompileOnly(mnValidation.micronaut.validation.processor)
     testCompileOnly mn.micronaut.inject.groovy
-    testImplementation mn.micronaut.validation
+    testImplementation mnValidation.micronaut.validation
     testImplementation mnTest.micronaut.test.spock
-    testImplementation projects.problemJson
+    testImplementation projects.micronautProblemJson
     testImplementation mn.micronaut.http.server.netty
     testImplementation mn.micronaut.http.client
 }

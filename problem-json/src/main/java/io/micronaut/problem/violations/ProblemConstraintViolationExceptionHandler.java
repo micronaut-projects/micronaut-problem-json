@@ -27,10 +27,10 @@ import io.micronaut.http.server.exceptions.response.ErrorContext;
 import io.micronaut.http.server.exceptions.response.ErrorResponseProcessor;
 import io.micronaut.problem.HttpStatusType;
 import io.micronaut.validation.exceptions.ConstraintExceptionHandler;
-
 import jakarta.inject.Singleton;
-import javax.validation.ConstraintViolation;
-import javax.validation.ConstraintViolationException;
+import jakarta.validation.ConstraintViolation;
+import jakarta.validation.ConstraintViolationException;
+
 import java.util.stream.Collectors;
 
 /**

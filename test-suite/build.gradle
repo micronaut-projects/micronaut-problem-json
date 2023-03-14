@@ -5,15 +5,15 @@ plugins {
 
 dependencies {
     testAnnotationProcessor mn.micronaut.inject.java
-    testAnnotationProcessor mn.micronaut.validation
-    testImplementation mn.micronaut.validation
+    testAnnotationProcessor mnValidation.micronaut.validation.processor
+    testImplementation mnValidation.micronaut.validation
     testImplementation mn.logback.classic
     testImplementation libs.junit.api
     testImplementation mnTest.micronaut.test.junit5
     testRuntimeOnly libs.junit.engine
     testImplementation mn.micronaut.http.server.netty
     testImplementation mn.micronaut.http.client
-    testImplementation projects.problemJson
+    testImplementation projects.micronautProblemJson
 
     testAnnotationProcessor(mnSerde.micronaut.serde.processor)
     testImplementation(mnSerde.micronaut.serde.jackson)

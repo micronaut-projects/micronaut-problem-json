@@ -1,7 +1,6 @@
 package io.micronaut.problem
 
 import io.micronaut.context.annotation.Requires
-import io.micronaut.core.annotation.Introspected
 import io.micronaut.core.annotation.NonNull
 import io.micronaut.core.annotation.Nullable
 import io.micronaut.core.type.Argument
@@ -13,10 +12,9 @@ import io.micronaut.http.annotation.Post
 import io.micronaut.http.annotation.Status
 import io.micronaut.http.client.exceptions.HttpClientResponseException
 import io.micronaut.serde.annotation.Serdeable
-
-import javax.validation.Valid
-import javax.validation.constraints.NotBlank
-import javax.validation.constraints.NotNull
+import jakarta.validation.Valid
+import jakarta.validation.constraints.NotBlank
+import jakarta.validation.constraints.NotNull
 
 class ConstraintViolationProblemSpec extends EmbeddedServerSpecification {
 
