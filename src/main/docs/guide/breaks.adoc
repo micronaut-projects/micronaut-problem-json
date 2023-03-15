@@ -1,4 +1,4 @@
-=== Micronaut Problem JSON {version}
+=== Micronaut Problem JSON 3.0.0
 
 Starting with Micronaut Framework 4.0.0, Micronaut Problem JSON is based on `jakarta.validation` rather than `javax.validation` as in previous versions.
 
