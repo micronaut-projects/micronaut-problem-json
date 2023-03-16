@@ -76,16 +76,16 @@ loadScripts(document, 'script');</script>
 <section class="class-description" id="class-description">
 <dl class="notes">
 <dt>All Implemented Interfaces:</dt>
-<dd><code>io.micronaut.http.server.exceptions.ExceptionHandler&lt;javax.validation.ConstraintViolationException,<wbr>io.micronaut.http.HttpResponse&lt;?&gt;&gt;</code></dd>
+<dd><code>io.micronaut.http.server.exceptions.ExceptionHandler&lt;jakarta.validation.ConstraintViolationException,<wbr>io.micronaut.http.HttpResponse&lt;?&gt;&gt;</code></dd>
 </dl>
 <hr>
 <div class="type-signature"><span class="annotations">@Produces
 @Singleton
-@Requires(classes={javax.validation.ConstraintViolationException.class,io.micronaut.http.server.exceptions.ExceptionHandler.class})
+@Requires(classes={jakarta.validation.ConstraintViolationException.class,io.micronaut.http.server.exceptions.ExceptionHandler.class})
 @Replaces(io.micronaut.validation.exceptions.ConstraintExceptionHandler.class)
 </span><span class="modifiers">public class </span><span class="element-name type-name-label">ProblemConstraintViolationExceptionHandler</span>
 <span class="extends-implements">extends <a href="https://docs.oracle.com/en/java/javase/17/docs/api/java.base/java/lang/Object.html" title="class or interface in java.lang" class="external-link">Object</a>
-implements io.micronaut.http.server.exceptions.ExceptionHandler&lt;javax.validation.ConstraintViolationException,<wbr>io.micronaut.http.HttpResponse&lt;?&gt;&gt;</span></div>
+implements io.micronaut.http.server.exceptions.ExceptionHandler&lt;jakarta.validation.ConstraintViolationException,<wbr>io.micronaut.http.HttpResponse&lt;?&gt;&gt;</span></div>
 <dl class="notes">
 <dt>Since:</dt>
 <dd>1.0</dd>
@@ -122,11 +122,11 @@ implements io.micronaut.http.server.exceptions.ExceptionHandler&lt;javax.validat
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
 <div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="Violation.html" title="class in io.micronaut.problem.violations">Violation</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createViolation(javax.validation.ConstraintViolation)" class="member-name-link">createViolation</a><wbr>(javax.validation.ConstraintViolation&lt;?&gt;&nbsp;constraintViolation)</code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createViolation(jakarta.validation.ConstraintViolation)" class="member-name-link">createViolation</a><wbr>(jakarta.validation.ConstraintViolation&lt;?&gt;&nbsp;constraintViolation)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>io.micronaut.http.HttpResponse&lt;?&gt;</code></div>
-<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#handle(io.micronaut.http.HttpRequest,javax.validation.ConstraintViolationException)" class="member-name-link">handle</a><wbr>(io.micronaut.http.HttpRequest&nbsp;request,
- javax.validation.ConstraintViolationException&nbsp;exception)</code></div>
+<div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#handle(io.micronaut.http.HttpRequest,jakarta.validation.ConstraintViolationException)" class="member-name-link">handle</a><wbr>(io.micronaut.http.HttpRequest&nbsp;request,
+ jakarta.validation.ConstraintViolationException&nbsp;exception)</code></div>
 <div class="col-last odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 </div>
 </div>
@@ -165,22 +165,22 @@ implements io.micronaut.http.server.exceptions.ExceptionHandler&lt;javax.validat
 <h2>Method Details</h2>
 <ul class="member-list">
 <li>
-<section class="detail" id="handle(io.micronaut.http.HttpRequest,javax.validation.ConstraintViolationException)">
+<section class="detail" id="handle(io.micronaut.http.HttpRequest,jakarta.validation.ConstraintViolationException)">
 <h3>handle</h3>
 <div class="member-signature"><span class="modifiers">public</span>&nbsp;<span class="return-type">io.micronaut.http.HttpResponse&lt;?&gt;</span>&nbsp;<span class="element-name">handle</span><wbr><span class="parameters">(io.micronaut.http.HttpRequest&nbsp;request,
- javax.validation.ConstraintViolationException&nbsp;exception)</span></div>
+ jakarta.validation.ConstraintViolationException&nbsp;exception)</span></div>
 <dl class="notes">
 <dt>Specified by:</dt>
-<dd><code>handle</code>&nbsp;in interface&nbsp;<code>io.micronaut.http.server.exceptions.ExceptionHandler&lt;javax.validation.ConstraintViolationException,<wbr>io.micronaut.http.HttpResponse&lt;?&gt;&gt;</code></dd>
+<dd><code>handle</code>&nbsp;in interface&nbsp;<code>io.micronaut.http.server.exceptions.ExceptionHandler&lt;jakarta.validation.ConstraintViolationException,<wbr>io.micronaut.http.HttpResponse&lt;?&gt;&gt;</code></dd>
 </dl>
 </section>
 </li>
 <li>
-<section class="detail" id="createViolation(javax.validation.ConstraintViolation)">
+<section class="detail" id="createViolation(jakarta.validation.ConstraintViolation)">
 <h3>createViolation</h3>
 <div class="member-signature"><span class="annotations">@NonNull
 </span><span class="modifiers">protected</span>&nbsp;<span class="return-type"><a href="Violation.html" title="class in io.micronaut.problem.violations">Violation</a></span>&nbsp;<span class="element-name">createViolation</span><wbr><span class="parameters">(@NonNull
- javax.validation.ConstraintViolation&lt;?&gt;&nbsp;constraintViolation)</span></div>
+ jakarta.validation.ConstraintViolation&lt;?&gt;&nbsp;constraintViolation)</span></div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>constraintViolation</code> - Constraint Violation</dd>
