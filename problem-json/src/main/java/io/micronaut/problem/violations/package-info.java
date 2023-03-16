@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 /**
- * Contains classes for rendering {@link javax.validation.ConstraintViolationException} as Problem.
+ * Contains classes for rendering {@link jakarta.validation.ConstraintViolationException} as Problem.
  * @author Sergio del Amo
  * @since 1.0
  */

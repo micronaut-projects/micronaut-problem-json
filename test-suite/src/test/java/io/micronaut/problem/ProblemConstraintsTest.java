@@ -14,10 +14,9 @@ import io.micronaut.http.client.annotation.Client;
 import io.micronaut.http.client.exceptions.HttpClientResponseException;
 import io.micronaut.test.extensions.junit5.annotation.MicronautTest;
 import jakarta.inject.Inject;
+import jakarta.validation.Valid;
+import jakarta.validation.constraints.NotBlank;
 import org.junit.jupiter.api.Test;
-
-import javax.validation.Valid;
-import javax.validation.constraints.NotBlank;
 
 import java.util.Collections;
 import java.util.Map;
