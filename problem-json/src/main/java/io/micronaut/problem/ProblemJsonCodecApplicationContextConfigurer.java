@@ -15,17 +15,22 @@
  */
 package io.micronaut.problem;
 
-import io.micronaut.context.env.MapPropertySource;
+import io.micronaut.context.ApplicationContextBuilder;
+import io.micronaut.context.ApplicationContextConfigurer;
+import io.micronaut.context.annotation.ContextConfigurer;
 
 import java.util.Collections;
 
 /**
- * {@link io.micronaut.context.env.PropertySource} which registers application/problem+json media type as an additional type of the JSON codec.
+ * {@link ContextConfigurer} which registers application/problem+json media type as an additional type of the JSON codec.
  * @author Sergio del Amo
  * @since 3.0.0
  */
-public class ProblemJsonCodecPropertySource extends MapPropertySource  {
-    public ProblemJsonCodecPropertySource() {
-        super("problem-json", Collections.singletonMap("micronaut.codec.json.additional-types", Collections.singletonList("application/problem+json")));
+@ContextConfigurer
+public class ProblemJsonCodecApplicationContextConfigurer implements ApplicationContextConfigurer {
+
+    @Override
+    public void configure(ApplicationContextBuilder builder) {
+        builder.properties(Collections.singletonMap("micronaut.codec.json.additional-types", Collections.singletonList("application/problem+json")));
     }
 }
