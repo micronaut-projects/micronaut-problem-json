@@ -2,6 +2,8 @@
 
 Starting with Micronaut Framework 4.0.0, Micronaut Problem JSON is based on `jakarta.validation` rather than `javax.validation` as in previous versions.
 
+It is necessary to <<codec,specify `application/problem+json` as an additional type for the JSON codec>>.
+
 === Micronaut Problem JSON 2.2.3
 
 The default Problem+JSON payload does not include the `detail` field to avoid accidental information disclosure if the exception root cause is not of type `UnsatisfiedRouteException` or `ThrowableProblem` to avoid accidental information disclosure since 2.2.3.
