@@ -17,6 +17,7 @@ dependencies {
 
     testAnnotationProcessor(mnSerde.micronaut.serde.processor)
     testImplementation(mnSerde.micronaut.serde.jackson)
+    testRuntimeOnly(mn.snakeyaml)
 }
 
 tasks.named('test') {

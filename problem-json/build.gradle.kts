@@ -16,4 +16,6 @@ dependencies {
     testImplementation(mn.micronaut.http.server.netty)
     testImplementation(mn.micronaut.http.client)
     testAnnotationProcessor(mn.micronaut.inject.java)
+
+    testRuntimeOnly(mn.snakeyaml)
 }
