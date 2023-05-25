@@ -97,6 +97,8 @@
         
         <div class="toc-item" style="margin-left:0px" id="toc-item-installation"><a href="#installation"><strong>4</strong><span>Installation</span></a></div>
         
+        <div class="toc-item" style="margin-left:10px" id="toc-item-codec"><a href="#codec"><strong>4.1</strong><span>Additional JSON Codec</span></a></div>
+        
         <div class="toc-item" style="margin-left:0px" id="toc-item-usage"><a href="#usage"><strong>5</strong><span>Usage</span></a></div>
         
         <div class="toc-item" style="margin-left:10px" id="toc-item-problemBuilder"><a href="#problemBuilder"><strong>5.1</strong><span>Problem Builder</span></a></div>
@@ -166,6 +168,9 @@ and <a href="https://docs.micronaut.io/latest/guide/#errorFormatting">Micronaut 
 <div class="paragraph">
 <p>Starting with Micronaut Framework 4.0.0, Micronaut Problem JSON is based on <code>jakarta.validation</code> rather than <code>javax.validation</code> as in previous versions.</p>
 </div>
+<div class="paragraph">
+<p>It is necessary to <a href="#codec">specify <code>application/problem+json</code> as an additional type for the JSON codec</a>.</p>
+</div>
 </div>
 <div class="sect2">
 <h3 id="_micronaut_problem_json_2_2_3">Micronaut Problem JSON 2.2.3</h3>
@@ -201,6 +206,81 @@ and <a href="https://docs.micronaut.io/latest/guide/#errorFormatting">Micronaut 
 &lt;/dependency&gt;</code></pre>
 </div>
 </div></p>
+</div>
+
+<h2 id="codec"><a class="anchor" href="#codec"></a>4.1 Additional JSON Codec</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-problem-json/edit/master/src/main/docs/guide/installation/codec.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>To use Micronaut Problem, specify <code>application/problem+json</code> as an additional type for the JSON codec.</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">micronaut.codec.json.additional-types=application/problem+json</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">micronaut:
+  codec:
+    json:
+      additional-types: 'application/problem+json'</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[micronaut]
+  [micronaut.codec]
+    [micronaut.codec.json]
+      additional-types="application/problem+json"</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy-config hljs" data-lang="groovy-config">micronaut {
+  codec {
+    json {
+      additionalTypes = "application/problem+json"
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-hocon hljs" data-lang="hocon">{
+  micronaut {
+    codec {
+      json {
+        additional-types = "application/problem+json"
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json-config hljs" data-lang="json-config">{
+  "micronaut": {
+    "codec": {
+      "json": {
+        "additional-types": "application/problem+json"
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
 </div>
 
 <h1 id="usage"><a class="anchor" href="#usage"></a>5 Usage</h1>
