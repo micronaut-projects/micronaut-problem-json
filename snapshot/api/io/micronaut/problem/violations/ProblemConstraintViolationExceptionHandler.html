@@ -121,8 +121,8 @@ implements io.micronaut.http.server.exceptions.ExceptionHandler&lt;jakarta.valid
 <div class="table-header col-first">Modifier and Type</div>
 <div class="table-header col-second">Method</div>
 <div class="table-header col-last">Description</div>
-<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected <a href="Violation.html" title="class in io.micronaut.problem.violations">Violation</a></code></div>
-<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createViolation(jakarta.validation.ConstraintViolation)" class="member-name-link">createViolation</a><wbr>(jakarta.validation.ConstraintViolation&lt;?&gt;&nbsp;constraintViolation)</code></div>
+<div class="col-first even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>protected @NonNull <a href="Violation.html" title="class in io.micronaut.problem.violations">Violation</a></code></div>
+<div class="col-second even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#createViolation(jakarta.validation.ConstraintViolation)" class="member-name-link">createViolation</a><wbr>(@NonNull jakarta.validation.ConstraintViolation&lt;?&gt;&nbsp;constraintViolation)</code></div>
 <div class="col-last even-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4">&nbsp;</div>
 <div class="col-first odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code>io.micronaut.http.HttpResponse&lt;?&gt;</code></div>
 <div class="col-second odd-row-color method-summary-table method-summary-table-tab2 method-summary-table-tab4"><code><a href="#handle(io.micronaut.http.HttpRequest,jakarta.validation.ConstraintViolationException)" class="member-name-link">handle</a><wbr>(io.micronaut.http.HttpRequest&nbsp;request,
@@ -179,8 +179,8 @@ implements io.micronaut.http.server.exceptions.ExceptionHandler&lt;jakarta.valid
 <section class="detail" id="createViolation(jakarta.validation.ConstraintViolation)">
 <h3>createViolation</h3>
 <div class="member-signature"><span class="annotations">@NonNull
-</span><span class="modifiers">protected</span>&nbsp;<span class="return-type"><a href="Violation.html" title="class in io.micronaut.problem.violations">Violation</a></span>&nbsp;<span class="element-name">createViolation</span><wbr><span class="parameters">(@NonNull
- jakarta.validation.ConstraintViolation&lt;?&gt;&nbsp;constraintViolation)</span></div>
+</span><span class="modifiers">protected</span>&nbsp;<span class="return-type">@NonNull <a href="Violation.html" title="class in io.micronaut.problem.violations">Violation</a></span>&nbsp;<span class="element-name">createViolation</span><wbr><span class="parameters">(@NonNull
+ @NonNull jakarta.validation.ConstraintViolation&lt;?&gt;&nbsp;constraintViolation)</span></div>
 <dl class="notes">
 <dt>Parameters:</dt>
 <dd><code>constraintViolation</code> - Constraint Violation</dd>
