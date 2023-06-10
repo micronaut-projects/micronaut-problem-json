@@ -1,0 +1,660 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en">
+<head>
+    <title>Micronaut Problem JSON</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1" />
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+    <link rel="stylesheet" href="../css/main.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
+    <link rel="stylesheet" href="../css/custom.css" type="text/css" media="screen, print" title="Style" charset="utf-8" />
+    <link rel="stylesheet" href="../css/pdf.css" type="text/css" media="print" title="PDF" charset="utf-8" />
+    <link rel="stylesheet" href="../css/highlight/agate.css">
+    <script src="../js/highlight.pack.js"></script>
+    <script src="../js/guide.js"></script>
+    <script src="../js/multi-language-sample.js"></script>
+    <script>hljs.initHighlightingOnLoad();</script>
+    <link rel="stylesheet" href="../css/multi-language-sample.css"/>
+    <script src="../js/docs.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/clipboard.js/1.5.13/clipboard.min.js"></script>
+    <script type="text/javascript">
+        function addJsClass(el) {
+            var classes = document.body.className.split(" ");
+            classes.push("js");
+            document.body.className = classes.join(" ");
+        }
+    </script>
+
+</head>
+
+<body class="body" id="docs" onload="addJsClass();" onhashchange="highlightMenu()">
+
+<div id="table-of-content-nav-link" class="desktop">
+    <a id="theme-switcher" title="Switch to dark theme" href="javascript:switchTheme(true)"><i class="fa fa-moon-o"></i></a>
+    <a title="Collapse/Open Table of contents" title="Hide Table of Contents" href="javascript:hideTableOfContents();" class="button">[ + ]</a>
+</div>
+
+<div id="main">
+    <div id="navigation" class="no-print">
+        <div class="navTitle">
+            <span id="logo"><a href="http://micronaut.io" title="Go to Micronaut Website"><img src="../img/micronaut-logo-white.svg" alt="Micronaut"/></a></span>
+        </div>
+        <div class="navLinks">
+            <ul>
+                    <li><div id="nav-summary" onmouseover="toggleNavSummary(false)" onmouseout="toggleNavSummary(true)" class="desktop">
+                            <a href="../guide/index.html" class="button">Table of contents</a>
+                            <div id="nav-summary-childs" style="display:none;">
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#introduction"><strong>1</strong><span>Introduction</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#releaseHistory"><strong>2</strong><span>Release History</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#breaks"><strong>3</strong><span>Breaking Changes</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#installation"><strong>4</strong><span>Installation</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#usage"><strong>5</strong><span>Usage</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#configuration"><strong>6</strong><span>Configuration</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#customizingProblemErrorResponseProcessor"><strong>7</strong><span>Custom ProblemErrorResponseProcessor</span></a></div>
+                                
+                                <div class="toc-item" style="margin-left:0"><a href="#repository"><strong>8</strong><span>Repository</span></a></div>
+                                
+                            </div>
+                        </div>
+                    </li>
+
+                <li id="table-of-content-nav-link-mobile" class="mobile">
+                    <a title="Scroll to Table of contents" href="javascript:scrollToTop();" class="button">Toc</a>
+                </li>
+                <li class="desktop">
+                    <a title="Go to API documentation" href="../api/index.html" class="button">API Reference</a>
+                </li>
+                <li class="mobile">
+                    <a title="Go to API documentation" href="../api/index.html" class="button">API</a>
+                </li>
+                <li class="desktop">
+                    <a title="Go to Configuration Reference documentation" href="../guide/configurationreference.html" class="button">Configuration Reference</a>
+                </li>
+                <li class="mobile">
+                    <a title="Go to Configuration Reference documentation" href="../guide/configurationreference.html" class="button">Conf</a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+    
+    <div id="table-of-content">
+        <div class="toc-content">
+
+        <h2>Table of Contents</h2>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-introduction"><a href="#introduction"><strong>1</strong><span>Introduction</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-releaseHistory"><a href="#releaseHistory"><strong>2</strong><span>Release History</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-breaks"><a href="#breaks"><strong>3</strong><span>Breaking Changes</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-installation"><a href="#installation"><strong>4</strong><span>Installation</span></a></div>
+        
+        <div class="toc-item" style="margin-left:10px" id="toc-item-codec"><a href="#codec"><strong>4.1</strong><span>Additional JSON Codec</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-usage"><a href="#usage"><strong>5</strong><span>Usage</span></a></div>
+        
+        <div class="toc-item" style="margin-left:10px" id="toc-item-problemBuilder"><a href="#problemBuilder"><strong>5.1</strong><span>Problem Builder</span></a></div>
+        
+        <div class="toc-item" style="margin-left:10px" id="toc-item-customProblem"><a href="#customProblem"><strong>5.2</strong><span>Custom Problem</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-configuration"><a href="#configuration"><strong>6</strong><span>Configuration</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-customizingProblemErrorResponseProcessor"><a href="#customizingProblemErrorResponseProcessor"><strong>7</strong><span>Custom ProblemErrorResponseProcessor</span></a></div>
+        
+        <div class="toc-item" style="margin-left:0px" id="toc-item-repository"><a href="#repository"><strong>8</strong><span>Repository</span></a></div>
+        
+        </div>
+    </div>
+    
+    <div class="docs-content">
+    <div class="project">
+        <h1>Micronaut Problem JSON</h1>
+        <p></p>
+        <p>Produce application/problem+json responses from a Micronaut application.</p>
+        <p><strong>Version:</strong> <select style='max-width: 200px' onChange='window.document.location.href=this.options[this.selectedIndex].value;'><option value='https://micronaut-projects.github.io/micronaut-problem-json/snapshot/guide/index.html'>SNAPSHOT</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/latest/guide/index.html'>LATEST</option></select> </p>
+    </div>
+    
+<h1 id="introduction"><a class="anchor" href="#introduction"></a>1 Introduction</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-problem-json/edit/master/src/main/docs/guide/introduction.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p><strong>Micronaut Problem</strong> is a library which makes it easy to produce
+<a href="https://datatracker.ietf.org/doc/html/rfc7807"><code>application/problem+json</code></a> responses from a Micronaut
+application. It connects the <a href="https://github.com/zalando/problem">Problem library</a>
+and <a href="https://docs.micronaut.io/latest/guide/#errorFormatting">Micronaut Error Formatting</a> capabilities.</p>
+</div>
+
+<h1 id="releaseHistory"><a class="anchor" href="#releaseHistory"></a>2 Release History</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-problem-json/edit/master/src/main/docs/guide/releaseHistory.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>For this project, you can find a list of releases (with release notes) here:</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/micronaut-projects/micronaut-problem-json/releases">https://github.com/micronaut-projects/micronaut-problem-json/releases</a></p>
+</div>
+
+<h1 id="breaks"><a class="anchor" href="#breaks"></a>3 Breaking Changes</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-problem-json/edit/master/src/main/docs/guide/breaks.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="sect2">
+<h3 id="_micronaut_problem_json_3_0_0">Micronaut Problem JSON 3.0.0</h3>
+<div class="paragraph">
+<p>Starting with Micronaut Framework 4.0.0, Micronaut Problem JSON is based on <code>jakarta.validation</code> rather than <code>javax.validation</code> as in previous versions.</p>
+</div>
+<div class="paragraph">
+<p>It is necessary to <a href="#codec">specify <code>application/problem+json</code> as an additional type for the JSON codec</a>.</p>
+</div>
+</div>
+<div class="sect2">
+<h3 id="_micronaut_problem_json_2_2_3">Micronaut Problem JSON 2.2.3</h3>
+<div class="paragraph">
+<p>The default Problem+JSON payload does not include the <code>detail</code> field to avoid accidental information disclosure if the exception root cause is not of type <code>UnsatisfiedRouteException</code> or <code>ThrowableProblem</code> to avoid accidental information disclosure since 2.2.3.</p>
+</div>
+<div class="paragraph">
+<p>You can <a href="#customizingProblemErrorResponseProcessor">customize it</a> to include always the detail or for some scenarios.</p>
+</div>
+</div>
+
+<h1 id="installation"><a class="anchor" href="#installation"></a>4 Installation</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-problem-json/edit/master/src/main/docs/guide/installation.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>        <div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="gradle">implementation(<span class="hljs-string">"io.micronaut.problem:micronaut-problem-json")</span></code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-xml hljs" data-lang="maven">&lt;dependency&gt;
+    &lt;groupId&gt;io.micronaut.problem&lt;/groupId&gt;
+    &lt;artifactId&gt;micronaut-problem-json&lt;/artifactId&gt;
+&lt;/dependency&gt;</code></pre>
+</div>
+</div></p>
+</div>
+
+<h2 id="codec"><a class="anchor" href="#codec"></a>4.1 Additional JSON Codec</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-problem-json/edit/master/src/main/docs/guide/installation/codec.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>To use Micronaut Problem, specify <code>application/problem+json</code> as an additional type for the JSON codec.</p>
+</div>
+<div class="openblock">
+<div class="content">
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">micronaut.codec.json.additional-types=application/problem+json</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">micronaut:
+  codec:
+    json:
+      additional-types: 'application/problem+json'</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[micronaut]
+  [micronaut.codec]
+    [micronaut.codec.json]
+      additional-types="application/problem+json"</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy-config hljs" data-lang="groovy-config">micronaut {
+  codec {
+    json {
+      additionalTypes = "application/problem+json"
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-hocon hljs" data-lang="hocon">{
+  micronaut {
+    codec {
+      json {
+        additional-types = "application/problem+json"
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json-config hljs" data-lang="json-config">{
+  "micronaut": {
+    "codec": {
+      "json": {
+        "additional-types": "application/problem+json"
+      }
+    }
+  }
+}</code></pre>
+</div>
+</div>
+</div>
+</div>
+
+<h1 id="usage"><a class="anchor" href="#usage"></a>5 Usage</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-problem-json/edit/master/src/main/docs/guide/usage.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>This library registers <a href="../api/io/micronaut/problem/ProblemErrorResponseProcessor.html">ProblemErrorResponseProcessor</a>; an <code>ErrorResponseProcessor</code> for <code>Problem</code>. It sets the
+response content type to <code>application/problem+json</code> and the response HTTP Status code to match the status field for <code>Problem</code>.</p>
+</div>
+<div class="paragraph">
+<p>Moreover, it registers <a href="../api/io/micronaut/problem/ThrowableProblemHandler.html">ThrowableProblemHandler</a>. A Micronaut <code>ErrorHandler</code> for handling <code>ThrowableProblem</code> exception.</p>
+</div>
+
+<h2 id="problemBuilder"><a class="anchor" href="#problemBuilder"></a>5.1 Problem Builder</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-problem-json/edit/master/src/main/docs/guide/usage/problemBuilder.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>You can use Problem builder to create problem:</p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.problem;
+
+import io.micronaut.http.HttpStatus;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.Status;
+import org.zalando.problem.Problem;
+
+import java.net.URI;
+
+@Controller("/product")
+public class ProductController {
+    @Get
+    @Status(HttpStatus.OK)
+    public void index() {
+        throw Problem.builder()
+                .withType(URI.create("https://example.org/out-of-stock"))
+                .withTitle("Out of Stock")
+                .withStatus(new HttpStatusType(HttpStatus.BAD_REQUEST))
+                .withDetail("Item B00027Y5QG is no longer available")
+                .with("product", "B00027Y5QG")
+                .build();
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.problem
+
+import io.micronaut.http.HttpStatus
+import io.micronaut.http.annotation.Controller
+import io.micronaut.http.annotation.Get
+import io.micronaut.http.annotation.Status
+import org.zalando.problem.Problem
+
+@Controller("/product")
+class ProductController {
+    @Get
+    @Status(HttpStatus.OK)
+    void index() {
+        throw Problem.builder()
+                .withType(URI.create("https://example.org/out-of-stock"))
+                .withTitle("Out of Stock")
+                .withStatus(new HttpStatusType(HttpStatus.BAD_REQUEST))
+                .withDetail("Item B00027Y5QG is no longer available")
+                .with("product", "B00027Y5QG")
+                .build()
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.problem
+
+import io.micronaut.http.HttpStatus
+import io.micronaut.http.annotation.Controller
+import io.micronaut.http.annotation.Get
+import io.micronaut.http.annotation.Status
+import org.zalando.problem.Problem
+import java.net.URI
+
+@Controller("/product")
+class ProductController {
+    @Get
+    @Status(HttpStatus.OK)
+    fun index() {
+        throw Problem.builder()
+                .withType(URI.create("https://example.org/out-of-stock"))
+                .withTitle("Out of Stock")
+                .withStatus(HttpStatusType(HttpStatus.BAD_REQUEST))
+                .withDetail("Item B00027Y5QG is no longer available")
+                .with("product", "B00027Y5QG")
+                .build()
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>The above snippet returns:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+    "status": 400,
+    "title": "Out of Stock",
+    "detail": "Item B00027Y5QG is no longer available",
+    "type": "https://example.org/out-of-stock",
+    "parameters": {"product": "B00027Y5QG"}
+}</code></pre>
+</div>
+</div>
+
+<h2 id="customProblem"><a class="anchor" href="#customProblem"></a>5.2 Custom Problem</h2>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-problem-json/edit/master/src/main/docs/guide/usage/customProblem.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>You can create a custom problem by extending <code>AbstractThrowableProblem</code></p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.problem;
+
+import io.micronaut.http.HttpStatus;
+import org.zalando.problem.AbstractThrowableProblem;
+
+import java.net.URI;
+
+public class TaskNotFoundProblem extends AbstractThrowableProblem {
+
+    private static final URI TYPE = URI.create("https://example.org/not-found");
+
+    public TaskNotFoundProblem(Long taskId) {
+        super(TYPE, "Not found", new HttpStatusType(HttpStatus.NOT_FOUND), String.format("Task '%s' not found", taskId));
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.problem
+
+import io.micronaut.http.HttpStatus
+import org.zalando.problem.AbstractThrowableProblem
+
+class TaskNotFoundProblem extends AbstractThrowableProblem {
+
+    private static final URI TYPE = URI.create("https://example.org/not-found")
+
+    TaskNotFoundProblem(Long taskId) {
+        super(TYPE, "Not found", new HttpStatusType(HttpStatus.NOT_FOUND), String.format("Task '%s' not found", taskId))
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.problem
+
+import com.fasterxml.jackson.annotation.JsonIgnore
+import io.micronaut.http.HttpStatus
+import io.micronaut.serde.annotation.Serdeable
+import org.zalando.problem.AbstractThrowableProblem
+import org.zalando.problem.Exceptional
+import java.net.URI
+
+@Serdeable
+class TaskNotFoundProblem(taskId: Long) :
+        AbstractThrowableProblem(URI.create("https://example.org/not-found"),
+                "Not found",
+                HttpStatusType(HttpStatus.NOT_FOUND),
+                String.format("Task '%s' not found", taskId)) {
+
+    @JsonIgnore
+    override fun getCause(): Exceptional {
+        TODO("Not yet implemented")
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>If your logic throws such a Problem:</p>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.problem;
+
+import io.micronaut.http.HttpStatus;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.PathVariable;
+import io.micronaut.http.annotation.Status;
+
+@Controller("/task")
+public class TaskController {
+    @Get("/{taskId}")
+    @Status(HttpStatus.OK)
+    public void index(@PathVariable Long taskId) {
+        throw new TaskNotFoundProblem(taskId);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.problem
+
+import io.micronaut.http.HttpStatus
+import io.micronaut.http.annotation.Controller
+import io.micronaut.http.annotation.Get
+import io.micronaut.http.annotation.PathVariable
+import io.micronaut.http.annotation.Status
+
+@Controller('/task')
+class TaskController {
+    @Get('/{taskId}')
+    @Status(HttpStatus.OK)
+    void index(@PathVariable Long taskId) {
+        throw new TaskNotFoundProblem(taskId)
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.problem
+
+import io.micronaut.http.HttpStatus
+import io.micronaut.http.annotation.Controller
+import io.micronaut.http.annotation.Get
+import io.micronaut.http.annotation.PathVariable
+import io.micronaut.http.annotation.Status
+
+@Controller("/task")
+class TaskController {
+    @Get("/{taskId}")
+    @Status(HttpStatus.OK)
+    fun index(@PathVariable taskId: Long) {
+        throw TaskNotFoundProblem(taskId)
+    }
+}</code></pre>
+</div>
+</div>
+<div class="paragraph">
+<p>You will get:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-json hljs" data-lang="json">{
+    "status": 404,
+    "title": "Not found",
+    "detail": "Task '3' not found",
+    "type": "https://example.org/not-found"
+}</code></pre>
+</div>
+</div>
+
+<h1 id="configuration"><a class="anchor" href="#configuration"></a>6 Configuration</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-problem-json/edit/master/src/main/docs/guide/configuration.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>You can configure it via:</p>
+</div>
+<a id="io.micronaut.problem.conf.ProblemConfigurationProperties" href="#io.micronaut.problem.conf.ProblemConfigurationProperties">&#128279;</a>
+<table class="tableblock frame-all grid-all stretch">
+<caption class="title">Table 1. Configuration Properties for <a href="../api/io/micronaut/problem/conf/ProblemConfigurationProperties.html">ProblemConfigurationProperties</a></caption>
+<colgroup>
+<col style="width: 33.3333%;">
+<col style="width: 33.3333%;">
+<col style="width: 33.3334%;">
+</colgroup>
+<thead>
+<tr>
+<th class="tableblock halign-left valign-top">Property</th>
+<th class="tableblock halign-left valign-top">Type</th>
+<th class="tableblock halign-left valign-top">Description</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>problem.enabled</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Sets whether the configuration is enabled. Default value .</p></td>
+</tr>
+<tr>
+<td class="tableblock halign-left valign-top"><p class="tableblock"><code>problem.stack-trace</code></p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">boolean</p></td>
+<td class="tableblock halign-left valign-top"><p class="tableblock">Whether the HTTP Response should include the stack trace for instances of {@link org.zalando.problem.ThrowableProblem}. Default value (false).</p></td>
+</tr>
+</tbody>
+</table>
+
+<h1 id="customizingProblemErrorResponseProcessor"><a class="anchor" href="#customizingProblemErrorResponseProcessor"></a>7 Custom ProblemErrorResponseProcessor</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-problem-json/edit/master/src/main/docs/guide/customizingProblemErrorResponseProcessor.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>The default Problem+JSON payload does not include the <code>detail</code> field to avoid accidental information disclosure if the exception root cause is not of type <code>UnsatisfiedRouteException</code> or <code>ThrowableProblem</code>.</p>
+</div>
+<div class="paragraph">
+<p>You can extend <a href="../api/io/micronaut/problem/ProblemErrorResponseProcessor.html">ProblemErrorResponseProcessor</a> to customize the behaviour:</p>
+</div>
+<div class="listingblock">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Replaces(ProblemErrorResponseProcessor.class)
+@Singleton
+public class ProblemErrorResponseProcessorReplacement
+        extends ProblemErrorResponseProcessor {
+    ProblemErrorResponseProcessorReplacement(ProblemConfiguration config) {
+        super(config);
+    }
+
+    @Override
+    protected boolean includeErrorMessage(@NonNull ErrorContext errorContext) {
+        return errorContext.getRootCause()
+                .map(t -&gt; t instanceof FooException || t instanceof UnsatisfiedRouteException)
+                .orElse(false);
+    }
+}</code></pre>
+</div>
+</div>
+
+<h1 id="repository"><a class="anchor" href="#repository"></a>8 Repository</h1>
+
+<div class='contribute-btn'>
+    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-problem-json/edit/master/src/main/docs/guide/repository.adoc"'>
+        <i class='fa fa-pencil-square-o'></i> Improve this doc
+    </button>
+</div>
+
+
+<div class="paragraph">
+<p>You can find the source code of this project in this repository:</p>
+</div>
+<div class="paragraph">
+<p><a href="https://github.com/micronaut-projects/micronaut-problem-json">https://github.com/micronaut-projects/micronaut-problem-json</a></p>
+</div>
+
+    </div>
+</div>
+
+<script type="text/javascript">
+
+</script>
+</body>
+</html>
