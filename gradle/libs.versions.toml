@@ -2,12 +2,12 @@
 
 micronaut = "4.0.0"
 micronaut-docs = '2.0.0'
-micronaut-test = "4.0.0-M8"
+micronaut-test = "4.0.0"
 
 micronaut-serde = "2.0.0"
-micronaut-validation = "4.0.0-M12"
+micronaut-validation = "4.0.0"
 
-groovy = "4.0.11"
+groovy = "4.0.13"
 kotlin = '1.8.22'
 spock = "2.3-groovy-4.0"
 
