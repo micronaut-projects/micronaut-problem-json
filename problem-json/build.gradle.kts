@@ -7,8 +7,8 @@ dependencies {
     annotationProcessor(mnValidation.micronaut.validation.processor)
 
     api(libs.managed.zalando.problem)
-    implementation(mnSerde.micronaut.serde.api)
-    implementation(mnSerde.micronaut.serde.jackson)
+    api(mnSerde.micronaut.serde.api)
+    api(mn.jackson.annotations)
     implementation(mnValidation.micronaut.validation)
     implementation(mn.micronaut.http.server)
 
@@ -16,6 +16,6 @@ dependencies {
     testImplementation(mn.micronaut.http.server.netty)
     testImplementation(mn.micronaut.http.client)
     testAnnotationProcessor(mn.micronaut.inject.java)
-
+    testImplementation(mnSerde.micronaut.serde.jackson)
     testRuntimeOnly(mn.snakeyaml)
 }
