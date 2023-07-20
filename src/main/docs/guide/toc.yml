@@ -4,7 +4,6 @@ releaseHistory: Release History
 breaks: Breaking Changes
 installation:
   title: Installation
-  codec: Additional JSON Codec
 usage:
   title: Usage
   problemBuilder: Problem Builder
