@@ -97,8 +97,6 @@
         
         <div class="toc-item" style="margin-left:0px" id="toc-item-installation"><a href="#installation"><strong>4</strong><span>Installation</span></a></div>
         
-        <div class="toc-item" style="margin-left:10px" id="toc-item-codec"><a href="#codec"><strong>4.1</strong><span>Additional JSON Codec</span></a></div>
-        
         <div class="toc-item" style="margin-left:0px" id="toc-item-usage"><a href="#usage"><strong>5</strong><span>Usage</span></a></div>
         
         <div class="toc-item" style="margin-left:10px" id="toc-item-problemBuilder"><a href="#problemBuilder"><strong>5.1</strong><span>Problem Builder</span></a></div>
@@ -119,7 +117,7 @@
         <h1>Micronaut Problem JSON</h1>
         <p></p>
         <p>Produce application/problem+json responses from a Micronaut application.</p>
-        <p><strong>Version:</strong> <select style='max-width: 200px' onChange='window.document.location.href=this.options[this.selectedIndex].value;'><option selected value='https://micronaut-projects.github.io/micronaut-problem-json/latest/guide/index.html'>LATEST</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/snapshot/guide/index.html'>SNAPSHOT</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/3.0.1/guide/index.html'>3.0.1</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/3.0.0/guide/index.html'>3.0.0</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/2.6.0/guide/index.html'>2.6.0</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/2.5.2/guide/index.html'>2.5.2</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/2.5.1/guide/index.html'>2.5.1</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/2.5.0/guide/index.html'>2.5.0</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/2.4.1/guide/index.html'>2.4.1</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/2.4.0/guide/index.html'>2.4.0</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/2.3.1/guide/index.html'>2.3.1</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/2.3.0/guide/index.html'>2.3.0</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/2.2.3/guide/index.html'>2.2.3</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/2.2.2/guide/index.html'>2.2.2</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/2.2.1/guide/index.html'>2.2.1</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/2.2.0/guide/index.html'>2.2.0</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/2.1.0/guide/index.html'>2.1.0</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/2.0.0/guide/index.html'>2.0.0</option></select> </p>
+        <p><strong>Version:</strong> <select style='max-width: 200px' onChange='window.document.location.href=this.options[this.selectedIndex].value;'><option value='https://micronaut-projects.github.io/micronaut-problem-json/snapshot/guide/index.html'>SNAPSHOT</option><option value='https://micronaut-projects.github.io/micronaut-problem-json/latest/guide/index.html'>LATEST</option></select> </p>
     </div>
     
 <h1 id="introduction"><a class="anchor" href="#introduction"></a>1 Introduction</h1>
@@ -206,81 +204,6 @@ and <a href="https://docs.micronaut.io/latest/guide/#errorFormatting">Micronaut 
 &lt;/dependency&gt;</code></pre>
 </div>
 </div></p>
-</div>
-
-<h2 id="codec"><a class="anchor" href="#codec"></a>4.1 Additional JSON Codec</h2>
-
-<div class='contribute-btn'>
-    <button type='button' class='btn btn-default' onclick='window.location.href="https://github.com/micronaut-projects/micronaut-problem-json/edit/master/src/main/docs/guide/installation/codec.adoc"'>
-        <i class='fa fa-pencil-square-o'></i> Improve this doc
-    </button>
-</div>
-
-
-<div class="paragraph">
-<p>To use Micronaut Problem, specify <code>application/problem+json</code> as an additional type for the JSON codec.</p>
-</div>
-<div class="openblock">
-<div class="content">
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-properties hljs" data-lang="properties">micronaut.codec.json.additional-types=application/problem+json</code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-yaml hljs" data-lang="yaml">micronaut:
-  codec:
-    json:
-      additional-types: 'application/problem+json'</code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="toml">[micronaut]
-  [micronaut.codec]
-    [micronaut.codec.json]
-      additional-types="application/problem+json"</code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-groovy-config hljs" data-lang="groovy-config">micronaut {
-  codec {
-    json {
-      additionalTypes = "application/problem+json"
-    }
-  }
-}</code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-hocon hljs" data-lang="hocon">{
-  micronaut {
-    codec {
-      json {
-        additional-types = "application/problem+json"
-      }
-    }
-  }
-}</code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
-<pre class="highlightjs highlight"><code class="language-json-config hljs" data-lang="json-config">{
-  "micronaut": {
-    "codec": {
-      "json": {
-        "additional-types": "application/problem+json"
-      }
-    }
-  }
-}</code></pre>
-</div>
-</div>
-</div>
 </div>
 
 <h1 id="usage"><a class="anchor" href="#usage"></a>5 Usage</h1>
