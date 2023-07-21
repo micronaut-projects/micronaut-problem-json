@@ -1,6 +1,0 @@
-To use Micronaut Problem, specify `application/problem+json` as an additional type for the JSON codec.
-
-[configuration]
-----
-include::problem-json/src/test/resources/application.yml[]
-----

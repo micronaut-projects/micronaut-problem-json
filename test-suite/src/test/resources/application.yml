@@ -1,4 +1,0 @@
-micronaut:
-  codec:
-    json:
-      additional-types: 'application/problem+json'

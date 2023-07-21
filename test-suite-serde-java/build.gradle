@@ -16,7 +16,6 @@ dependencies {
     testImplementation mn.micronaut.http.client
     testImplementation projects.micronautProblemJson
     testImplementation(mnSerde.micronaut.serde.jackson)
-    testRuntimeOnly(mn.snakeyaml)
 }
 tasks.named('test') {
     useJUnitPlatform()
