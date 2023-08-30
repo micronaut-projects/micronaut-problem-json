@@ -1,6 +1,6 @@
 [versions]
 
-micronaut = "4.0.2"
+micronaut = "4.1.2"
 micronaut-docs = '2.0.0'
 micronaut-test = "4.0.0"
 
@@ -8,7 +8,7 @@ micronaut-serde = "2.0.2"
 micronaut-validation = "4.0.1"
 
 groovy = "4.0.13"
-kotlin = '1.8.22'
+kotlin = '1.9.10'
 spock = "2.3-groovy-4.0"
 
 managed-zalando-problem="0.27.1"
