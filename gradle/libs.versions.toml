@@ -4,7 +4,7 @@ micronaut = "4.2.3"
 micronaut-docs = '2.0.0'
 micronaut-test = "4.1.0"
 
-micronaut-serde = "2.2.6"
+micronaut-serde = "2.5.1"
 micronaut-validation = "4.2.0"
 
 groovy = "4.0.15"
