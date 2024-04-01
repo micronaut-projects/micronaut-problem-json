@@ -1,6 +1,6 @@
 [versions]
 
-micronaut = "4.2.3"
+micronaut = "4.4.0"
 micronaut-docs = '2.0.0'
 micronaut-test = "4.1.0"
 
@@ -8,12 +8,12 @@ micronaut-serde = "2.8.2"
 micronaut-validation = "4.2.0"
 
 groovy = "4.0.15"
-kotlin = '1.9.22'
+kotlin = '1.9.23'
 spock = "2.3-groovy-4.0"
 
 managed-zalando-problem="0.27.1"
 
-micronaut-logging = "1.2.1"
+micronaut-logging = "1.2.3"
 [libraries]
 # micronaut boms
 micronaut-logging = { module = "io.micronaut.logging:micronaut-logging-bom", version.ref = "micronaut-logging" }
