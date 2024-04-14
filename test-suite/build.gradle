@@ -4,19 +4,19 @@ plugins {
 }
 
 dependencies {
-    testAnnotationProcessor mn.micronaut.inject.java
-    testAnnotationProcessor mnValidation.micronaut.validation.processor
-    testImplementation mnValidation.micronaut.validation
-    testImplementation mnLogging.logback.classic
-    testImplementation libs.junit.api
-    testImplementation mnTest.micronaut.test.junit5
-    testRuntimeOnly libs.junit.engine
-    testImplementation mn.micronaut.http.server.netty
-    testImplementation mn.micronaut.http.client
-    testImplementation projects.micronautProblemJson
-
+    testAnnotationProcessor(mn.micronaut.inject.java)
+    testAnnotationProcessor(mnValidation.micronaut.validation.processor)
     testAnnotationProcessor(mnSerde.micronaut.serde.processor)
+
+    testImplementation(projects.micronautProblemJson)
+    testImplementation(mnValidation.micronaut.validation)
+    testImplementation(mnTest.micronaut.test.junit5)
+    testImplementation(mn.micronaut.http.server.netty)
+    testImplementation(mn.micronaut.http.client)
     testImplementation(mnSerde.micronaut.serde.jackson)
+
+    testRuntimeOnly(mnTest.junit.jupiter.engine)
+    testRuntimeOnly(mnLogging.logback.classic)
 }
 
 tasks.named('test') {
