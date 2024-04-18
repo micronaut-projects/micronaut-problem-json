@@ -3,6 +3,7 @@ pluginManagement {
         gradlePluginPortal()
         mavenCentral()
     }
+    includeBuild "build-logic"
 }
 
 plugins {
@@ -10,14 +11,6 @@ plugins {
 }
 
 enableFeaturePreview("TYPESAFE_PROJECT_ACCESSORS")
-
-micronautBuild {
-    importMicronautCatalog("micronaut-logging")
-    useStandardizedProjectNames = true
-    importMicronautCatalog()
-    importMicronautCatalog("micronaut-serde")
-    importMicronautCatalog("micronaut-validation")
-}
 
 rootProject.name = 'problem-json-parent'
 
@@ -27,3 +20,10 @@ include 'test-suite-serde-java'
 include 'test-suite'
 include 'test-suite-groovy'
 include 'test-suite-kotlin'
+
+micronautBuild {
+    useStandardizedProjectNames = true
+    importMicronautCatalog()
+    importMicronautCatalog("micronaut-serde")
+    importMicronautCatalog("micronaut-validation")
+}

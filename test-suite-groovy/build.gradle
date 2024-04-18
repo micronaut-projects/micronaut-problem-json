@@ -5,14 +5,16 @@ plugins {
 
 dependencies {
     testCompileOnly(mnValidation.micronaut.validation.processor)
-    testCompileOnly mn.micronaut.inject.groovy
-    testImplementation mnValidation.micronaut.validation
-    testImplementation mnTest.micronaut.test.spock
-    testImplementation projects.micronautProblemJson
-    testImplementation mn.micronaut.http.server.netty
-    testImplementation mn.micronaut.http.client
-    testRuntimeOnly(mn.snakeyaml)
+    testCompileOnly(mn.micronaut.inject.groovy)
+
+    testImplementation(projects.micronautProblemJson)
+    testImplementation(mnValidation.micronaut.validation)
+    testImplementation(mnTest.micronaut.test.spock)
+    testImplementation(mn.micronaut.http.server.netty)
+    testImplementation(mn.micronaut.http.client)
     testImplementation(mnSerde.micronaut.serde.jackson)
+
+    testRuntimeOnly(mnLogging.logback.classic)
 }
 
 tasks.named('test') {

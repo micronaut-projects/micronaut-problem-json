@@ -12,9 +12,10 @@ dependencies {
     implementation(mnValidation.micronaut.validation)
     implementation(mn.micronaut.http.server)
 
+    testAnnotationProcessor(mn.micronaut.inject.java)
+
     testImplementation(mnValidation.micronaut.validation.processor)
     testImplementation(mn.micronaut.http.server.netty)
     testImplementation(mn.micronaut.http.client)
-    testAnnotationProcessor(mn.micronaut.inject.java)
     testImplementation(mnSerde.micronaut.serde.jackson)
 }
