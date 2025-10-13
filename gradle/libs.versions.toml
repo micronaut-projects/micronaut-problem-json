@@ -4,7 +4,7 @@ micronaut = "4.9.4"
 micronaut-docs = '2.0.0'
 micronaut-test = "4.7.0"
 micronaut-serde = "2.14.1"
-micronaut-validation = "4.9.0"
+micronaut-validation = "4.11.0"
 
 groovy = "4.0.25"
 kotlin = '1.9.25'
