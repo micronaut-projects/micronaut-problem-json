@@ -1,6 +1,6 @@
 plugins {
     id 'java-library'
-    id("io.micronaut.build.internal.problem-json-tests")
+    id("io.micronaut.build.internal.problem-json-tests-junit")
 }
 
 dependencies {
@@ -9,9 +9,6 @@ dependencies {
     testAnnotationProcessor mnSerde.micronaut.serde.processor
 
     testImplementation mnValidation.micronaut.validation
-    testImplementation(mnTest.junit.jupiter.api)
-    testRuntimeOnly(mnTest.junit.platform.suite)
-    testImplementation mnTest.micronaut.test.junit5
     testImplementation mn.micronaut.http.server.netty
     testImplementation mn.micronaut.http.client
     testImplementation projects.micronautProblemJson

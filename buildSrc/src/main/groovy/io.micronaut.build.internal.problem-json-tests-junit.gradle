@@ -1,0 +1,8 @@
+plugins {
+    id("io.micronaut.build.internal.problem-json-tests")
+}
+dependencies {
+    testImplementation(mnTest.junit.jupiter.api)
+    testRuntimeOnly(mnTest.junit.jupiter.engine)
+    testImplementation mnTest.micronaut.test.junit5
+}
