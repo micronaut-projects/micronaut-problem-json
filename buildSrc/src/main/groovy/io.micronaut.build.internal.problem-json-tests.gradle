@@ -1,3 +1,10 @@
 plugins {
     id("io.micronaut.build.internal.problem-json-base")
+    id "java-library"
+}
+repositories {
+    mavenCentral()
+}
+dependencies {
+    testRuntimeOnly(mnTest.junit.platform.suite)
 }
