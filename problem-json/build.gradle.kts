@@ -22,5 +22,5 @@ dependencies {
     testAnnotationProcessor(mn.micronaut.inject.java)
     testImplementation(mnTest.micronaut.test.junit5)
     testImplementation(mnSerde.micronaut.serde.jackson)
-    testRuntimeOnly(libs.junit.engine)
+    testRuntimeOnly(mnTest.junit.jupiter.engine)
 }

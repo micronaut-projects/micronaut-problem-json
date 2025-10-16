@@ -23,8 +23,6 @@ micronaut-validation = { module = "io.micronaut.validation:micronaut-validation-
 
 managed-zalando-problem = { module = "org.zalando:problem", version.ref = "managed-zalando-problem" }
 kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8" }
-junit-api = { module = "org.junit.jupiter:junit-jupiter-api" }
-junit-engine = { module = "org.junit.jupiter:junit-jupiter-engine" }
 
 #PLUGINS
 
