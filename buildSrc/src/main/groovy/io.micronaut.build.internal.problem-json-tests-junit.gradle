@@ -1,6 +1,5 @@
 plugins {
     id("io.micronaut.build.internal.problem-json-tests")
-    id "io.micronaut.build.internal.kotlin-base"
 }
 dependencies {
     testImplementation(mnTest.junit.jupiter.api)
