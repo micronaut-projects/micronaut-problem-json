@@ -15,7 +15,7 @@
  */
 package io.micronaut.problem;
 
-import io.micronaut.core.annotation.NonNull;
+import org.jspecify.annotations.NonNull;
 import io.micronaut.http.HttpMethod;
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.MutableHttpResponse;
