@@ -2,7 +2,7 @@ package io.micronaut.problem;
 
 import io.micronaut.context.annotation.Replaces;
 import io.micronaut.context.annotation.Requires;
-import io.micronaut.core.annotation.NonNull;
+import org.jspecify.annotations.NonNull;
 import io.micronaut.http.server.exceptions.response.ErrorContext;
 import io.micronaut.problem.conf.ProblemConfiguration;
 import io.micronaut.web.router.exceptions.UnsatisfiedRouteException;

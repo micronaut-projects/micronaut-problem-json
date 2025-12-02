@@ -1,7 +1,7 @@
 package io.micronaut.problem
 
-import io.micronaut.core.annotation.NonNull
-import io.micronaut.core.annotation.Nullable
+import org.jspecify.annotations.NonNull
+import org.jspecify.annotations.Nullable
 
 interface ConfigurationFixture {
 
