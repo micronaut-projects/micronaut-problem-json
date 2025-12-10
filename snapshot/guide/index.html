@@ -23,7 +23,9 @@
             document.body.className = classes.join(" ");
         }
     </script>
-
+    <style type="text/css">
+        .lang-java { display: block }; .lang-python { display: block }; .lang-kotlin { display: block }; .lang-groovy { display: block }; 
+    </style>
 </head>
 
 <body class="body" id="docs" onload="addJsClass();" onhashchange="highlightMenu()">
@@ -266,32 +268,6 @@ public class ProductController {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.problem
-
-import io.micronaut.http.HttpStatus
-import io.micronaut.http.annotation.Controller
-import io.micronaut.http.annotation.Get
-import io.micronaut.http.annotation.Status
-import org.zalando.problem.Problem
-
-@Controller("/product")
-class ProductController {
-    @Get
-    @Status(HttpStatus.OK)
-    void index() {
-        throw Problem.builder()
-                .withType(URI.create("https://example.org/out-of-stock"))
-                .withTitle("Out of Stock")
-                .withStatus(new HttpStatusType(HttpStatus.BAD_REQUEST))
-                .withDetail("Item B00027Y5QG is no longer available")
-                .with("product", "B00027Y5QG")
-                .build()
-    }
-}</code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
 <pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.problem
 
 import io.micronaut.http.HttpStatus
@@ -310,6 +286,32 @@ class ProductController {
                 .withType(URI.create("https://example.org/out-of-stock"))
                 .withTitle("Out of Stock")
                 .withStatus(HttpStatusType(HttpStatus.BAD_REQUEST))
+                .withDetail("Item B00027Y5QG is no longer available")
+                .with("product", "B00027Y5QG")
+                .build()
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.problem
+
+import io.micronaut.http.HttpStatus
+import io.micronaut.http.annotation.Controller
+import io.micronaut.http.annotation.Get
+import io.micronaut.http.annotation.Status
+import org.zalando.problem.Problem
+
+@Controller("/product")
+class ProductController {
+    @Get
+    @Status(HttpStatus.OK)
+    void index() {
+        throw Problem.builder()
+                .withType(URI.create("https://example.org/out-of-stock"))
+                .withTitle("Out of Stock")
+                .withStatus(new HttpStatusType(HttpStatus.BAD_REQUEST))
                 .withDetail("Item B00027Y5QG is no longer available")
                 .with("product", "B00027Y5QG")
                 .build()
@@ -365,23 +367,6 @@ public class TaskNotFoundProblem extends AbstractThrowableProblem {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.problem
-
-import io.micronaut.http.HttpStatus
-import org.zalando.problem.AbstractThrowableProblem
-
-class TaskNotFoundProblem extends AbstractThrowableProblem {
-
-    private static final URI TYPE = URI.create("https://example.org/not-found")
-
-    TaskNotFoundProblem(Long taskId) {
-        super(TYPE, "Not found", new HttpStatusType(HttpStatus.NOT_FOUND), String.format("Task '%s' not found", taskId))
-    }
-}</code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
 <pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.problem
 
 import com.fasterxml.jackson.annotation.JsonIgnore
@@ -401,6 +386,23 @@ class TaskNotFoundProblem(taskId: Long) :
     @JsonIgnore
     override fun getCause(): Exceptional {
         TODO("Not yet implemented")
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.problem
+
+import io.micronaut.http.HttpStatus
+import org.zalando.problem.AbstractThrowableProblem
+
+class TaskNotFoundProblem extends AbstractThrowableProblem {
+
+    private static final URI TYPE = URI.create("https://example.org/not-found")
+
+    TaskNotFoundProblem(Long taskId) {
+        super(TYPE, "Not found", new HttpStatusType(HttpStatus.NOT_FOUND), String.format("Task '%s' not found", taskId))
     }
 }</code></pre>
 </div>
@@ -430,26 +432,6 @@ public class TaskController {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.problem
-
-import io.micronaut.http.HttpStatus
-import io.micronaut.http.annotation.Controller
-import io.micronaut.http.annotation.Get
-import io.micronaut.http.annotation.PathVariable
-import io.micronaut.http.annotation.Status
-
-@Controller('/task')
-class TaskController {
-    @Get('/{taskId}')
-    @Status(HttpStatus.OK)
-    void index(@PathVariable Long taskId) {
-        throw new TaskNotFoundProblem(taskId)
-    }
-}</code></pre>
-</div>
-</div>
-<div class="listingblock multi-language-sample">
-<div class="content">
 <pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.problem
 
 import io.micronaut.http.HttpStatus
@@ -464,6 +446,26 @@ class TaskController {
     @Status(HttpStatus.OK)
     fun index(@PathVariable taskId: Long) {
         throw TaskNotFoundProblem(taskId)
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.problem
+
+import io.micronaut.http.HttpStatus
+import io.micronaut.http.annotation.Controller
+import io.micronaut.http.annotation.Get
+import io.micronaut.http.annotation.PathVariable
+import io.micronaut.http.annotation.Status
+
+@Controller('/task')
+class TaskController {
+    @Get('/{taskId}')
+    @Status(HttpStatus.OK)
+    void index(@PathVariable Long taskId) {
+        throw new TaskNotFoundProblem(taskId)
     }
 }</code></pre>
 </div>
