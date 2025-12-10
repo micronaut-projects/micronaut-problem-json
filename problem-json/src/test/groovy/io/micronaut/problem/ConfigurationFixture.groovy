@@ -8,6 +8,7 @@ interface ConfigurationFixture {
     @NonNull
     default Map<String, Object> getConfiguration() {
         Map<String, Object> m = [:]
+        String specName = getSpecName()
         if (specName) {
             m['spec.name'] = specName
         }
