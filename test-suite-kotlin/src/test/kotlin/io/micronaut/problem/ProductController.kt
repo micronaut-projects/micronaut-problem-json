@@ -1,9 +1,12 @@
 package io.micronaut.problem
 
 import io.micronaut.http.HttpStatus
+import io.micronaut.http.MediaType
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Status
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.withContext
 import org.zalando.problem.Problem
 import java.net.URI
 
@@ -19,5 +22,15 @@ class ProductController {
                 .withDetail("Item B00027Y5QG is no longer available")
                 .with("product", "B00027Y5QG")
                 .build()
+    }
+
+    @Get("/debug", produces = [MediaType.APPLICATION_JSON_PROBLEM])
+    suspend fun debug() {
+        withContext(Dispatchers.Default) {
+            throw Problem.builder()
+                .withTitle("Validation error")
+                .withStatus(HttpStatusType(HttpStatus.BAD_REQUEST))
+                .build()
+        }
     }
 }

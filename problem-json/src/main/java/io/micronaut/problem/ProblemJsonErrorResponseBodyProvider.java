@@ -16,6 +16,8 @@
 package io.micronaut.problem;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
+import com.fasterxml.jackson.annotation.JsonInclude;
+import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.annotation.JsonUnwrapped;
 import org.jspecify.annotations.NonNull;
 import io.micronaut.http.HttpResponse;
@@ -33,6 +35,7 @@ import org.zalando.problem.StatusType;
 import org.zalando.problem.ThrowableProblem;
 
 import java.net.URI;
+import java.util.Arrays;
 import java.util.Map;
 
 /**
@@ -127,9 +130,22 @@ public class ProblemJsonErrorResponseBodyProvider implements JsonErrorResponseBo
         }
 
         @JsonUnwrapped
-        @JsonIgnoreProperties(value = {"stackTrace", "localizedMessage", "message", "type", "title", "status", "detail", "instance", "parameters"})
+        @JsonIgnoreProperties(value = {"stackTrace", "localizedMessage", "message", "type", "title", "status", "detail", "instance", "parameters", "suppressed"})
         public ThrowableProblem getProblem() {
             return problem;
+        }
+
+        @JsonProperty("suppressed")
+        @JsonInclude(JsonInclude.Include.NON_EMPTY)
+        public Throwable[] getSuppressed() {
+            Throwable[] filtered = Arrays.stream(problem.getSuppressed())
+                .filter(throwable -> !isReactorTraceback(throwable))
+                .toArray(Throwable[]::new);
+            return filtered.length == 0 ? null : filtered;
+        }
+
+        private boolean isReactorTraceback(Throwable throwable) {
+            return throwable.getClass().getName().equals("reactor.core.publisher.FluxOnAssembly$OnAssemblyException");
         }
 
         // delegate Problem methods for best compatibility
@@ -164,4 +180,5 @@ public class ProblemJsonErrorResponseBodyProvider implements JsonErrorResponseBo
             return problem.getParameters();
         }
     }
+
 }

@@ -2,7 +2,9 @@ package io.micronaut.problem
 
 import io.micronaut.context.annotation.Property
 import io.micronaut.http.HttpRequest
+import io.micronaut.http.HttpHeaders.ACCEPT
 import io.micronaut.http.HttpStatus
+import io.micronaut.http.MediaType
 import io.micronaut.http.client.HttpClient
 import io.micronaut.http.client.annotation.Client
 import io.micronaut.http.client.exceptions.HttpClientResponseException
@@ -11,6 +13,7 @@ import io.micronaut.test.extensions.junit5.annotation.MicronautTest
 import jakarta.inject.Inject
 import org.junit.jupiter.api.Assertions
 import org.junit.jupiter.api.Test
+import reactor.core.publisher.Hooks
 
 @Property(name = "spec.name", value = "TaskNotFoundProblemSpec")
 @MicronautTest
@@ -44,5 +47,31 @@ class TaskNotFoundProblemTest {
         Assertions.assertEquals("Not found", bodyOptional.get()["title"])
         Assertions.assertEquals("Task '3' not found", bodyOptional.get()["detail"])
         Assertions.assertEquals("https://example.org/not-found", bodyOptional.get()["type"])
+    }
+
+    @Test
+    fun problemDoesNotLeakTracebackSuppressedInOperatorDebugMode() {
+        val client = httpClient.toBlocking()
+
+        Hooks.onOperatorDebug()
+        try {
+            val request = HttpRequest.GET<Any>(UriBuilder.of("/product").path("debug").build())
+                .header(ACCEPT, MediaType.APPLICATION_JSON_PROBLEM)
+            val e = Assertions.assertThrows(HttpClientResponseException::class.java) {
+                client.exchange(request, String::class.java)
+            }
+
+            Assertions.assertEquals(HttpStatus.BAD_REQUEST, e.status)
+            Assertions.assertEquals("application/problem+json", e.response.contentType.get().toString())
+
+            val body = e.response.getBody(String::class.java)
+            Assertions.assertTrue(body.isPresent)
+            Assertions.assertTrue(body.get().contains("\"type\":\"about:blank\""))
+            Assertions.assertTrue(body.get().contains("\"title\":\"Validation error\""))
+            Assertions.assertTrue(body.get().contains("\"status\":400"))
+            Assertions.assertFalse(body.get().contains("\"suppressed\""))
+        } finally {
+            Hooks.resetOnOperatorDebug()
+        }
     }
 }
