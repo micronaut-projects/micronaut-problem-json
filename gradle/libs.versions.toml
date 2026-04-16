@@ -8,7 +8,7 @@ kotlin = '2.2.21'
 
 managed-zalando-problem="0.27.1"
 
-micronaut-logging = "1.7.1"
+micronaut-logging = "1.7.4"
 
 [libraries]
 # micronaut boms
