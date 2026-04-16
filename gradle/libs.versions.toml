@@ -4,7 +4,6 @@ micronaut = "5.0.0-M22"
 micronaut-serde = "3.0.0-M6"
 micronaut-validation = "5.0.0-M1"
 
-kotlin = '2.3.20'
 
 managed-zalando-problem="0.27.1"
 
@@ -22,5 +21,3 @@ kotlin-stdlib-jdk8 = { module = "org.jetbrains.kotlin:kotlin-stdlib-jdk8" }
 
 #PLUGINS
 
-kotlin-gradle-plugin = { module = 'org.jetbrains.kotlin:kotlin-gradle-plugin', version.ref = 'kotlin' }
-kotlin-gradle-allopen = { module = 'org.jetbrains.kotlin:kotlin-allopen', version.ref = 'kotlin' }
