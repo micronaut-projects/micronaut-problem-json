@@ -4,11 +4,11 @@ micronaut = "5.0.0-M22"
 micronaut-serde = "3.0.0-M6"
 micronaut-validation = "5.0.0-M1"
 
-kotlin = '2.2.21'
+kotlin = '2.3.20'
 
 managed-zalando-problem="0.27.1"
 
-micronaut-logging = "1.7.1"
+micronaut-logging = "1.7.4"
 
 [libraries]
 # micronaut boms
