@@ -5,7 +5,7 @@ micronaut-serde = "3.0.0"
 micronaut-validation = "5.0.0"
 
 
-managed-zalando-problem="0.27.1"
+managed-zalando-problem="1.0.0"
 
 micronaut-logging = "2.0.0"
 
