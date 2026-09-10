@@ -7,3 +7,5 @@ You can extend api:problem.ProblemJsonErrorResponseBodyProvider[] to customize t
 include::problem-json/src/test/java/io/micronaut/problem/ProblemErrorResponseProcessorReplacement.java[tag=clazz]
 ----
 
+When `includeErrorMessage` returns `true` for an unhandled exception, the `detail` contains the exception message (for example `Internal Server Error: foo data`), whatever the value of Micronaut's `micronaut.server.error-response-include-message` setting.
+

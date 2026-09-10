@@ -95,11 +95,32 @@ public class ProblemJsonErrorResponseBodyProvider implements JsonErrorResponseBo
             Error error = errorContext.getErrors().get(0);
             error.getTitle().ifPresent(problemBuilder::withTitle);
             if (includeErrorMessage(errorContext)) {
-                problemBuilder.withDetail(error.getMessage());
+                problemBuilder.withDetail(errorMessage(errorContext, error, httpStatus));
             }
             error.getPath().ifPresent(path -> problemBuilder.with("path", path));
         }
         return problemBuilder.build();
+    }
+
+    /**
+     * Since Micronaut Core 5.1.14 and 5.2.0, the error of an unhandled exception is only {@code Internal Server Error},
+     * without the exception message, unless {@code micronaut.server.error-response-include-message} allows it.
+     * When the message should be included, it is restored from the root cause, so the detail is the same on every core version.
+     *
+     * @param errorContext Error Context
+     * @param error The first error
+     * @param httpStatus HTTP Status
+     * @return The error message
+     */
+    private static String errorMessage(ErrorContext errorContext, Error error, HttpStatus httpStatus) {
+        String message = error.getMessage();
+        if (httpStatus == HttpStatus.INTERNAL_SERVER_ERROR && httpStatus.getReason().equals(message)) {
+            String exceptionMessage = errorContext.getRootCause().map(Throwable::getMessage).orElse(null);
+            if (exceptionMessage != null) {
+                return message + ": " + exceptionMessage;
+            }
+        }
+        return message;
     }
 
     /**
