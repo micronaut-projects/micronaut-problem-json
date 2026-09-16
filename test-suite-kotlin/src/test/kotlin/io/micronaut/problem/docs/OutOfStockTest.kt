@@ -1,4 +1,4 @@
-package io.micronaut.problem
+package io.micronaut.problem.docs
 
 import io.micronaut.context.annotation.Property
 import io.micronaut.http.HttpRequest
@@ -14,23 +14,26 @@ import org.junit.jupiter.api.Test
 
 @Property(name = "spec.name", value = "TaskNotFoundProblemSpec")
 @MicronautTest
-class TaskNotFoundProblemTest {
+class OutOfStockTest {
     @Inject
     @field:Client("/")
     lateinit var httpClient: HttpClient
 
+
     @Test
-    fun customProblemIsRendered() {
+    fun customPoblemIsRendered() {
         //given:
         val client = httpClient.toBlocking()
+
         //when:
-        val uri = UriBuilder.of("/task").path("3").build();
+        val uri = UriBuilder.of("/product").build();
         val request = HttpRequest.GET<Any>(uri)
         val e = Assertions.assertThrows(HttpClientResponseException::class.java) {
             client.exchange(request, String::class.java)
         }
+
         //then:
-        Assertions.assertEquals(HttpStatus.NOT_FOUND, e.status)
+        Assertions.assertEquals(HttpStatus.BAD_REQUEST, e.status)
         Assertions.assertTrue(e.response.contentType.isPresent)
         Assertions.assertEquals("application/problem+json", e.response.contentType.get().toString())
 
@@ -39,10 +42,17 @@ class TaskNotFoundProblemTest {
 
         //then:
         Assertions.assertTrue(bodyOptional.isPresent)
-        Assertions.assertEquals(4, bodyOptional.get().keys.size)
-        Assertions.assertEquals(404, bodyOptional.get()["status"])
-        Assertions.assertEquals("Not found", bodyOptional.get()["title"])
-        Assertions.assertEquals("Task '3' not found", bodyOptional.get()["detail"])
-        Assertions.assertEquals("https://example.org/not-found", bodyOptional.get()["type"])
+        Assertions.assertEquals(5, bodyOptional.get().keys.size)
+        Assertions.assertEquals(400, bodyOptional.get()["status"])
+        Assertions.assertEquals("Out of Stock", bodyOptional.get()["title"])
+        Assertions.assertEquals(
+            "Item B00027Y5QG is no longer available",
+            bodyOptional.get()["detail"]
+        )
+        Assertions.assertEquals("https://example.org/out-of-stock", bodyOptional.get()["type"])
+        Assertions.assertEquals(
+            mapOf("product" to "B00027Y5QG"),
+            bodyOptional.get()["parameters"]
+        )
     }
 }

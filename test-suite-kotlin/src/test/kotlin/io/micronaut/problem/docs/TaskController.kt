@@ -1,4 +1,4 @@
-package io.micronaut.problem
+package io.micronaut.problem.docs
 
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.Controller

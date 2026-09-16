@@ -1,22 +1,25 @@
-package io.micronaut.problem
+package io.micronaut.problem.docs;
 
-import io.micronaut.http.HttpStatus
-import io.micronaut.http.annotation.Controller
-import io.micronaut.http.annotation.Get
-import io.micronaut.http.annotation.Status
-import org.zalando.problem.Problem
+import io.micronaut.http.HttpStatus;
+import io.micronaut.http.annotation.Controller;
+import io.micronaut.http.annotation.Get;
+import io.micronaut.http.annotation.Status;
+import io.micronaut.problem.HttpStatusType;
+import org.zalando.problem.Problem;
+
+import java.net.URI;
 
 @Controller("/product")
-class ProductController {
+public class ProductController {
     @Get
     @Status(HttpStatus.OK)
-    void index() {
+    public void index() {
         throw Problem.builder()
                 .withType(URI.create("https://example.org/out-of-stock"))
                 .withTitle("Out of Stock")
                 .withStatus(new HttpStatusType(HttpStatus.BAD_REQUEST))
                 .withDetail("Item B00027Y5QG is no longer available")
                 .with("product", "B00027Y5QG")
-                .build()
+                .build();
     }
 }

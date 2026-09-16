@@ -1,6 +1,9 @@
 You can use Problem builder to create problem:
 
-snippet::io.micronaut.problem.ProductController[]
+snippet::io.micronaut.problem.docs.ProductController[]
+
+[.lang-python]
+NOTE: `with` is a Python keyword, so the `ProblemBuilder.with(...)` method is called through its keyword-safe alias `with_(...)`, which the current Python runtime does not expose on the builder returned by `Problem.builder()` yet.
 
 The above snippet returns:
 

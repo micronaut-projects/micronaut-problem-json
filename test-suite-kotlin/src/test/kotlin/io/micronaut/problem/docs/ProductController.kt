@@ -1,9 +1,10 @@
-package io.micronaut.problem
+package io.micronaut.problem.docs
 
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Status
+import io.micronaut.problem.HttpStatusType
 import org.zalando.problem.Problem
 import java.net.URI
 

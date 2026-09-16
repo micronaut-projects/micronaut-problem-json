@@ -1,10 +1,13 @@
 You can create a custom problem by extending `AbstractThrowableProblem`
 
-snippet::io.micronaut.problem.TaskNotFoundProblem[]
+snippet::io.micronaut.problem.docs.TaskNotFoundProblem[]
+
+[.lang-python]
+NOTE: The Python compiler does not forward the arguments of the `super().__init__(...)` call of a Python exception extending a Java exception class yet, so the problem above is rendered without its type, title, status and detail from Python; the sample shows the intended code.
 
 If your logic throws such a Problem:
 
-snippet::io.micronaut.problem.TaskController[]
+snippet::io.micronaut.problem.docs.TaskController[]
 
 You will get:
 

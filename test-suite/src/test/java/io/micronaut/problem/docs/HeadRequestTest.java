@@ -1,4 +1,4 @@
-package io.micronaut.problem;
+package io.micronaut.problem.docs;
 
 import io.micronaut.context.annotation.Property;
 import io.micronaut.core.type.Argument;

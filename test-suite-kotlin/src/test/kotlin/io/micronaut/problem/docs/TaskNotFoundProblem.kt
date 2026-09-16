@@ -1,7 +1,8 @@
-package io.micronaut.problem
+package io.micronaut.problem.docs
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import io.micronaut.http.HttpStatus
+import io.micronaut.problem.HttpStatusType
 import io.micronaut.serde.annotation.Serdeable
 import org.zalando.problem.AbstractThrowableProblem
 import org.zalando.problem.Exceptional
