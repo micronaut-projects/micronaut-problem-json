@@ -1,7 +1,8 @@
 from typing import Annotated
 
-import java
 from jakarta.inject import Inject
+from java.lang import String
+from java.util import Map
 from micronaut.context.annotation import Property
 from micronaut.core.type import Argument
 from micronaut.http import HttpRequest
@@ -11,11 +12,6 @@ from micronaut.http.client.exceptions import HttpClientResponseException
 from micronaut.http.uri import UriBuilder
 from micronaut.test.extensions.junit5.annotation import MicronautTest
 from org.junit.jupiter.api import Test
-
-# TODO(python): imported shim classes cannot be used as runtime type arguments of Argument.of
-# ("TypeError: invalid instantiation of foreign object"), only java.type(...) aliases can
-String = java.type("java.lang.String")
-Map = java.type("java.util.Map")
 
 
 @Property(name="spec.name", value="HeadRequestTest")

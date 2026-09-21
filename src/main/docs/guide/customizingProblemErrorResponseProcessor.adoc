@@ -2,10 +2,7 @@ The default Problem+JSON payload does not include the `detail` field to avoid ac
 
 You can extend api:problem.ProblemJsonErrorResponseBodyProvider[] to customize the behaviour:
 
-snippet::io.micronaut.problem.docs.ProblemErrorResponseProcessorReplacement[tags=clazz,languages="java,kotlin,groovy"]
-
-[.lang-python]
-NOTE: A Python class cannot extend the Java class `ProblemJsonErrorResponseBodyProvider` (the Python runtime rejects Python classes extending Java classes; only Java interfaces can be implemented), so this customization is not available to Python applications yet.
+snippet::io.micronaut.problem.docs.ProblemErrorResponseProcessorReplacement[tags=clazz]
 
 When `includeErrorMessage` returns `true` for an unhandled exception, the `detail` contains the exception message (for example `Internal Server Error: foo data`), whatever the value of Micronaut's `micronaut.server.error-response-include-message` setting.
 

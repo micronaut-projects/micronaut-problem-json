@@ -3,7 +3,7 @@ You can use Problem builder to create problem:
 snippet::io.micronaut.problem.docs.ProductController[]
 
 [.lang-python]
-NOTE: `with` is a Python keyword, so the `ProblemBuilder.with(...)` method is called through its keyword-safe alias `with_(...)`, which the current Python runtime does not expose on the builder returned by `Problem.builder()` yet.
+NOTE: `with` is a Python keyword, so the `ProblemBuilder.with(...)` method is called through its keyword-safe alias `with_(...)`. A `Problem` built and raised from Python is not rendered correctly by the current Python runtime release yet (the Truffle stack trace it carries in its suppressed exceptions cannot be serialized, the client receives a 500); a Python exception class extending `AbstractThrowableProblem` (previous section) works.
 
 The above snippet returns:
 

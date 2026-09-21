@@ -1,7 +1,8 @@
 from typing import Annotated
 
-import java
 from jakarta.inject import Inject
+from java.lang import String
+from java.util import Map
 from micronaut.core.type import Argument
 from micronaut.http import HttpRequest, HttpStatus
 from micronaut.http.client import HttpClient
@@ -11,20 +12,16 @@ from micronaut.http.uri import UriBuilder
 from micronaut.test.extensions.junit5.annotation import MicronautTest
 from org.junit.jupiter.api import Disabled, Test
 
-# TODO(python): imported shim classes cannot be used as runtime type arguments of Argument.of / getBody
-# ("TypeError: invalid instantiation of foreign object"), only java.type(...) aliases can
-String = java.type("java.lang.String")
-Map = java.type("java.util.Map")
-
 
 @MicronautTest
 class OutOfStockTest:
 
     http_client: Annotated[HttpClient, Inject, Client("/")]
 
-    # TODO(python): the keyword-safe alias `with_` of `ProblemBuilder.with(String, Object)` is not available on the foreign
-    # builder returned by `Problem.builder()` ("AttributeError: foreign object has no attribute 'with_'")
-    @Disabled("TODO(python): keyword-safe alias with_() is not available on the foreign ProblemBuilder (see DISABLED_TESTS.md)")
+    # TODO(python): the Java `DefaultProblem` built and raised from Python arrives with a Truffle `LazyStackTrace` in its
+    # suppressed exceptions, which the problem+json body provider then fails to serialize ("No serializable
+    # introspection present for type LazyStackTrace") -> 500 instead of the 400 problem. `with_` itself works.
+    @Disabled("TODO(python): a Java exception raised from Python carries a Truffle LazyStackTrace in getSuppressed(), which the problem+json body cannot serialize (see DISABLED_TESTS.md)")
     @Test
     def custom_problem_is_rendered(self) -> None:
         # given:
