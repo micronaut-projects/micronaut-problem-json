@@ -24,5 +24,4 @@ dependencies {
 
 tasks.withType(Test).configureEach {
     useJUnitPlatform()
-    systemProperty "micronaut.python.pool.enabled", "false"
 }
