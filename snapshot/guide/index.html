@@ -206,6 +206,15 @@ and <a href="https://docs.micronaut.io/latest/guide/#errorFormatting">Micronaut 
 &lt;/dependency&gt;</code></pre>
 </div>
 </div>
+<div class="listingblock multi-language-sample">
+<div class="title"></div>
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-toml hljs" data-lang="pyronaut">[tool.pyronaut.dependencies]
+runtime = [
+    <span class="hljs-string">"io.micronaut.problem:micronaut-problem-json"</span>,
+]</code></pre>
+</div>
+</div>
 </p>
 </div>
 
@@ -240,12 +249,13 @@ response content type to <code>application/problem+json</code> and the response 
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.problem;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.problem.docs;
 
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.Controller;
 import io.micronaut.http.annotation.Get;
 import io.micronaut.http.annotation.Status;
+import io.micronaut.problem.HttpStatusType;
 import org.zalando.problem.Problem;
 
 import java.net.URI;
@@ -268,12 +278,13 @@ public class ProductController {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.problem
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.problem.docs
 
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Status
+import io.micronaut.problem.HttpStatusType
 import org.zalando.problem.Problem
 import java.net.URI
 
@@ -295,12 +306,13 @@ class ProductController {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.problem
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.problem.docs
 
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.Controller
 import io.micronaut.http.annotation.Get
 import io.micronaut.http.annotation.Status
+import io.micronaut.problem.HttpStatusType
 import org.zalando.problem.Problem
 
 @Controller("/product")
@@ -318,6 +330,22 @@ class ProductController {
     }
 }</code></pre>
 </div>
+</div>
+<div class="admonitionblock note lang-python">
+<table>
+<tr>
+<td class="icon">
+<i class="fa icon-note" title="Note"></i>
+</td>
+<td class="content">
+This example is Java, Kotlin and Groovy only. A Java <code>Problem</code> that Python builds and raises reaches the server
+carrying Truffle&#8217;s <code>LazyStackTrace</code> among its suppressed exceptions, which the problem+json body cannot serialize, so the
+client receives a 500 instead of the problem response
+(<a href="https://github.com/micronaut-projects/micronaut-core/issues/13583">micronaut-core#13583</a>). In Python, declare the problem
+as a class extending <code>AbstractThrowableProblem</code> and raise that, as shown in <a href="#customProblem">Custom Problem</a>.
+</td>
+</tr>
+</table>
 </div>
 <div class="paragraph">
 <p>The above snippet returns:</p>
@@ -348,9 +376,10 @@ class ProductController {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.problem;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.problem.docs;
 
 import io.micronaut.http.HttpStatus;
+import io.micronaut.problem.HttpStatusType;
 import org.zalando.problem.AbstractThrowableProblem;
 
 import java.net.URI;
@@ -367,10 +396,27 @@ public class TaskNotFoundProblem extends AbstractThrowableProblem {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.problem
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from java.net import URI
+from micronaut.http import HttpStatus
+from micronaut.problem import HttpStatusType
+from org.zalando.problem import AbstractThrowableProblem
+
+TYPE = URI.create("https://example.org/not-found")
+
+
+class TaskNotFoundProblem(AbstractThrowableProblem):
+
+    def __init__(self, task_id: int):
+        super().__init__(TYPE, "Not found", HttpStatusType(HttpStatus.NOT_FOUND), f"Task '{task_id}' not found")</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.problem.docs
 
 import com.fasterxml.jackson.annotation.JsonIgnore
 import io.micronaut.http.HttpStatus
+import io.micronaut.problem.HttpStatusType
 import io.micronaut.serde.annotation.Serdeable
 import org.zalando.problem.AbstractThrowableProblem
 import org.zalando.problem.Exceptional
@@ -392,9 +438,10 @@ class TaskNotFoundProblem(taskId: Long) :
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.problem
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.problem.docs
 
 import io.micronaut.http.HttpStatus
+import io.micronaut.problem.HttpStatusType
 import org.zalando.problem.AbstractThrowableProblem
 
 class TaskNotFoundProblem extends AbstractThrowableProblem {
@@ -412,7 +459,7 @@ class TaskNotFoundProblem extends AbstractThrowableProblem {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.problem;
+<pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">package io.micronaut.problem.docs;
 
 import io.micronaut.http.HttpStatus;
 import io.micronaut.http.annotation.Controller;
@@ -432,7 +479,26 @@ public class TaskController {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.problem
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">from typing import Annotated
+
+from micronaut.http import HttpStatus
+from micronaut.http.annotation import Controller, Get, PathVariable, Status
+
+from .TaskNotFoundProblem import TaskNotFoundProblem
+
+
+@Controller("/task")
+class TaskController:
+
+    @Get("/{taskId}")
+    @Status(HttpStatus.OK)
+    def index(self, taskId: Annotated[int, PathVariable]) -&gt; None:
+        raise TaskNotFoundProblem(taskId)</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">package io.micronaut.problem.docs
 
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.Controller
@@ -452,7 +518,7 @@ class TaskController {
 </div>
 <div class="listingblock multi-language-sample">
 <div class="content">
-<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.problem
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">package io.micronaut.problem.docs
 
 import io.micronaut.http.HttpStatus
 import io.micronaut.http.annotation.Controller
@@ -544,7 +610,7 @@ class TaskController {
 <div class="paragraph">
 <p>You can extend <a href="../api/io/micronaut/problem/ProblemJsonErrorResponseBodyProvider.html">ProblemJsonErrorResponseBodyProvider</a> to customize the behaviour:</p>
 </div>
-<div class="listingblock">
+<div class="listingblock multi-language-sample">
 <div class="content">
 <pre class="highlightjs highlight"><code class="language-java hljs" data-lang="java">@Replaces(ProblemJsonErrorResponseBodyProvider.class)
 @Singleton
@@ -559,6 +625,55 @@ public class ProblemErrorResponseProcessorReplacement
         return errorContext.getRootCause()
                 .map(t -&gt; t instanceof FooException || t instanceof UnsatisfiedRouteException)
                 .orElse(false);
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-python hljs" data-lang="python">@Replaces(ProblemJsonErrorResponseBodyProvider)
+@Singleton
+class ProblemErrorResponseProcessorReplacement(ProblemJsonErrorResponseBodyProvider):
+
+    def __init__(self, config: ProblemConfiguration):
+        super().__init__(config)
+
+    def includeErrorMessage(self, error_context: ErrorContext) -&gt; bool:
+        return (error_context.getRootCause()
+                .map(lambda t: isinstance(t, (FooException, UnsatisfiedRouteException)))
+                .orElse(False))</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-kotlin hljs" data-lang="kotlin">@Replaces(ProblemJsonErrorResponseBodyProvider::class)
+@Singleton
+open class ProblemErrorResponseProcessorReplacement(config: ProblemConfiguration)
+    : ProblemJsonErrorResponseBodyProvider(config) {
+
+    override fun includeErrorMessage(errorContext: ErrorContext): Boolean {
+        return errorContext.rootCause
+            .map { t -&gt; t is FooException || t is UnsatisfiedRouteException }
+            .orElse(false)
+    }
+}</code></pre>
+</div>
+</div>
+<div class="listingblock multi-language-sample">
+<div class="content">
+<pre class="highlightjs highlight"><code class="language-groovy hljs" data-lang="groovy">@Replaces(ProblemJsonErrorResponseBodyProvider)
+@Singleton
+class ProblemErrorResponseProcessorReplacement
+        extends ProblemJsonErrorResponseBodyProvider {
+    ProblemErrorResponseProcessorReplacement(ProblemConfiguration config) {
+        super(config)
+    }
+
+    @Override
+    protected boolean includeErrorMessage(@NonNull ErrorContext errorContext) {
+        errorContext.rootCause
+                .map(t -&gt; t instanceof FooException || t instanceof UnsatisfiedRouteException)
+                .orElse(false)
     }
 }</code></pre>
 </div>
