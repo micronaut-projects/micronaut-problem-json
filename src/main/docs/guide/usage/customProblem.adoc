@@ -1,10 +1,10 @@
 You can create a custom problem by extending `AbstractThrowableProblem`
 
-snippet::io.micronaut.problem.TaskNotFoundProblem[]
+snippet::io.micronaut.problem.docs.TaskNotFoundProblem[]
 
 If your logic throws such a Problem:
 
-snippet::io.micronaut.problem.TaskController[]
+snippet::io.micronaut.problem.docs.TaskController[]
 
 You will get:
 

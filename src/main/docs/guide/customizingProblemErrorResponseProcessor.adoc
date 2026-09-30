@@ -2,10 +2,7 @@ The default Problem+JSON payload does not include the `detail` field to avoid ac
 
 You can extend api:problem.ProblemJsonErrorResponseBodyProvider[] to customize the behaviour:
 
-[source,java]
-----
-include::problem-json/src/test/java/io/micronaut/problem/ProblemErrorResponseProcessorReplacement.java[tag=clazz]
-----
+snippet::io.micronaut.problem.docs.ProblemErrorResponseProcessorReplacement[tags=clazz]
 
 When `includeErrorMessage` returns `true` for an unhandled exception, the `detail` contains the exception message (for example `Internal Server Error: foo data`), whatever the value of Micronaut's `micronaut.server.error-response-include-message` setting.
 

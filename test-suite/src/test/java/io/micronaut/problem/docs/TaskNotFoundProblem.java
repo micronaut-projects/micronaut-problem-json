@@ -1,6 +1,7 @@
-package io.micronaut.problem;
+package io.micronaut.problem.docs;
 
 import io.micronaut.http.HttpStatus;
+import io.micronaut.problem.HttpStatusType;
 import org.zalando.problem.AbstractThrowableProblem;
 
 import java.net.URI;

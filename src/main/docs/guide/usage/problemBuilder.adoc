@@ -1,6 +1,13 @@
 You can use Problem builder to create problem:
 
-snippet::io.micronaut.problem.ProductController[]
+snippet::io.micronaut.problem.docs.ProductController[languages="java,kotlin,groovy"]
+
+[.lang-python]
+NOTE: This example is Java, Kotlin and Groovy only. A Java `Problem` that Python builds and raises reaches the server
+carrying Truffle's `LazyStackTrace` among its suppressed exceptions, which the problem+json body cannot serialize, so the
+client receives a 500 instead of the problem response
+(https://github.com/micronaut-projects/micronaut-core/issues/13583[micronaut-core#13583]). In Python, declare the problem
+as a class extending `AbstractThrowableProblem` and raise that, as shown in <<customProblem,Custom Problem>>.
 
 The above snippet returns:
 

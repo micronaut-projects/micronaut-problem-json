@@ -1,5 +1,6 @@
-package io.micronaut.problem
+package io.micronaut.problem.docs
 
+import io.micronaut.context.annotation.Property
 import io.micronaut.core.type.Argument
 import io.micronaut.http.HttpRequest
 import io.micronaut.http.HttpStatus
@@ -12,8 +13,9 @@ import io.micronaut.test.extensions.spock.annotation.MicronautTest
 import jakarta.inject.Inject
 import spock.lang.Specification
 
+@Property(name = "spec.name", value = "TaskNotFoundProblemSpec")
 @MicronautTest
-class OutOfStockSpec  extends Specification {
+class TaskNotFoundProblemSpec extends Specification {
     @Inject
     @Client("/")
     HttpClient httpClient
@@ -25,11 +27,11 @@ class OutOfStockSpec  extends Specification {
         when:
         Argument<?> okArg = Argument.of(String)
         Argument<?> errorArg = Argument.of(Map)
-        client.exchange(HttpRequest.GET(UriBuilder.of('/product').build()), okArg, errorArg)
+        client.exchange(HttpRequest.GET(UriBuilder.of('/task').path("3").build()), okArg, errorArg)
 
         then:
         HttpClientResponseException e = thrown()
-        e.status == HttpStatus.BAD_REQUEST
+        e.status == HttpStatus.NOT_FOUND
         e.response.contentType.isPresent()
         e.response.contentType.get().toString() == 'application/problem+json'
 
@@ -38,11 +40,10 @@ class OutOfStockSpec  extends Specification {
 
         then:
         bodyOptional.isPresent()
-        bodyOptional.get().keySet().size() == 5
-        bodyOptional.get()['status'] == 400
-        bodyOptional.get()['title'] == 'Out of Stock'
-        bodyOptional.get()['detail'] == "Item B00027Y5QG is no longer available"
-        bodyOptional.get()['type'] == "https://example.org/out-of-stock"
-        bodyOptional.get()['parameters'] == [product: "B00027Y5QG"]
+        bodyOptional.get().keySet().size() == 4
+        bodyOptional.get()['status'] == 404
+        bodyOptional.get()['title'] == 'Not found'
+        bodyOptional.get()['detail'] == "Task '3' not found"
+        bodyOptional.get()['type'] == "https://example.org/not-found"
     }
 }
