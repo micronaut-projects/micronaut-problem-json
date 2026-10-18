@@ -1,6 +1,6 @@
 [versions]
 managed-zalando-problem="1.0.0"
-micronaut = "5.2.15"
+micronaut = "5.2.16"
 micronaut-serde = "3.2.4"
 micronaut-validation = "5.2.1"
 micronaut-logging = "2.1.0"
